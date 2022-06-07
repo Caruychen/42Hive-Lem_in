@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flow_node.h                                        :+:      :+:    :+:   */
+/*   flow_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/07 16:23:05 by cchen            ###   ########.fr       */
+/*   Created: 2022/06/07 16:04:24 by cchen             #+#    #+#             */
+/*   Updated: 2022/06/07 16:24:48 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FLOW_NODE_H
-# define FLOW_NODE_H
+#include "lem_in.h"
 
-typedef struct	s_flow_node {
-	char	*alias;
-	t_vec	edges;
-}				t_flow_node;
+t_flow_node *node_make(char *alias)
+{
+	t_flow_node *node;
 
-t_flow_node *flow_make(char *alias);
+	node = (t_flow_node *)ft_memalloc(sizeof(*node));
+	if (!node)
+		return (NULL);
+	node->alias = alias;
+	if (vec_new(&(node->edges), 1, sizeof(t_flow_edge *)) == ERROR)
+		ft_memdel(&node);
+	return (node);
+}
 
-#endif
+int	node_add_edge(t_flow_node *node, t_flow_edge **edge)
+{
+	return (vec_push(&(node->edges), edge));
+}
