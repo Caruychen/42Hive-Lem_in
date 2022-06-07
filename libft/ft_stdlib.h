@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 23:35:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/02/18 11:01:04 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/07 15:35:12 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	*ft_ultoa(uintmax_t value, int base, int uppercase);
 char	*ft_ltoa(intmax_t value, int base);
 void	ft_memdelarray(void ***arr);
 void	ft_strdelarray(char ***arr);
+void	ft_swap(int *a, int *b);
 
 #endif
