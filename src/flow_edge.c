@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/07 15:32:13 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/07 16:05:34 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_flow_edge	*edge_make(int from, int to)
 	t_flow_edge	*edge;
 
 	edge = (t_flow_edge *) ft_memalloc(sizeof(*edge));
+	if (!edge)
+		return (NULL);
 	edge->from = from;
 	edge->to = to;
 	return (edge);
