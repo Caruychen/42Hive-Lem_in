@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/07 15:28:49 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/07 15:32:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ t_flow_edge	*edge_make(int from, int to)
 	return (edge);
 }
 
-int			edge_other(t_flow_edge *edge, int node)
+int	edge_other(t_flow_edge *edge, int node)
 {
 	if (edge->from == node)
-		return edge->to;
+		return (edge->to);
 	if (edge->to == node)
-		return edge->from;
+		return (edge->from);
 	return (ERROR);
 }
 
-int			edge_has_residual_capacity_to(t_flow_edge *edge, int node)
+int	edge_has_residual_capacity_to(t_flow_edge *edge, int node)
 {
 	if (!edge->flow)
 		return (TRUE);
@@ -42,14 +42,14 @@ int			edge_has_residual_capacity_to(t_flow_edge *edge, int node)
 	return (ERROR);
 }
 
-void		edge_set_flow_to(t_flow_edge *edge, int node)
+void	edge_set_flow_to(t_flow_edge *edge, int node)
 {
 	edge->flow = 1;
 	if (edge->to != node)
 		ft_swap(&(edge->from), &(edge->to));
 }
 
-void		edge_unset_flow(t_flow_edge *edge)
+void	edge_unset_flow(t_flow_edge *edge)
 {
 	edge->flow = 0;
 }
