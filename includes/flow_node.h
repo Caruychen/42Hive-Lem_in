@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/07 16:23:05 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/08 15:16:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ typedef struct	s_flow_node {
 	t_vec	edges;
 }				t_flow_node;
 
-t_flow_node *flow_make(char *alias);
+t_flow_node	node_make(char *alias);
+int		node_add_edge(t_flow_node *node, t_flow_edge **edge);
+void		node_free(t_flow_node *node);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/07 15:19:16 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/08 15:32:00 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "flow_node.h"
 # include "flow_network.h"
 
+# define OK 1
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
