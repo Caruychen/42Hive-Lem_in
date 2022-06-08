@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 00:08:11 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 00:13:29 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
  *   being a node of the rooms. The rooms are numbered according to their index
  *   in the vector, and are thus implicitly numbered by insertion order.
  *  
- *   The flow network datatype is sufficient to be represented as t_vec. The 
- *   data looks a bit like this:
+ *   The t_vec data type is sufficient to represent the flow network graph.
+ *   data structure looks a bit like this:
  * 
  *   index   --------------
  *     0    | ALIAS, EDGES | <-- DATA TYPE: flow_node
  *           --------------        -------------------------
- *     1    | ALIAS, EDGES | ---> | FROM: 1, TO: 2, FLOW: 0 | ... |
+ *     1    | ALIAS, EDGES | ---> | FROM: 1, TO: 2, FLOW: 0 |
  *           --------------        -----------------------------
  *     2    | ALIAS, EDGES | ---> | 2, 5, 0 | 2, N, 1 | 1, 2, 0 | 
  *           --------------        -----------------------------
