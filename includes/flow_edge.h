@@ -6,19 +6,20 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/08 22:30:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/08 23:28:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
  *   Flow edge represents the link/tunnel between nodes (i.e. rooms).
- *   Edge capacity is capped at 1, making the "flow" state for the 
- *   edmunds-karp algorithm as an effectively binary state.
+ *   Edge capacity is capped at 1, making the "flow" state also a
+ *   binary state. The flow state is used for the edmunds-karp algorithm.
  *
- *   The flow edge data type describes:
+ *   The flow edge data type:
  *    ------------------
  *   | FROM | TO | FLOW |
  *    ------------------
+ * 
  *   Where FROM and TO describe the INDEX of the respective nodes at
  *   both ends. The nodes are part of an indexed array implemented in the
  *   flow_network data type.
