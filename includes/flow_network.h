@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 00:13:29 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 00:15:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@
  *           --------------        ---------------                  |
  *     N    | ALIAS, EDGES | ---> | 2, N, 1 | ... |                 |
  *           --------------        ---------------                  |
- *                                                     Edges between rooms have duplicates
- *                                                     between corresponding rooms. 
- *                                                     both point to the same edge object,
- *                                                     so are NOT copies.
+ *                                                                  |
+ *                                       Edges between rooms have duplicates
+ *                                       between corresponding rooms. 
+ *                                       both point to the same edge object,
+ *                                       so are NOT copies.
 */
+
 #ifndef FLOW_NETWORK_H
 # define FLOW_NETWORK_H
 

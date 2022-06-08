@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/08 23:47:33 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 00:14:30 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
  *   easily scanned as part of the Breadth First Seach pattern in the 
  *   edmunds-karp algorithm when identifying the paths with max-flow.
 */
+
 #ifndef FLOW_NODE_H
 # define FLOW_NODE_H
 
