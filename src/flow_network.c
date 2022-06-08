@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/08 15:32:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/08 22:05:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,26 @@ int	network_add_node(t_vec *network, char *alias)
 {
 	t_flow_node	node;
 
-	node = node_make(alias);
-	if (!node.edges.memory)
+	if (node_make(&node, alias) == ERROR)
 		return (ERROR);
 	return (vec_push(network, &node));
 }
 
 int	network_add_edge(t_vec *network, t_flow_edge *edge)
 {
-	if (node_add_edge((t_flow_node *)vec_get(network, edge->from), edge) == ERROR)
+	if (node_push((t_flow_node *)vec_get(network, edge->from), edge) == ERROR)
 		return (ERROR);
-	if (node_add_edge((t_flow_node *)vec_get(network, edge->to), edge) == ERROR)
+	if (node_push((t_flow_node *)vec_get(network, edge->to), edge) == ERROR)
 		return (ERROR);
 	return (OK);
 }
 
 void	network_free(t_vec *network)
 {
-	// Free all nodes then network itself
+	size_t	index;
 
+	index = 0;
+	while (index < network->len)
+		node_free(&(network->memory[network->elem_size * index++]));
 	vec_free(network);
 }
