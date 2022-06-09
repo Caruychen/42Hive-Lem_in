@@ -6,11 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:08:45 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 14:09:04 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:13:54 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap_ul(long *a, long *b)
+void	ft_swap_l(long *a, long *b)
 {
 	long	tmp;
 
