@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   unit_test.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 11:41:03 by cchen            ###   ########.fr       */
+/*   Created: 2022/06/09 11:28:44 by cchen             #+#    #+#             */
+/*   Updated: 2022/06/09 11:29:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef UNIT_TEST_H
+# define UNIT_TEST_H
 
 # include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
+# include "lem_in.h"
 
 #endif

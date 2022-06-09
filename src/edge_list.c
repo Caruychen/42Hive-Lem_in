@@ -6,20 +6,20 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:35:05 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/08 22:03:05 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 11:40:29 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_vec	*edge_list_make(t_vec *edge_list)
+int	edge_list_make(t_vec *edge_list)
 {
 	return (vec_new(edge_list, 1, sizeof(t_flow_edge *)));
 }
 
 int	edge_list_push(t_vec *edge_list, t_flow_edge *edge)
 {
-	return (vec_push(&(node->edges), (void *) &edge));
+	return (vec_push(edge_list, (void *) &edge));
 }
 
 void	edge_list_free(t_vec *edge_list)
