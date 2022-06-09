@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 13:20:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:05:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 
 #include "lem_in.h"
 
-t_flow_edge	*edge_make(const unsigned long from, const unsigned long to)
+t_flow_edge	*edge_make(const long from, const long to)
 {
 	t_flow_edge	*edge;
 
@@ -50,7 +50,7 @@ t_flow_edge	*edge_make(const unsigned long from, const unsigned long to)
 	return (edge);
 }
 
-int	edge_other(t_flow_edge *edge, const unsigned long node)
+long	edge_other(t_flow_edge *edge, const long node)
 {
 	if (edge->from == node)
 		return (edge->to);
@@ -59,7 +59,7 @@ int	edge_other(t_flow_edge *edge, const unsigned long node)
 	return (ERROR);
 }
 
-int	edge_has_residual_capacity_to(t_flow_edge *edge, const unsigned long node)
+int	edge_has_residual_capacity_to(t_flow_edge *edge, const long node)
 {
 	if (!edge->flow)
 		return (TRUE);
@@ -70,7 +70,7 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const unsigned long node)
 	return (ERROR);
 }
 
-void	edge_augment_flow_to(t_flow_edge *edge, const unsigned long node)
+void	edge_augment_flow_to(t_flow_edge *edge, const long node)
 {
 	if (edge->flow)
 	{
