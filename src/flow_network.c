@@ -6,9 +6,42 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/08 22:05:06 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 11:15:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+ *   Flow Network is an adjacency list implementation, representing the whole
+ *   ant nest graph.
+ *   
+ *   It is simply implemented as a vector (dynamic array), with each element
+ *   being a node of the rooms. The rooms are numbered according to their index
+ *   in the vector, and are thus implicitly numbered by insertion order.
+ *  
+ *   The t_vec data type is sufficient to represent the flow network graph.
+ *   data structure looks a bit like this:
+ * 
+ *   index   --------------
+ *     0    | ALIAS, EDGES | <-- DATA TYPE: flow_node
+ *           --------------        -------------------------
+ *     1    | ALIAS, EDGES | ---> | FROM: 1, TO: 2, FLOW: 0 |
+ *           --------------        -----------------------------
+ *     2    | ALIAS, EDGES | ---> | 2, 5, 0 | 2, N, 1 | 1, 2, 0 | 
+ *           --------------        -----------------------------
+ *                ..                   ^---------v-------------------
+ *           --------------        ------------------------         |
+ *     5    | ALIAS, EDGES | ---> | 5, 9, 0 | 2, 5, 0 | ... |       |
+ *           --------------        ------------------------         |
+ *                ...                                               |
+ *           --------------        ---------------                  |
+ *     N    | ALIAS, EDGES | ---> | 2, N, 1 | ... |                 |
+ *           --------------        ---------------                  |
+ *                                                                  |
+ *                                       Edges between rooms have duplicates
+ *                                       between corresponding rooms. 
+ *                                       both point to the same edge object,
+ *                                       so are NOT copies.
+*/
 
 #include "lem_in.h"
 
