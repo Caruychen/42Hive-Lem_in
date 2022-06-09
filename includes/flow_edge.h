@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/08 23:28:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 11:36:59 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define FLOW_EDGE_H
 
 # include <stdint.h>
+# include "vec.h"
 
 typedef struct s_flow_edge
 {
