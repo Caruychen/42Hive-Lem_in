@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:35:05 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 16:21:26 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 16:29:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	edge_list_push(t_vec *edge_list, t_flow_edge *edge)
 	return (vec_push(edge_list, (void *) &edge));
 }
 
-t_flow_edge *edge_list_get(t_vec *edge_list, size_t index)
+t_flow_edge	*edge_list_get(t_vec *edge_list, size_t index)
 {
 	return (*(t_flow_edge **)vec_get(edge_list, index));
 }
