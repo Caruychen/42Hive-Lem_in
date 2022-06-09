@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_flow_edge.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 13:11:46 by cchen            ###   ########.fr       */
+/*   Created: 2022/06/09 13:08:46 by cchen             #+#    #+#             */
+/*   Updated: 2022/06/09 14:41:11 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_test.h"
 
-int	main(void)
+int	test_flow_edge(void)
 {
-	test_flow_edge();
+	test_edge_make();
+	test_edge_other();
+	test_edge_has_residual_capacity_to();
+	test_edge_augment_flow_to();
 	return (0);
 }

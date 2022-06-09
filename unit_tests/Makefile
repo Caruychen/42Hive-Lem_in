@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/09 11:16:17 by cchen             #+#    #+#              #
-#    Updated: 2022/06/09 12:06:44 by cchen            ###   ########.fr        #
+#    Updated: 2022/06/09 13:42:29 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := test_lem-in
 
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra
-INCLUDES := -I../libft -I../includes
+INCLUDES := -I../libft -I../includes -I./src
 
 TEST_DIR := ./src
 TESTS := $(shell find $(TEST_DIR) -type f | grep -e "\.c$$")
