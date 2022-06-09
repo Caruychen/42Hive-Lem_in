@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 14:05:46 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:37:24 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_flow_edge
 t_flow_edge		*edge_make(const long from, const long to);
 long	edge_other(t_flow_edge *edge, const long node);
 int				edge_has_residual_capacity_to(t_flow_edge *edge, const long node);
-void			edge_augment_flow_to(t_flow_edge *edge, const long node);
+int				edge_augment_flow_to(t_flow_edge *edge, const long node);
 void			edge_free(t_flow_edge **edge);
 
 int				edge_list_make(t_vec *edge_list);
