@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 14:05:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:10:52 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	edge_augment_flow_to(t_flow_edge *edge, const long node)
 	}
 	edge->flow = 1;
 	if (edge->to != node)
-		ft_swap_ul(&(edge->from), &(edge->to));
+		ft_swap_l(&(edge->from), &(edge->to));
 }
 
 void	edge_free(t_flow_edge **edge)
