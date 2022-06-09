@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:28:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 15:07:11 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 15:16:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	test_edge_augment_flow_to(void);
 
 void	test_edge_list(void);
 void	test_edge_list_make(void);
+void	test_edge_list_push(void);
 
 
 #endif
