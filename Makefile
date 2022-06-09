@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/06/09 11:20:46 by cchen            ###   ########.fr        #
+#    Updated: 2022/06/09 16:25:56 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIB_DIR := ./libft
 LIBFT := $(addprefix $(LIB_DIR), libft.a)
 LIB_OBJS = $(shell find $(LIB_DIR) -type f | grep -E "\.o$$")
-LINK := -L libft -lft
+LINK := -L ./libft -lft
 
 .PHONY: all clean fclean re
 
@@ -38,7 +38,7 @@ $(OBJ_DIR):
 	@mkdir -p $(@)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@$(CC) -c $(CFLAGS) -$(INCLUDES) -o $@ $<
+	@$(CC) -c $(CFLAGS) $(INCLUDES) -o $@ $<
 
 $(LIBFT):
 	$(MAKE) -C $(LIB_DIR)
