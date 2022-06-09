@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 14:10:52 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:56:05 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_flow_edge	*edge_make(const long from, const long to)
 {
 	t_flow_edge	*edge;
 
+	if (from < 0 || to < 0)
+		return (NULL);
 	edge = (t_flow_edge *) ft_memalloc(sizeof(*edge));
 	if (!edge)
 		return (NULL);
@@ -61,6 +63,8 @@ long	edge_other(t_flow_edge *edge, const long node)
 
 int	edge_has_residual_capacity_to(t_flow_edge *edge, const long node)
 {
+	if (edge->from != node && edge->to != node)
+		return (ERROR);
 	if (!edge->flow)
 		return (TRUE);
 	if (edge->to == node)
@@ -70,16 +74,16 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const long node)
 	return (ERROR);
 }
 
-void	edge_augment_flow_to(t_flow_edge *edge, const long node)
+int	edge_augment_flow_to(t_flow_edge *edge, const long node)
 {
-	if (edge->flow)
-	{
-		edge->flow = 0;
-		return ;
-	}
-	edge->flow = 1;
-	if (edge->to != node)
+	if (edge->from != node && edge->to != node)
+		return (ERROR);
+	if (edge->flow && edge->to == node)
+		return (ERROR);
+	if (!edge->flow && edge->to != node)
 		ft_swap_l(&(edge->from), &(edge->to));
+	edge->flow = ~edge->flow;
+	return (OK);
 }
 
 void	edge_free(t_flow_edge **edge)
