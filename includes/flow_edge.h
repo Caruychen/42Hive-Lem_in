@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 14:37:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/09 16:10:16 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void			edge_free(t_flow_edge **edge);
 int				edge_list_make(t_vec *edge_list);
 int				edge_list_push(t_vec *edge_list, t_flow_edge *edge);
 void			edge_list_free(t_vec *edge_list);
+t_flow_edge		*edge_list_get(t_vec *edge_list, size_t index);
 
 #endif
