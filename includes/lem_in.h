@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 21:42:59 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 00:44:53 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
+
+# define ERR_MSG_NETWORK_INIT "Could not initialize flow network."
 
 int	error(char *msg);
 

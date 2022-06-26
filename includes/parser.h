@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/26 21:56:57 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 00:56:49 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define MSG_ERROR_INVALID_LINE "File contained an invalid line."
 # define MSG_ERROR_GNL "Could not get next line."
 # define MSG_ERROR_ALIAS_L "Invalid first character L in room alias."
+# define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
 
 # include "lem_in.h"
 
@@ -52,6 +53,6 @@ int	parse_input(t_vec *network);
 int	get_ant_number(t_parser *parser, t_vec *network);
 int	get_room(t_parser *parser, t_vec *network);
 int	get_link(t_parser *parser, t_vec *network);
-int	is_valid_link(t_parser *parser, t_vec *network);
+int	is_valid_link(t_parser *parser, t_vec *network, long *from, long *to);
 
 # endif

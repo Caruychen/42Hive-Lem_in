@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/26 21:58:45 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 00:10:59 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	get_room,
 	get_link
 };
+
+static void	check_for_modification(t_parser *parser)
+{
+	if (ft_strcmp(parser->line, "##start") == 0)
+		parser->modification = START;
+	else if (ft_strcmp(parser->line, "##end") == 0)
+		parser->modification = END;
+}
 
 int	parse_input(t_vec *network)
 {
@@ -32,17 +40,15 @@ int	parse_input(t_vec *network)
 			break ;
 		if (parser.line[0] == '#')
 		{
-			if (ft_strcmp(parser.line, "##start") == 0)
-				parser.modification = START;
-			else if (ft_strcmp(parser.line, "##end") == 0)
-				parser.modification = END;
+			check_for_modification(&parser);
 			ft_strdel(&parser.line);
 			continue ;
 		}
-		g_parser_jumptable[parser.stage](&parser, network);
+		if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
+			return (ERROR);
 		ft_strdel(&parser.line);
 	}
-	if (parser.stage == LINKS)
-		return (1);
-	return (error(MSG_ERROR_INVALID_FILE));
+	if (parser.stage != LINKS)
+		return (error(MSG_ERROR_INVALID_FILE));
+	return (OK);
 }

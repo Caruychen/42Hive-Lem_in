@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/06/26 21:47:27 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/06/27 01:25:39 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,9 @@ SRC_DIR := ./src
 SRCS := $(SRC_DIR)/main.c
 SRCS += $(SRC_DIR)/parse_input.c
 SRCS += $(SRC_DIR)/cleanup.c
-SRCS += $(SRC_DIR)/flow_node.c
+SRCS += $(SRC_DIR)/flow_edge.c
 SRCS += $(SRC_DIR)/flow_network.c
+SRCS += $(SRC_DIR)/flow_node.c
 SRCS += $(SRC_DIR)/get_ant_number.c
 SRCS += $(SRC_DIR)/get_room.c
 SRCS += $(SRC_DIR)/get_link.c
@@ -48,7 +49,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) -c $(CFLAGS) $(INCLUDES) -o $@ $<
 
 $(LIBFT):
-	$(MAKE) -C $(LIB_DIR)
+	$(MAKE) -C $(LIB_DIR) CFLAGS='$(CFLAGS)'
 
 debug: CFLAGS += -g
 debug: clean $(LIBFT) $(OBJ_DIR) $(OBJS)
