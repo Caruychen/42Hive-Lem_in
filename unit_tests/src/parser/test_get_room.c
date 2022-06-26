@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_get_room.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 19:09:25 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
+/*   Updated: 2022/06/26 19:44:53 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_test.h"
 
-int	main(void)
+void	test_get_room(void)
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	return (0);
+	t_parser	parser;
+
+	ft_printf("Testing get_room: ");
+
+	parser = (t_parser){"1 2 3", NULL, ROOMS, NONE, 0, 0, 0, 0};
+	get_room(&parser);
+
+	ft_printf("OK\n");
 }

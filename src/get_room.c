@@ -6,15 +6,14 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/26 14:26:06 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/26 14:50:36 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	get_alias(t_parser *parser)
+static int	get_alias(t_parser *parser, char **alias)
 {
-	char	*alias;
 	char	*ptr;
 
 	ptr = parser->line;
@@ -25,10 +24,7 @@ static int	get_alias(t_parser *parser)
 	ptr = ft_strchr(ptr, ' ');
 	if (!ptr || !*(ptr + 1))
 		return (error(MSG_ERROR_INVALID_LINE));
-	//node_make(&node, ft_strndup(parser->line, ptr - parser->line)); // indices!
-	alias = ft_strsub(parser->line, 0, ptr - parser->line); // indices!
-	ft_putendl("room");
-	ft_putendl(alias);
+	*alias = ft_strsub(parser->line, 0, ptr - parser->line); // indices!
 	parser->ptr = ptr;
 	return (1);
 }
@@ -48,21 +44,25 @@ static int	get_coordinate(t_parser *parser, int *coord)
 
 int	get_room(t_parser *parser)
 {
+	char	*alias;
 	int			x;
 	int			y;
-	//t_flow_node	node;
+	t_flow_node	node;
 
 	if (is_valid_link(parser))
 	{
 		parser->stage = LINKS;
 		return (get_link(parser));
 	}
-	get_alias(parser);
+	get_alias(parser, &alias);
 	get_coordinate(parser, &x);
 	get_coordinate(parser, &y);
+	ft_putendl("room");
+	ft_putendl(alias);
 	ft_putnbr(x);
 	ft_putchar('\n');
 	ft_putnbr(y);
 	ft_putchar('\n');
+	node_make(&node, alias);
 	return (1);
 }

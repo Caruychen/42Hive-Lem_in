@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 19:09:25 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/09 13:08:46 by cchen             #+#    #+#             */
+/*   Updated: 2022/06/26 19:50:05 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_test.h"
 
-int	main(void)
+void	test_parser(void)
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	return (0);
+	test_get_ant_number();
+	test_get_room();
+	test_get_link();
 }
