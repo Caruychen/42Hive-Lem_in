@@ -6,13 +6,10 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/26 13:25:59 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/26 20:41:10 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "get_next_line.h"
-#include "parser.h"
 #include "lem_in.h"
 
 static const t_parse_func	g_parser_jumptable[3] = {
