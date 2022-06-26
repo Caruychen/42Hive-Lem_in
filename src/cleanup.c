@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/24 11:01:24 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/24 11:13:07 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/06/24 11:37:26 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-int	main(void)
+int	error(char *msg)
 {
-	parse_input();
-	return (0);
+	ft_putendl_fd(msg, 2);
+	exit(-1);
 }

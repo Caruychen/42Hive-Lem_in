@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/06/26 01:07:04 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/06/26 13:56:55 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,11 @@ INCLUDES := -I./libft -I./includes
 
 SRC_DIR := ./src
 SRCS := $(SRC_DIR)/main.c
+SRCS += $(SRC_DIR)/parse.c
+SRCS += $(SRC_DIR)/cleanup.c
+SRCS += $(SRC_DIR)/get_ant_number.c
+SRCS += $(SRC_DIR)/get_room.c
+SRCS += $(SRC_DIR)/get_link.c
 
 OBJ_DIR := ./obj
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -44,7 +49,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIB_DIR)
 
 debug: CFLAGS += -g
-debug: $(LIBFT) $(OBJ_DIR) $(OBJS)
+debug: clean $(LIBFT) $(OBJ_DIR) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB_OBJS) $(LINK) -o $(NAME)
 
 clean:
