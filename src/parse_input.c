@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/26 20:41:10 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/26 21:43:30 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	get_link
 };
 
-int	parse_input(void)
+int	parse_input(t_vec *network)
 {
 	t_parser	parser;
 
