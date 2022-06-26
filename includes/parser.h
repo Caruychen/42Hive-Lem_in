@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/26 14:15:54 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/26 21:56:57 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define MSG_ERROR_INVALID_LINE "File contained an invalid line."
 # define MSG_ERROR_GNL "Could not get next line."
 # define MSG_ERROR_ALIAS_L "Invalid first character L in room alias."
+
+# include "lem_in.h"
 
 typedef enum
 {
@@ -44,11 +46,12 @@ typedef struct s_parser
 	int		n_ants;
 }	t_parser;
 
-typedef int	(*t_parse_func)(t_parser *);
+typedef int	(*t_parse_func)(t_parser *, t_vec *);
 
-int	get_ant_number(t_parser *parser);
-int	get_room(t_parser *parser);
-int	get_link(t_parser *parser);
-int	is_valid_link(t_parser *parser);
+int	parse_input(t_vec *network);
+int	get_ant_number(t_parser *parser, t_vec *network);
+int	get_room(t_parser *parser, t_vec *network);
+int	get_link(t_parser *parser, t_vec *network);
+int	is_valid_link(t_parser *parser, t_vec *network);
 
 # endif

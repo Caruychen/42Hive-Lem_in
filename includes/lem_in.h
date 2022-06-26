@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 20:41:00 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/26 21:42:59 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define FALSE 0
 # define ERROR -1
 
-int	parse_input(void);
 int	error(char *msg);
 
 #endif

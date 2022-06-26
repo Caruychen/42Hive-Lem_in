@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/24 11:01:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/26 21:53:40 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	main(void)
 {
-	parse_input();
+	t_vec	network;
+
+	network_init(&network);
+	parse_input(&network);
+	network_free(&network);
 	return (0);
 }
