@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 14:56:57 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/06/27 16:08:25 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static int	get_coordinate(t_parser *parser, int *coord)
 
 	ptr = parser->ptr;
 	if (!*(ptr + 1))
-		return (error(MSG_ERROR_INVALID_LINE));
+		return (error(MSG_ERROR_INV_LINE));
 	*coord = ft_atoi(ptr + 1);
 	while (*(++ptr) && *ptr != ' ')
 		if (!ft_isdigit(*ptr))
-			return (error(MSG_ERROR_INVALID_LINE));
+			return (error(MSG_ERROR_INV_LINE));
 	parser->ptr = ptr;
 	return (OK);
 }
@@ -53,6 +53,8 @@ int	get_room(t_parser *parser, t_vec *network)
 
 	if (get_alias(parser, network, &alias) == ERROR)
 		return (ERROR);
+	if (parser->stage == LINKS)
+		return (OK);
 	if (get_coordinate(parser, &x) == ERROR)
 		return (ERROR);
 	if (get_coordinate(parser, &y) == ERROR)
