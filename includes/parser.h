@@ -6,29 +6,29 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 00:56:49 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 15:41:08 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# define MSG_ERROR_INVALID_FILE "File did not contain ant number, rooms or links."
-# define MSG_ERROR_INVALID_LINE "File contained an invalid line."
+# define MSG_ERROR_INV_FILE "File did not contain ant number, rooms or links."
+# define MSG_ERROR_INV_LINE "File contained an invalid line."
 # define MSG_ERROR_GNL "Could not get next line."
-# define MSG_ERROR_ALIAS_L "Invalid first character L in room alias."
+# define MSG_ERROR_CHAR_ALIAS "Invalid character in room alias."
 # define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
 
 # include "lem_in.h"
 
-typedef enum
+typedef enum e_stage
 {
 	ANT_NUMBER,
 	ROOMS,
 	LINKS,
 }	t_stage;
 
-typedef enum
+typedef enum e_mod
 {
 	NONE,
 	START,
@@ -55,4 +55,4 @@ int	get_room(t_parser *parser, t_vec *network);
 int	get_link(t_parser *parser, t_vec *network);
 int	is_valid_link(t_parser *parser, t_vec *network, long *from, long *to);
 
-# endif
+#endif

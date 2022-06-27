@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 22:13:48 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 15:38:55 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	test_get_link(void)
 
 	network_init(&network);
 	parser = (t_parser){"1-2", NULL, LINKS, NONE, 0, 0, 0, 0};
+	if (!network_add_node(&network, ft_strdup("1")))
+		return ;
+	if (!network_add_node(&network, ft_strdup("2")))
+		return ;
 	get_link(&parser, &network);
 
 	ft_printf("OK\n");

@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 00:32:14 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 14:56:57 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ static int	get_alias(t_parser *parser, t_vec *network, char **alias)
 	char	*ptr;
 
 	ptr = parser->line;
-	if (*ptr == 'L')
-		return (error(MSG_ERROR_ALIAS_L));
-	while (*ptr == ' ')
-		ptr++;
+	if (*ptr == 'L' || *ptr == ' ')
+		return (error(MSG_ERROR_CHAR_ALIAS));
 	ptr = ft_strchr(ptr, ' ');
-	if (!ptr || !*(ptr + 1))
+	if (!ptr && ft_strchr(parser->line, '-'))
 	{
 		parser->stage = LINKS;
 		return (get_link(parser, network));
@@ -37,6 +35,8 @@ static int	get_coordinate(t_parser *parser, int *coord)
 	char	*ptr;
 
 	ptr = parser->ptr;
+	if (!*(ptr + 1))
+		return (error(MSG_ERROR_INVALID_LINE));
 	*coord = ft_atoi(ptr + 1);
 	while (*(++ptr) && *ptr != ' ')
 		if (!ft_isdigit(*ptr))
