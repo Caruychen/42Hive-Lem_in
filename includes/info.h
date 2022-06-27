@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   info.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/27 21:11:13 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/27 21:17:07 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/06/27 21:17:36 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef INFO_H
+# define INFO_H
 
-int	main(void)
+typedef struct s_info
 {
-	t_vec	network;
-	t_info	info;
+	long	source;
+	long	sink;
+	long	n_ants;
+}	t_info;
 
-	if (network_init(&network) == ERROR)
-		return (error(MSG_ERR_NETWORK_INIT));
-	if (parse_input(&network, &info) == ERROR)
-		return (ERROR);
-	network_free(&network);
-	return (0);
-}
+#endif

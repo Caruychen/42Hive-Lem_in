@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 16:08:10 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/06/27 21:24:56 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	check_for_modification(t_parser *parser)
 		parser->modification = END;
 }
 
-int	parse_input(t_vec *network)
+int	parse_input(t_vec *network, t_info *info)
 {
 	t_parser	parser;
 
-	parser = (t_parser){NULL, NULL, ANT_NUMBER, NONE, 0, 0, 0, 0};
+	parser = (t_parser){NULL, NULL, ANT_NUMBER, NONE, 0, 0, 0, 0, 0, 0};
 	while (1)
 	{
 		parser.gnl_ret = get_next_line(0, &parser.line);
@@ -39,16 +39,15 @@ int	parse_input(t_vec *network)
 		if (!parser.line)
 			break ;
 		if (parser.line[0] == '#')
-		{
 			check_for_modification(&parser);
-			ft_strdel(&parser.line);
-			continue ;
-		}
-		if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
+		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
 			return (ERROR);
 		ft_strdel(&parser.line);
 	}
 	if (parser.stage != LINKS)
 		return (error(MSG_ERROR_INV_FILE));
+	info->source = parser.source;
+	info->sink = parser.sink;
+	info->n_ants = parser.n_ants;
 	return (OK);
 }

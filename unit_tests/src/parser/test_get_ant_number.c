@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 22:10:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 21:23:48 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	test_get_ant_number(void)
 
 	ft_printf("Testing get_ant_number: ");
 
-	parser = (t_parser){"1", NULL, ANT_NUMBER, NONE, 0, 0, 0, 0};
+	parser = (t_parser){"1", NULL, ANT_NUMBER, NONE, 0, 0, 0, 0, 0, 0};
 	get_ant_number(&parser, &network);
 	assert(parser.n_ants == 1);
 

@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 20:24:52 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 21:25:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	find_flow_node(t_vec *network, const char *alias, long *id)
 {
-	size_t	i;
+	size_t		i;
 	t_flow_node	*node;
 
 	i = 0;

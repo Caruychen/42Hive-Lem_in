@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 15:41:08 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/06/27 21:17:54 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
 
 # include "lem_in.h"
+# include "info.h"
 
 typedef enum e_stage
 {
@@ -42,6 +43,8 @@ typedef struct s_parser
 	t_stage	stage;
 	t_mod	modification;
 	int		gnl_ret;
+	long	source;
+	long	sink;
 	int		room_count;
 	int		edge_count;
 	int		n_ants;
@@ -49,7 +52,7 @@ typedef struct s_parser
 
 typedef int	(*t_parse_func)(t_parser *, t_vec *);
 
-int	parse_input(t_vec *network);
+int	parse_input(t_vec *network, t_info *info);
 int	get_ant_number(t_parser *parser, t_vec *network);
 int	get_room(t_parser *parser, t_vec *network);
 int	get_link(t_parser *parser, t_vec *network);
