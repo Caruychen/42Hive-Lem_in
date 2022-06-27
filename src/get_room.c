@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 21:22:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/27 21:39:35 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int	get_room(t_parser *parser, t_vec *network)
 	if (parser->modification == END)
 		parser->sink = 2;
 	parser->modification = NONE;
+	parser->room_count++;
 	return (OK);
 }
