@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:51 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 16:09:40 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/06/27 20:23:47 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int	get_ant_number(t_parser *parser, t_vec *network)
 			return (error(MSG_ERROR_INV_LINE));
 	parser->n_ants = ft_atoi(parser->line);
 	parser->stage = ROOMS;
-	return (1);
+	return (OK);
 }
-

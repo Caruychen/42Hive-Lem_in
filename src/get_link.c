@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 16:08:38 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/06/27 20:24:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	is_valid_link(t_parser *parser, t_vec *network, long *from, long *to)
 	char	*ptr;
 	char	*alias;
 
-	(void) network;
 	ptr = ft_strchr(parser->line, '-');
 	if (!ptr)
 		return (FALSE);
