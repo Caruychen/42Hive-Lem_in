@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 21:39:35 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/29 14:11:15 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	get_coordinate(t_parser *parser, int *coord)
 int	get_room(t_parser *parser, t_vec *network)
 {
 	char	*alias;
+	long	id;
 	int		x;
 	int		y;
 
@@ -61,10 +62,11 @@ int	get_room(t_parser *parser, t_vec *network)
 		return (ERROR);
 	if (network_add_node(network, alias) == ERROR)
 		return (ERROR);
+	find_flow_node(network, alias, &id);
 	if (parser->modification == START)
-		parser->source = 4;
+		parser->source = id;
 	if (parser->modification == END)
-		parser->sink = 2;
+		parser->sink = id;
 	parser->modification = NONE;
 	parser->room_count++;
 	return (OK);

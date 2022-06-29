@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 21:24:56 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/29 14:19:42 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	parse_input(t_vec *network, t_info *info)
 		if (parser.line[0] == '#')
 			check_for_modification(&parser);
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
-			return (ERROR);
+			return (ft_strdel(&parser.line), ERROR);
+		ft_putendl(parser.line);
 		ft_strdel(&parser.line);
 	}
 	if (parser.stage != LINKS)
@@ -49,5 +50,6 @@ int	parse_input(t_vec *network, t_info *info)
 	info->source = parser.source;
 	info->sink = parser.sink;
 	info->n_ants = parser.n_ants;
+	ft_putchar('\n');
 	return (OK);
 }

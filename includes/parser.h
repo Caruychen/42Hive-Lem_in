@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 21:17:54 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/06/29 14:11:51 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int	get_ant_number(t_parser *parser, t_vec *network);
 int	get_room(t_parser *parser, t_vec *network);
 int	get_link(t_parser *parser, t_vec *network);
 int	is_valid_link(t_parser *parser, t_vec *network, long *from, long *to);
+int	find_flow_node(t_vec *network, const char *alias, long *id);
 
 #endif
