@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/06/27 01:25:39 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/07/01 17:02:03 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) -c $(CFLAGS) $(INCLUDES) -o $@ $<
 
 $(LIBFT):
-	$(MAKE) -C $(LIB_DIR) CFLAGS='$(CFLAGS)'
+	@$(MAKE) -C $(LIB_DIR) CFLAGS='$(CFLAGS)'
 
 debug: CFLAGS += -g
 debug: clean $(LIBFT) $(OBJ_DIR) $(OBJS)
