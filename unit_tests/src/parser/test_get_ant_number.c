@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/01 09:23:21 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/01 17:07:13 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ void	test_get_ant_number(void)
 	assert(parser.n_ants == 0);
 	assert(ret == OK);
 
-	parser = (t_parser){.line = "-1"};
-	ret = get_ant_number(&parser, &network);
-	assert(ret == ERROR);
-
 	parser = (t_parser){.line = "42424242"};
 	ret = get_ant_number(&parser, &network);
 	assert(parser.n_ants == 42424242);
 	assert(ret == OK);
+
+	parser = (t_parser){.line = "-1"};
+	ret = get_ant_number(&parser, &network);
+	assert(ret == ERROR);
+
+	parser = (t_parser){.line = ""};
+	ret = get_ant_number(&parser, &network);
+	assert(ret == ERROR);
 
 	ft_printf("OK\n");
 }

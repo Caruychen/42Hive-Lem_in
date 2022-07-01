@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/01 16:04:07 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/01 17:07:33 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	test_get_room(void)
 	network_free(&network);
 
 	//TODO: Assert that x-y coodrinates are being parsed correctly
+
+	network_init(&network);
+	parser = (t_parser){.line = "", .stage = ROOMS};
+	ret = get_room(&parser, &network);
+	assert(ret == ERROR);
+	network_free(&network);
 
 	network_init(&network);
 	parser = (t_parser){.line = "L1 1 1", .stage = ROOMS};

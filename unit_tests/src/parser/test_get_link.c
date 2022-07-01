@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/01 16:58:35 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/01 17:11:55 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	test_get_link(void)
 	ret = get_link(&parser, &network);
 	assert(ret == OK);
 	network_free(&network);
+
+	parser = (t_parser){.line = "", .stage = LINKS};
+	ret = get_link(&parser, &network);
+	assert(ret == ERROR);
 
 	ft_printf("OK\n");
 }
