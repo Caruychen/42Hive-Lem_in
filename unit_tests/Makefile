@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/09 11:16:17 by cchen             #+#    #+#              #
-#    Updated: 2022/06/09 13:42:29 by cchen            ###   ########.fr        #
+#    Updated: 2022/07/01 15:31:13 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ $(NAME): $(LIBFT)
 
 $(LIBFT):
 	$(MAKE) -C $(LIB_DIR)
+
+debug: CFLAGS += -g
+debug: re
 
 clean:
 	$(MAKE) -C $(LIB_DIR) clean
