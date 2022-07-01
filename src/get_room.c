@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/01 16:07:00 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/01 17:15:51 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ static int	get_alias(t_parser *parser, t_vec *network, char **alias)
 	if (*ptr == 'L' || *ptr == ' ')
 		return (error(MSG_ERROR_CHAR_ALIAS));
 	ptr = ft_strchr(ptr, ' ');
-	if (!ptr && ft_strchr(parser->line, '-'))
+	if (!ptr)
 	{
-		parser->stage = LINKS;
-		return (get_link(parser, network));
+		if (ft_strchr(parser->line, '-'))
+		{
+			parser->stage = LINKS;
+			return (get_link(parser, network));
+		}
+		return (error(MSG_ERROR_INV_LINE));
 	}
 	*alias = ft_strsub(parser->line, 0, ptr - parser->line);
 	parser->ptr = ptr;
