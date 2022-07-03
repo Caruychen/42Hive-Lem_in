@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/27 21:17:00 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/03 19:34:33 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "flow_network.h"
 # include "parser.h"
 # include "info.h"
+# include "hashtable.h"
 
 # define OK 1
 # define TRUE 1
