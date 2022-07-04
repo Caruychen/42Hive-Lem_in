@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/09 11:16:17 by cchen             #+#    #+#              #
-#    Updated: 2022/07/01 15:31:13 by cnysten          ###   ########.fr        #
+#    Updated: 2022/07/04 16:52:18 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ $(NAME): $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) $(TESTS) $(LIB_OBJS) $(LINK) -o $(@)
 
 $(LIBFT):
-	$(MAKE) -C $(LIB_DIR)
+	@$(MAKE) -C $(LIB_DIR) CFLAGS='$(CFLAGS)'
 
 debug: CFLAGS += -g
 debug: re
