@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/29 14:11:51 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:11:46 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_parser
 	t_stage	stage;
 	t_mod	modification;
 	int		gnl_ret;
-	long	source;
-	long	sink;
+	char	*source;
+	char	*sink;
 	int		room_count;
 	int		edge_count;
 	int		n_ants;

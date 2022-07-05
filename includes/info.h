@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:17:07 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 21:17:36 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/05 18:14:10 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 typedef struct s_info
 {
-	long	source;
-	long	sink;
+	char	*source;
+	char	*sink;
 	long	n_ants;
 }	t_info;
 
