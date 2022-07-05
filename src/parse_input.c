@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/03 17:39:38 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 21:08:49 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,22 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	get_link
 };
 
-static void	check_for_modification(t_parser *parser)
+static void	parser_set_info(t_info *info, t_parser *parser)
+{
+	info->source = parser->source;
+	info->sink = parser->sink;
+	info->n_ants = parser->n_ants;
+}
+
+static int	check_for_modification(t_parser *parser)
 {
 	if (ft_strcmp(parser->line, "##start") == 0)
 		parser->modification = START;
 	else if (ft_strcmp(parser->line, "##end") == 0)
 		parser->modification = END;
+	if (parser->stage != ROOMS && parser->modification != NONE)
+		return (error(MSG_ERROR_MOD));
+	return (OK);
 }
 
 int	parse_input(t_vec *network, t_info *info)
@@ -39,7 +49,10 @@ int	parse_input(t_vec *network, t_info *info)
 		if (!parser.line)
 			break ;
 		if (parser.line[0] == '#')
-			check_for_modification(&parser);
+		{
+			if (check_for_modification(&parser) == ERROR)
+				return (ft_strdel(&parser.line), ERROR);
+		}
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
 			return (ft_strdel(&parser.line), ERROR);
 		ft_putendl(parser.line);
@@ -47,9 +60,7 @@ int	parse_input(t_vec *network, t_info *info)
 	}
 	if (parser.stage != LINKS)
 		return (error(MSG_ERROR_INV_FILE));
-	info->source = parser.source;
-	info->sink = parser.sink;
-	info->n_ants = parser.n_ants;
+	parser_set_info(info, &parser);
 	ft_putchar('\n');
 	return (OK);
 }

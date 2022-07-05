@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 19:01:30 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 21:05:40 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define MSG_ERROR_GNL "Could not get next line."
 # define MSG_ERROR_CHAR_ALIAS "Invalid character in room alias."
 # define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
+# define MSG_ERROR_MOD "Invalid modification."
 
 # include "lem_in.h"
 # include "info.h"
