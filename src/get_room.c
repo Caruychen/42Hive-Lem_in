@@ -6,11 +6,23 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 18:13:50 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:30:34 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static int	hash_network(t_vec *network)
+{
+	t_hashtable	htable;
+
+	htable = (t_hashtable){0};
+	if (hashtable_from(&htable, network) == ERROR)
+		return (ERROR);
+	network_free(network);
+	*network = htable;
+	return (OK);
+}
 
 static int	get_alias(t_parser *parser, t_vec *network, char **alias)
 {
@@ -24,6 +36,7 @@ static int	get_alias(t_parser *parser, t_vec *network, char **alias)
 	{
 		if (ft_strchr(parser->line, '-'))
 		{
+			hash_network(network);
 			parser->stage = LINKS;
 			return (get_link(parser, network));
 		}
