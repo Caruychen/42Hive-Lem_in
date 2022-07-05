@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/06/09 16:25:56 by cchen            ###   ########.fr        #
+#    Updated: 2022/06/26 01:07:04 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(LIBFT):
 	$(MAKE) -C $(LIB_DIR)
+
+debug: CFLAGS += -g
+debug: $(LIBFT) $(OBJ_DIR) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB_OBJS) $(LINK) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)

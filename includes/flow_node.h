@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 16:06:29 by cchen            ###   ########.fr       */
+/*   Updated: 2022/06/26 01:11:00 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_flow_node
 {
 	char	*alias;
 	t_vec	edges;
+	int		x;
+	int		y;
 }				t_flow_node;
 
 int			node_make(t_flow_node *node, char *alias);
