@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/09 11:16:17 by cchen             #+#    #+#              #
-#    Updated: 2022/07/04 16:52:18 by cnysten          ###   ########.fr        #
+#    Updated: 2022/07/05 17:25:05 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIBFT := $(addprefix $(LIB_DIR), libft.a)
 LIB_OBJS = $(shell find $(LIB_DIR) -type f | grep -E "\.o$$")
 LINK := -L ../libft -lft
 
-.PHONY: all clean fclean re
+.PHONY: all debug fsan clean fclean re
 
 all: $(NAME)
 
@@ -39,6 +39,9 @@ $(LIBFT):
 
 debug: CFLAGS += -g
 debug: re
+
+fsan: CFLAGS += -fsanitize=address -g
+fsan: re
 
 clean:
 	$(MAKE) -C $(LIB_DIR) clean
