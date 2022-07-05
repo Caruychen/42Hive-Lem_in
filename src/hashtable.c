@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 18:56:41 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/05 18:57:07 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 19:30:34 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	hashtable_from(t_hashtable *dst, t_vec *src)
 	{
 		node = vec_get(src, i);
 		hashtable_put_node(dst, node, node_hash(dst, node));
+		node->alias = NULL;
+		node->edges = (t_vec){0};
 		i++;
 	}
 	return (OK);
