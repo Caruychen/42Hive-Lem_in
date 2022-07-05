@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:38:18 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/05 17:25:53 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:05:06 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	hashtable_from(t_hashtable *dst, t_vec *src)
 	return (OK);
 }
 
+static int	hashtable_update_element(t_hashtable *dst, void *src, size_t index)
+{
+	ft_memcpy(&dst->memory[dst->elem_size * index], src, dst->elem_size);
+	return (OK);
+}
+
 int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t orig_index)
 {
 	t_flow_node	*node;
@@ -47,11 +53,18 @@ int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t orig_index)
 	{
 		node = vec_get(dst, index);
 		if (!node->alias)
-			break ;
+			return (hashtable_update_element(dst, src, index));
 		index++;
 	}
-	ft_memcpy(&dst->memory[dst->elem_size * index], src, dst->elem_size);
-	return (OK);
+	index = 0;
+	while (index < orig_index)
+	{
+		node = vec_get(dst, index);
+		if (!node->alias)
+			return (hashtable_update_element(dst, src, index));
+		index++;
+	}
+	return (error(MSG_ERR_HASHTABLE_FULL));
 }
 
 t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
@@ -67,7 +80,7 @@ t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
 	while (index < src->len)
 	{
 		node = vec_get(src, index);
-		if (!ft_strcmp(node->alias, alias))
+		if (node->alias && !ft_strcmp(node->alias, alias))
 			return (node);
 		index++;
 	}
@@ -75,7 +88,7 @@ t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
 	while (index < orig_index)
 	{
 		node = vec_get(src, index);
-		if (!ft_strcmp(node->alias, alias))
+		if (node->alias && !ft_strcmp(node->alias, alias))
 			return (node);
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:40:03 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/04 15:48:50 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:04:26 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "lem_in.h"
 
 # define MSG_ERR_HASH_OVER "Hash value out of bounds."
+# define MSG_ERR_HASHTABLE_FULL "Hashtable full, couldn't add element."
 
 typedef t_vec t_hashtable;
 
