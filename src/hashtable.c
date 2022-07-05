@@ -6,30 +6,11 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:38:18 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/04 16:48:43 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 17:25:53 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-size_t	node_hash(t_hashtable *htable, t_flow_node *node)
-{
-	return (str_hash(htable, node->alias));
-}
-
-// Performs djb2-hashing of a string.
-size_t	str_hash(t_hashtable *htable, char *str)
-{
-	size_t	hash;
-
-	hash = 5381;
-	while (*str)
-	{
-		hash = ((hash << 5) + hash) + *str;
-		str++;
-	}
-	return (hash % (htable->alloc_size / htable->elem_size));
-}
 
 int	hashtable_from(t_hashtable *dst, t_vec *src)
 {
@@ -52,14 +33,16 @@ int	hashtable_from(t_hashtable *dst, t_vec *src)
 	return (OK);
 }
 
-int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t index)
+int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t orig_index)
 {
 	t_flow_node	*node;
+	size_t		index;
 
 	if (!dst || !src || !dst->memory)
 		return (ERROR);
-	if (index >= dst->len)
+	if (orig_index >= dst->len)
 		return (error(MSG_ERR_HASH_OVER));
+	index = orig_index;
 	while (index < dst->len)
 	{
 		node = vec_get(dst, index);
