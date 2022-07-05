@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:38:18 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/05 15:03:33 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/04 16:48:43 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@ size_t	str_hash(t_hashtable *htable, char *str)
 	return (hash % (htable->alloc_size / htable->elem_size));
 }
 
-// Performs djb2-hashing of raw memory.
-size_t	djb2(t_hashtable *htable, unsigned char *elem)
-{
-	size_t	hash;
-	size_t	i;
-
-	hash = 5381;
-	i = 0;
-	while (i < htable->elem_size)
-	{
-		hash = ((hash << 5) + hash) + elem[i];
-		i++;
-	}
-	return (hash % htable->len);
-}
-
 int	hashtable_from(t_hashtable *dst, t_vec *src)
 {
 	size_t		i;
@@ -62,7 +46,7 @@ int	hashtable_from(t_hashtable *dst, t_vec *src)
 	while (i < src->len)
 	{
 		node = vec_get(src, i);
-		hashtable_put_node(dst, node, djb2(dst, (unsigned char *)node->alias));
+		hashtable_put_node(dst, node, node_hash(dst, node));
 		i++;
 	}
 	return (OK);
@@ -95,12 +79,12 @@ t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
 
 	if (!alias || !src)
 		return (NULL);
-	orig_index = djb2(src, (unsigned char *)alias);
+	orig_index = str_hash(src, alias);
 	index = orig_index;
 	while (index < src->len)
 	{
 		node = vec_get(src, index);
-		if (node->alias && !ft_strcmp(node->alias, alias))
+		if (!ft_strcmp(node->alias, alias))
 			return (node);
 		index++;
 	}
@@ -108,7 +92,7 @@ t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
 	while (index < orig_index)
 	{
 		node = vec_get(src, index);
-		if (node->alias && !ft_strcmp(node->alias, alias))
+		if (!ft_strcmp(node->alias, alias))
 			return (node);
 		index++;
 	}
