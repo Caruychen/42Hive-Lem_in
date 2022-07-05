@@ -6,30 +6,11 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 18:58:14 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 19:01:33 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int	find_flow_node(t_vec *network, const char *alias, long *id)
-{
-	size_t		i;
-	t_flow_node	*node;
-
-	i = 0;
-	while (i < network->len)
-	{
-		node = vec_get(network, i);
-		if (node && node->alias && !ft_strcmp(alias, node->alias))
-		{
-			*id = (long) i;
-			return (TRUE);
-		}
-		i++;
-	}
-	return (FALSE);
-}
 
 int	is_valid_link(t_parser *parser, t_vec *network, long *from, long *to)
 {
