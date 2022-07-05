@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 17:38:18 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/05 18:05:06 by cnysten          ###   ########.fr       */
+/*   Created: 2022/07/05 18:56:41 by cnysten           #+#    #+#             */
+/*   Updated: 2022/07/05 18:57:07 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,33 @@ static int	hashtable_update_element(t_hashtable *dst, void *src, size_t index)
 	return (OK);
 }
 
+long	hashtable_get_node_index(t_hashtable *src,
+		char *alias, size_t orig_index)
+{
+	size_t		index;
+	t_flow_node	*node;
+
+	if (!alias || !src)
+		return (ERROR);
+	index = orig_index;
+	while (index < src->len)
+	{
+		node = vec_get(src, index);
+		if (node->alias && !ft_strcmp(node->alias, alias))
+			return (index);
+		index++;
+	}
+	index = 0;
+	while (index < orig_index)
+	{
+		node = vec_get(src, index);
+		if (node->alias && !ft_strcmp(node->alias, alias))
+			return (index);
+		index++;
+	}
+	return (ERROR);
+}
+
 int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t orig_index)
 {
 	t_flow_node	*node;
@@ -69,28 +96,12 @@ int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t orig_index)
 
 t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
 {
-	size_t		orig_index;
-	size_t		index;
-	t_flow_node	*node;
+	long		index;
 
 	if (!alias || !src)
 		return (NULL);
-	orig_index = str_hash(src, alias);
-	index = orig_index;
-	while (index < src->len)
-	{
-		node = vec_get(src, index);
-		if (node->alias && !ft_strcmp(node->alias, alias))
-			return (node);
-		index++;
-	}
-	index = 0;
-	while (index < orig_index)
-	{
-		node = vec_get(src, index);
-		if (node->alias && !ft_strcmp(node->alias, alias))
-			return (node);
-		index++;
-	}
-	return (NULL);
+	index = hashtable_get_node_index(src, alias, str_hash(src, alias));
+	if (index == ERROR)
+		return (NULL);
+	return (vec_get(src, index));
 }
