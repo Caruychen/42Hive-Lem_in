@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 18:30:34 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 21:51:51 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	get_room(t_parser *parser, t_vec *network)
 		return (ERROR);
 	if (*parser->ptr != '\0')
 		return (ERROR);
-	if (network_add_node(network, alias) == ERROR)
+	if (network_add_node(network, alias, x, y) == ERROR)
 		return (ERROR);
 	if (parser->modification == START)
 		parser->source = alias;

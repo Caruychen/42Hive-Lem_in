@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 11:15:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/05 21:46:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	network_init(t_vec *network)
 	return (vec_new(network, 1, sizeof(t_flow_node)));
 }
 
-int	network_add_node(t_vec *network, char *alias)
+int	network_add_node(t_vec *network, char *alias, int x, int y)
 {
 	t_flow_node	node;
 
-	if (node_make(&node, alias) == ERROR)
+	if (node_make(&node, alias, x, y) == ERROR)
 		return (ERROR);
 	return (vec_push(network, &node));
 }

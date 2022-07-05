@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:50:10 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/05 19:33:27 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 21:55:35 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	test_one_node(void)
 
 	if (!network_init(&network))
 		return ;
-	if (!network_add_node(&network, ft_strdup("zazaa")))
+	if (!network_add_node(&network, ft_strdup("zazaa"), 0, 0))
 		return ;
 	ret = hashtable_from(&htable, &network);
 	assert(ret == OK);
@@ -55,11 +55,11 @@ static void	test_three_nodes(void)
 
 	if (!network_init(&network))
 		return ;
-	if (!network_add_node(&network, ft_strdup("abc")))
+	if (!network_add_node(&network, ft_strdup("abc"), 0, 1))
 		return ;
-	if (!network_add_node(&network, ft_strdup("def")))
+	if (!network_add_node(&network, ft_strdup("def"), 0, 2))
 		return ;
-	if (!network_add_node(&network, ft_strdup("ghi")))
+	if (!network_add_node(&network, ft_strdup("ghi"), 0, 3))
 		return ;
 	ret = hashtable_from(&htable, &network);
 	assert(ret == OK);
