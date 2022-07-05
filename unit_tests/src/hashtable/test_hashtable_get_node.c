@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:51:37 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/04 16:47:20 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/05 15:01:50 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ void	test_hashtable_get_node(void)
 		return ;
 	hashtable_from(&htable, &network);
 	node = hashtable_get_node(&htable, "fdsaasdf");
+	assert(node != NULL);
+	assert(node->alias != NULL);
 	assert(!ft_strcmp(node->alias, "fdsaasdf"));
 	node = hashtable_get_node(&htable, "qpwoeiru");
+	assert(node != NULL);
+	assert(node->alias != NULL);
 	assert(!ft_strcmp(node->alias, "qpwoeiru"));
 	node = hashtable_get_node(&htable, "abababa");
+	assert(node != NULL);
+	assert(node->alias != NULL);
 	assert(!ft_strcmp(node->alias, "abababa"));
 	network_free(&network);
 
