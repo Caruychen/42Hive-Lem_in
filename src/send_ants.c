@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve.c                                            :+:      :+:    :+:   */
+/*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 22:57:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/11 21:38:04 by cnysten          ###   ########.fr       */
+/*   Created: 2022/07/11 21:36:45 by cnysten           #+#    #+#             */
+/*   Updated: 2022/07/11 21:51:03 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	solve(t_vec *network, t_info *info)
+int	send_ants(t_info *info, t_vec *paths)
 {
-	t_vec	paths;
-
-	if (edmonds_karp(network, info, &paths) == ERROR)
-		return (ERROR);
-	if (send_ants(info, &paths) == ERROR)
-		return (ERROR);
+	(void) info;
+	(void) paths;
 	return (OK);
 }

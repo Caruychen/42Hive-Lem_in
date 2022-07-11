@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/11 19:37:34 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/11 21:50:07 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 {
 	long	flow;
 
+	(void) flow;
+	(void) paths;
+	(void) network;
 	info->max_flow = 0;
-	while (True)
+	while (TRUE)
 	{
 		bfs();
 	}
