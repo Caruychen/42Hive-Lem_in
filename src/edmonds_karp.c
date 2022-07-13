@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/12 11:39:00 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/13 10:46:19 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,29 @@ static int	path_init(t_vec *path)
 
 static int	bfs(t_vec *network, t_info *info, t_vec *path)
 {
-	(void) network;
-	(void) info;
+	t_queue		queue;
+	t_flow_node	*current;
+	t_flow_node	*source;
+	t_flow_node	*sink;
+
 	(void) path;
-	return (OK);
+	if (queue_init(&queue, sizeof (t_flow_node *)) == ERROR)
+		return (ERROR);
+	source = hashtable_get_node(network, info->source);
+	sink = hashtable_get_node(network, info->sink);
+	if (!source || !sink || queue_push(&queue, source) == ERROR)
+		return (ERROR);
+	while (queue_has_next(&queue))
+	{
+		current = queue_pop(&queue);
+		if (!current)
+			return (queue_free(&queue), ERROR);
+		if (current == sink)
+			return (queue_free(&queue), OK);
+		//TODO: Store current node in path
+		//TODO: Add current node's children to queue
+	}
+	return ((vec_free(path), queue_free(&queue)), 0);
 }
 
 int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
