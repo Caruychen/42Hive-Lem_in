@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/05 22:59:30 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/13 00:09:16 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "info.h"
 # include "solve.h"
 # include "hashtable.h"
+# include "queue.h"
 
 # define OK 1
 # define TRUE 1
