@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 19:01:33 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/17 17:54:38 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	is_valid_link(t_parser *parser, t_vec *network, long *from, long *to)
 	alias = ft_strsub(parser->line, 0, ptr - parser->line);
 	if (!alias)
 		return (error(MSG_ERROR_MALLOC_VLINK));
-	*from = hashtable_get_node_index(network, alias, str_hash(network, alias));
+	*from = hashtable_get_node_index(network, alias);
 	ft_strdel(&alias);
 	alias = ft_strdup(ptr + 1);
 	if (!alias)
 		return (error(MSG_ERROR_MALLOC_VLINK));
-	*to = hashtable_get_node_index(network, alias, str_hash(network, alias));
+	*to = hashtable_get_node_index(network, alias);
 	ft_strdel(&alias);
 	return (TRUE);
 }
