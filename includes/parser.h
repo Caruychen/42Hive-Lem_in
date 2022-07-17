@@ -6,19 +6,12 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 21:05:40 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 12:48:16 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-
-# define MSG_ERROR_INV_FILE "File did not contain ant number, rooms or links."
-# define MSG_ERROR_INV_LINE "File contained an invalid line."
-# define MSG_ERROR_GNL "Could not get next line."
-# define MSG_ERROR_CHAR_ALIAS "Invalid character in room alias."
-# define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
-# define MSG_ERROR_MOD "Invalid modification."
 
 # include "lem_in.h"
 # include "info.h"
@@ -43,7 +36,6 @@ typedef struct s_parser
 	char	*ptr;
 	t_stage	stage;
 	t_mod	modification;
-	int		gnl_ret;
 	char	*source;
 	char	*sink;
 	int		room_count;
