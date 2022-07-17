@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 19:52:35 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 20:06:15 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,10 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 		while (i < current->edges.len)
 		{
 			edge = node_get(current, i);
-			if (edge->to == current_id)
-			{
-				i++;
-				continue ;
-			}
-			if (edge_has_residual_capacity_to(edge, edge->to))
-			{
-				queue_push(&queue, vec_get(network, edge->to)); // This will also push the edges TO this node
-				vec_push(path, &current_id);
-			}
+			if (edge->to != current_id && edge_has_residual_capacity_to(edge, edge->to))
+				(queue_push(&queue, vec_get(network, edge->to)), vec_push(path, &current_id));
 			i++;
 		}
-		//TODO: Store current node in path
-		//TODO: Add current node's children to queue
 	}
 	return ((vec_free(path), queue_free(&queue)), 0);
 }
