@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/17 11:37:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 11:51:22 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "parser.h"
 # include "info.h"
 # include "error.h"
+# include "pos.h"
 
 # define OK 1
 # define TRUE 1
