@@ -6,10 +6,11 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 18:56:41 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/05 19:30:34 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/17 17:10:40 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hashtable.h"
 #include "lem_in.h"
 
 int	hashtable_from(t_hashtable *dst, t_vec *src)
@@ -41,14 +42,15 @@ static int	hashtable_update_element(t_hashtable *dst, void *src, size_t index)
 	return (OK);
 }
 
-long	hashtable_get_node_index(t_hashtable *src,
-		char *alias, size_t orig_index)
+long	hashtable_get_node_index(t_hashtable *src, char *alias)
 {
 	size_t		index;
+	size_t		orig_index;
 	t_flow_node	*node;
 
 	if (!alias || !src)
 		return (ERROR);
+	orig_index = str_hash(src, alias);
 	index = orig_index;
 	while (index < src->len)
 	{
@@ -102,7 +104,7 @@ t_flow_node	*hashtable_get_node(t_hashtable *src, char *alias)
 
 	if (!alias || !src)
 		return (NULL);
-	index = hashtable_get_node_index(src, alias, str_hash(src, alias));
+	index = hashtable_get_node_index(src, alias);
 	if (index == ERROR)
 		return (NULL);
 	return (vec_get(src, index));
