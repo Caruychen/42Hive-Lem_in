@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/29 14:19:42 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/17 11:47:27 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ int	parse_input(t_vec *network, t_info *info)
 {
 	t_parser	parser;
 
-	parser = (t_parser){NULL, NULL, ANT_NUMBER, NONE, 0, 0, 0, 0, 0, 0};
+	parser = (t_parser){0};
 	while (1)
 	{
-		parser.gnl_ret = get_next_line(0, &parser.line);
-		if (parser.gnl_ret == -1)
+		if (get_next_line(0, &parser.line) == ERROR)
 			return (error(MSG_ERROR_GNL));
 		if (!parser.line)
 			break ;
