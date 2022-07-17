@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/01 17:15:51 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/17 11:42:21 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 static int	get_alias(t_parser *parser, t_vec *network, char **alias)
 {
-	char	*ptr;
-
-	ptr = parser->line;
-	if (*ptr == 'L' || *ptr == ' ')
+	parser->ptr = parser->line;
+	if (*parser->ptr == 'L' || *parser->ptr == ' ')
 		return (error(MSG_ERROR_CHAR_ALIAS));
-	ptr = ft_strchr(ptr, ' ');
-	if (!ptr)
+	parser->ptr = ft_strchr(parser->ptr, ' ');
+	if (!parser->ptr)
 	{
 		if (ft_strchr(parser->line, '-'))
 		{
@@ -29,23 +27,18 @@ static int	get_alias(t_parser *parser, t_vec *network, char **alias)
 		}
 		return (error(MSG_ERROR_INV_LINE));
 	}
-	*alias = ft_strsub(parser->line, 0, ptr - parser->line);
-	parser->ptr = ptr;
+	*alias = ft_strsub(parser->line, 0, parser->ptr - parser->line);
 	return (OK);
 }
 
 static int	get_coordinate(t_parser *parser, int *coord)
 {
-	char	*ptr;
-
-	ptr = parser->ptr;
-	if (!ptr || !*(ptr + 1))
+	if (!parser->ptr || !*(parser->ptr + 1))
 		return (error(MSG_ERROR_INV_LINE));
-	*coord = ft_atoi(ptr + 1);
-	while (*(++ptr) && *ptr != ' ')
-		if (!ft_isdigit(*ptr))
+	*coord = ft_atoi(parser->ptr + 1);
+	while (*(++parser->ptr) && *parser->ptr != ' ')
+		if (!ft_isdigit(*parser->ptr))
 			return (error(MSG_ERROR_INV_LINE));
-	parser->ptr = ptr;
 	return (OK);
 }
 
