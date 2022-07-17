@@ -6,62 +6,119 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/13 10:46:19 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 19:52:35 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "edmonds_karp.h"
+#include "flow_edge.h"
+#include "hashtable.h"
 #include "lem_in.h"
+#include "solve.h"
+#include "vec.h"
 
 static int	path_init(t_vec *path)
 {
 	return (vec_new(path, 1, sizeof(long)));
 }
 
-static int	bfs(t_vec *network, t_info *info, t_vec *path)
+static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 {
-	t_queue		queue;
+	long		current_id;
 	t_flow_node	*current;
-	t_flow_node	*source;
-	t_flow_node	*sink;
+	t_flow_edge	*edge;
+	t_queue		queue;
+	size_t		i;
 
-	(void) path;
-	if (queue_init(&queue, sizeof (t_flow_node *)) == ERROR)
+	if (queue_init(&queue, sizeof (t_flow_node)) == ERROR)
 		return (ERROR);
-	source = hashtable_get_node(network, info->source);
-	sink = hashtable_get_node(network, info->sink);
-	if (!source || !sink || queue_push(&queue, source) == ERROR)
+	if (queue_push(&queue, ek->source) == ERROR)
 		return (ERROR);
 	while (queue_has_next(&queue))
 	{
 		current = queue_pop(&queue);
+		current_id = hashtable_get_node_index(network, current->alias);
 		if (!current)
 			return (queue_free(&queue), ERROR);
-		if (current == sink)
+		if (!ft_strcmp(current->alias, ek->sink->alias))
 			return (queue_free(&queue), OK);
+		i = 0;
+		while (i < current->edges.len)
+		{
+			edge = node_get(current, i);
+			if (edge->to == current_id)
+			{
+				i++;
+				continue ;
+			}
+			if (edge_has_residual_capacity_to(edge, edge->to))
+			{
+				queue_push(&queue, vec_get(network, edge->to)); // This will also push the edges TO this node
+				vec_push(path, &current_id);
+			}
+			i++;
+		}
 		//TODO: Store current node in path
 		//TODO: Add current node's children to queue
 	}
 	return ((vec_free(path), queue_free(&queue)), 0);
 }
 
+static int	update_capacities(t_edm_karp *ek, t_vec *path)
+{
+	long	current;
+	size_t	i;
+
+	current = ek->sink_id;
+	i = 0;
+	while (1)
+	{
+		//Currently this function only prints the path, it doesn't actually update capacities yet
+		current = *(long *)vec_get(path, i);
+		ft_putnbr(current);
+		if (i == path->len - 1)
+			break ;
+		ft_putstr("->");
+		i++;
+		//TODO: reduce capacity of aug path
+		//TODO: increase capacity of backward edges
+		//TODO: while iterating through path keep track of which nodes are in paths
+		// and which nodes are not
+	}
+	ft_putstr("\n");
+	return (OK);
+}
+
+static int	edmonds_karp_init(t_vec *network, t_info *info, t_edm_karp *ek)
+{
+	ek->source_id = hashtable_get_node_index(network, info->source);
+	ek->sink_id = hashtable_get_node_index(network, info->sink);
+	ek->source = hashtable_get_node(network, info->source);
+	ek->sink = hashtable_get_node(network, info->sink);
+	return (OK);
+}
+
 int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 {
-	int		flow;
-	t_vec	path;
+	t_edm_karp	ek;
+	int			flow;
+	t_vec		path;
 
-	(void) paths;
+	edmonds_karp_init(network, info, &ek);
 	info->max_flow = 0;
 	while (TRUE)
 	{
 		if (path_init(&path) == ERROR)
 			return (ERROR);
-		flow = bfs(network, info, &path);
+		flow = bfs(network, &ek, &path);
 		if (flow == 0)
 			break ;
 		info->max_flow += flow;
-		//TODO: iterate through path, set flow for each edge in the path
-		//TODO: while iterating through path keep track of which nodes are in paths
-		// and which nodes are not
+		vec_push(&path, &ek.sink_id);
+		if (vec_push(paths, &path) == ERROR)
+			return (ERROR);
+		update_capacities(&ek, &path);
+		break ;
 	}
 	return (OK);
 }
