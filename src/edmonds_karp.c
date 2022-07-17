@@ -6,12 +6,13 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 20:06:15 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 20:54:19 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "edmonds_karp.h"
 #include "flow_edge.h"
+#include "flow_node.h"
 #include "hashtable.h"
 #include "lem_in.h"
 #include "solve.h"
@@ -54,18 +55,22 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 	return ((vec_free(path), queue_free(&queue)), 0);
 }
 
-static int	update_capacities(t_edm_karp *ek, t_vec *path)
+static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
 {
-	long	current;
-	size_t	i;
+	t_flow_edge	*edge;
+	long		current;
+	size_t		i;
 
 	current = ek->sink_id;
-	i = 0;
+	ft_putstr(ek->source->alias);
+	ft_putstr("->");
+	i = 1;
 	while (1)
 	{
-		//Currently this function only prints the path, it doesn't actually update capacities yet
 		current = *(long *)vec_get(path, i);
-		ft_putnbr(current);
+		edge = node_get(vec_get(network, current), 0);
+		edge_augment_flow_to(edge, current);
+		ft_putstr(((t_flow_node *)vec_get(network, current))->alias);
 		if (i == path->len - 1)
 			break ;
 		ft_putstr("->");
@@ -107,8 +112,7 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 		vec_push(&path, &ek.sink_id);
 		if (vec_push(paths, &path) == ERROR)
 			return (ERROR);
-		update_capacities(&ek, &path);
-		break ;
+		update_capacities(network, &ek, &path);
 	}
 	return (OK);
 }
