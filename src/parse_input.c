@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/05 21:08:49 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 12:41:00 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	parse_input(t_vec *network, t_info *info)
 	parser = (t_parser){0};
 	while (1)
 	{
-		parser.gnl_ret = get_next_line(0, &parser.line);
-		if (parser.gnl_ret == -1)
+		if (get_next_line(0, &parser.line) == ERROR)
 			return (error(MSG_ERROR_GNL));
 		if (!parser.line)
 			break ;

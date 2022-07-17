@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/13 00:09:16 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/17 13:00:28 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@
 # include "solve.h"
 # include "hashtable.h"
 # include "queue.h"
+# include "error.h"
+# include "pos.h"
 
 # define OK 1
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
-
-# define MSG_ERR_NETWORK_INIT "Could not initialize flow network."
-
-int	error(char *msg);
 
 #endif
