@@ -6,40 +6,17 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 12:49:03 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/18 13:41:01 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdio.h>
 
-static int	hash_network(t_vec *network)
+static int	get_alias(t_parser *parser, char **alias)
 {
-	t_hashtable	htable;
-
-	htable = (t_hashtable){0};
-	if (hashtable_from(&htable, network) == ERROR)
-		return (ERROR);
-	network_free(network);
-	*network = htable;
-	return (OK);
-}
-
-static int	get_alias(t_parser *parser, t_vec *network, char **alias)
-{
-	parser->ptr = parser->line;
-	if (*parser->ptr == 'L' || *parser->ptr == ' ')
+	if (*parser->line == 'L' || *parser->line == ' ')
 		return (error(MSG_ERROR_CHAR_ALIAS));
-	parser->ptr = ft_strchr(parser->ptr, ' ');
-	if (!parser->ptr)
-	{
-		if (ft_strchr(parser->line, '-'))
-		{
-			hash_network(network);
-			parser->stage = LINKS;
-			return (get_link(parser, network));
-		}
-		return (error(MSG_ERROR_INV_LINE));
-	}
 	*alias = ft_strsub(parser->line, 0, parser->ptr - parser->line);
 	return (OK);
 }
@@ -55,16 +32,37 @@ static int	get_coordinate(t_parser *parser, int *coord)
 	return (OK);
 }
 
+static int is_finished(t_parser *parser)
+{
+	parser->ptr = ft_strchr(parser->line, ' ');
+	if (parser->ptr)
+		return (FALSE);
+	return (TRUE);
+}
+
+static int	start_links(t_parser *parser, t_vec *network)
+{
+	t_hashtable	htable;
+
+	if (!ft_strchr(parser->line, '-'))
+		return (error(MSG_ERROR_INV_LINE));
+	htable = (t_hashtable){0};
+	if (hashtable_from(&htable, network) == ERROR)
+		return (ERROR);
+	parser->stage = LINKS;
+	return (get_link(parser, network));
+}
+
 int	get_room(t_parser *parser, t_vec *network)
 {
 	char	*alias;
 	int		x;
 	int		y;
 
-	if (get_alias(parser, network, &alias) == ERROR)
+	if (is_finished(parser))
+		return (start_links(parser, network));
+	if (get_alias(parser, &alias) == ERROR)
 		return (ERROR);
-	if (parser->stage == LINKS)
-		return (OK);
 	if (get_coordinate(parser, &x) == ERROR)
 		return (ERROR);
 	if (get_coordinate(parser, &y) == ERROR)
