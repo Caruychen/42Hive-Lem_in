@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 18:56:41 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/18 15:51:02 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/17 17:10:40 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	hashtable_from(t_hashtable *dst, t_vec *src)
 {
-	size_t		network_index;
+	size_t		i;
 	t_flow_node	*node;
 
 	if (!dst || !src)
@@ -24,12 +24,14 @@ int	hashtable_from(t_hashtable *dst, t_vec *src)
 		return (ERROR);
 	ft_bzero(dst->memory, dst->alloc_size);
 	dst->len = dst->alloc_size / dst->elem_size;
-	network_index = 0;
-	while (network_index < src->len)
+	i = 0;
+	while (i < src->len)
 	{
-		node = vec_get(src, network_index);
-		hashtable_put_node(dst, network_index, node_hash(dst, node));
-		network_index++;
+		node = vec_get(src, i);
+		hashtable_put_node(dst, node, node_hash(dst, node));
+		node->alias = NULL;
+		node->edges = (t_vec){0};
+		i++;
 	}
 	return (OK);
 }
@@ -38,24 +40,6 @@ static int	hashtable_update_element(t_hashtable *dst, void *src, size_t index)
 {
 	ft_memcpy(&dst->memory[dst->elem_size * index], src, dst->elem_size);
 	return (OK);
-}
-
-static size_t	probe(size_t *start, size_t end, t_hashtable *htable, char *alias)
-{
-	size_t		index;
-	t_flow_node	*node;
-
-	index = *start;
-	while (index < end)
-	{
-		node = vec_get(htable, index);
-		if (alias && node->alias && ft_strcmp(node->alias, alias))
-				return (*start = index);
-		if (!alias && !node)
-				return (*start = index);
-		index++;
-	}
-	return (*start = index);
 }
 
 long	hashtable_get_node_index(t_hashtable *src, char *alias)
@@ -68,34 +52,47 @@ long	hashtable_get_node_index(t_hashtable *src, char *alias)
 		return (ERROR);
 	orig_index = str_hash(src, alias);
 	index = orig_index;
-	if (probe(&index, src->len, src, alias) < src->len)
-		return (index);
+	while (index < src->len)
+	{
+		node = vec_get(src, index);
+		if (node->alias && !ft_strcmp(node->alias, alias))
+			return (index);
+		index++;
+	}
 	index = 0;
-	if (probe(&index, orig_index, src, alias) < orig_index)
-		return (index);
+	while (index < orig_index)
+	{
+		node = vec_get(src, index);
+		if (node->alias && !ft_strcmp(node->alias, alias))
+			return (index);
+		index++;
+	}
 	return (ERROR);
 }
 
-int	hashtable_put_node(t_hashtable *dst, size_t network_index, size_t orig_index)
+int	hashtable_put_node(t_hashtable *dst, t_flow_node *src, size_t orig_index)
 {
+	t_flow_node	*node;
 	size_t		index;
 
-	if (!dst || !dst->memory)
+	if (!dst || !src || !dst->memory)
 		return (ERROR);
 	if (orig_index >= dst->len)
 		return (error(MSG_ERR_HASH_OVER));
 	index = orig_index;
 	while (index < dst->len)
 	{
-		if (!vec_get(dst, index)->alias)
-			return (hashtable_update_element(dst, network_index, index));
+		node = vec_get(dst, index);
+		if (!node->alias)
+			return (hashtable_update_element(dst, src, index));
 		index++;
 	}
 	index = 0;
 	while (index < orig_index)
 	{
-		if (!vec_get(dst, index)->alias)
-			return (hashtable_update_element(dst, network_index, index));
+		node = vec_get(dst, index);
+		if (!node->alias)
+			return (hashtable_update_element(dst, src, index));
 		index++;
 	}
 	return (error(MSG_ERR_HASHTABLE_FULL));
