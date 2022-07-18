@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pos.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 19:09:25 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/07/17 11:50:00 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/07/17 11:51:10 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_test.h"
+#ifndef POS_H
+# define POS_H
 
-int	main(void)
+typedef struct s_pos
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	return (0);
-}
+	int	x;
+	int	y;
+}	t_pos;
+
+#endif

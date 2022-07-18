@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   info.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 19:09:25 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/27 21:17:07 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/06/27 21:17:36 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_test.h"
+#ifndef INFO_H
+# define INFO_H
 
-int	main(void)
+typedef struct s_info
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	return (0);
-}
+	long	source;
+	long	sink;
+	long	n_ants;
+}	t_info;
+
+#endif

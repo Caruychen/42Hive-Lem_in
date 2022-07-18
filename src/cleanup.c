@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 19:09:25 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/24 11:13:07 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/06/26 23:58:42 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_test.h"
+#include "lem_in.h"
 
-int	main(void)
+int	error(char *msg)
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	return (0);
+	ft_putendl_fd(msg, 2);
+	return (ERROR);
 }
