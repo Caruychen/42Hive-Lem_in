@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/19 14:12:49 by cnysten          ###   ########.fr        #
+#    Updated: 2022/07/19 15:31:12 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRCS += $(SRC_DIR)/solve.c
 SRCS += $(SRC_DIR)/edmonds_karp.c
 SRCS += $(SRC_DIR)/send_ants.c
 SRCS += $(SRC_DIR)/queue.c
+SRCS += $(SRC_DIR)/parent_array.c
+SRCS += $(SRC_DIR)/debug.c
 
 OBJ_DIR := ./obj
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

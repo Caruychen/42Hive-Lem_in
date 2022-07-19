@@ -6,41 +6,16 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/19 13:20:02 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/19 15:36:39 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edmonds_karp.h"
-#include "flow_edge.h"
-#include "flow_node.h"
-#include "ft_printf.h"
-#include "hashtable.h"
 #include "lem_in.h"
-#include "solve.h"
-#include "vec.h"
-
-// Creates an array of the size of n (number of nodes in the graph)
-// filled with -1's and a -2 for the source.
-static int	path_init(t_vec *network, long source_id, t_vec *path)
-{
-	size_t	i;
-
-	if (vec_new(path, network->len, sizeof(long)) == ERROR)
-		return (ERROR);
-	path->len = network->len;
-	i = 0;
-	while (i < path->len)
-	{
-		((long *)path->memory)[i] = -1;
-		i++;
-	}
-	((long *)path->memory)[source_id] = -2;
-	return (OK);
-}
 
 static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 {
 	long		current_id;
+	long		other_id;
 	t_flow_node	*current;
 	t_flow_edge	*edge;
 	t_queue		queue;
@@ -62,10 +37,13 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 		while (i < current->edges.len)
 		{
 			edge = node_get(current, i);
-			if (edge->to != current_id && edge_has_residual_capacity_to(edge, edge->to))
+			other_id = edge_other(edge, current_id);
+			if (has_no_parent(path, other_id) && edge_has_residual_capacity_to(edge, other_id))
 			{
-				queue_push(&queue, vec_get(network, edge->to));
-				((long *)path->memory)[edge->to] = current_id;
+				queue_push(&queue, vec_get(network, other_id));
+				parent_array_update(path, other_id, current_id);
+				if (other_id == ek->sink_id)
+					return (queue_free(&queue), OK);
 			}
 			i++;
 		}
@@ -134,22 +112,22 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 {
 	t_edm_karp	ek;
 	int			flow;
-	t_vec		path;
+	t_vec		parent_array;
 
 	edmonds_karp_init(network, info, &ek);
 	info->max_flow = 0;
 	while (TRUE)
 	{
-		if (path_init(network, ek.source_id, &path) == ERROR)
+		if (parent_array_init(network, ek.source_id, &parent_array) == ERROR)
 			return (ERROR);
-		flow = bfs(network, &ek, &path);
+		flow = bfs(network, &ek, &parent_array);
 		if (flow == 0)
 			break ;
 		info->max_flow += flow;
-		vec_push(&path, &ek.sink_id);
-		if (vec_push(paths, &path) == ERROR)
+		debug_parent_array_print(&parent_array, network, ek.sink_id);
+		if (vec_push(paths, &parent_array) == ERROR)
 			return (ERROR);
-		update_capacities(network, &ek, &path);
+		update_capacities(network, &ek, &parent_array);
 	}
 	return (OK);
 }

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/17 16:09:17 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/19 15:32:41 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "error.h"
 # include "pos.h"
 # include "edmonds_karp.h"
+# include "parent_array.h"
+# include "debug.h"
 
 # define OK 1
 # define TRUE 1
