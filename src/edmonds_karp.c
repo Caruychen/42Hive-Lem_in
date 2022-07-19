@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 20:54:19 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/19 09:12:38 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,23 @@
 #include "solve.h"
 #include "vec.h"
 
-static int	path_init(t_vec *path)
+// Creates an array of the size of n (number of nodes in the graph)
+// filled with -1's and a -2 for the source.
+static int	path_init(t_vec *network, long source_id, t_vec *path)
 {
-	return (vec_new(path, 1, sizeof(long)));
+	size_t	i;
+
+	if (vec_new(path, network->len, sizeof(long)) == ERROR)
+		return (ERROR);
+	path->len = network->len;
+	i = 0;
+	while (i < path->len)
+	{
+		((long *)path->memory)[i] = -1;
+		i++;
+	}
+	((long *)path->memory)[source_id] = -2;
+	return (OK);
 }
 
 static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
@@ -41,14 +55,17 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 		current_id = hashtable_get_node_index(network, current->alias);
 		if (!current)
 			return (queue_free(&queue), ERROR);
-		if (!ft_strcmp(current->alias, ek->sink->alias))
+		if (!ft_strcmp(current->alias, ek->sink->alias)) // make this use id
 			return (queue_free(&queue), OK);
 		i = 0;
 		while (i < current->edges.len)
 		{
 			edge = node_get(current, i);
 			if (edge->to != current_id && edge_has_residual_capacity_to(edge, edge->to))
-				(queue_push(&queue, vec_get(network, edge->to)), vec_push(path, &current_id));
+			{
+				queue_push(&queue, vec_get(network, edge->to));
+				((long *)path->memory)[edge->to] = current_id;
+			}
 			i++;
 		}
 	}
@@ -103,7 +120,7 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 	info->max_flow = 0;
 	while (TRUE)
 	{
-		if (path_init(&path) == ERROR)
+		if (path_init(network, ek.source_id, &path) == ERROR)
 			return (ERROR);
 		flow = bfs(network, &ek, &path);
 		if (flow == 0)
