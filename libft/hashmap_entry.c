@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:56:11 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 14:22:38 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 14:26:53 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ t_entry	*hashmap_entry(t_hashmap *src, char *key)
 	unsigned long	end;
 	t_entry			*entry;
 
-	if (!src || !key)
-		return (-1);
-	if (!src->capacity || !src->len)
+	if (!src || !key || !src->capacity || !src->len)
 		return (NULL);
 	index = hashmap_hasher(src, key);
 	end = src->capacity + index;
