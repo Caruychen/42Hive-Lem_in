@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:35:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 17:18:53 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 22:20:25 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ static int	_guards(t_hashmap *dst, char *key)
 	return (HASH_OK);
 }
 
-static inline size_t	_hash_index(size_t index, size_t capacity)
-{
-	return (index - (capacity * (index >= capacity)));
-}
-
 static t_entry	*_new_entry(t_hashmap *dst, t_entry new_entry, size_t index)
 {
 	t_entry	*entry_ptr;
@@ -67,7 +62,7 @@ t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 	available_index = dst->capacity;
 	while (index < end)
 	{
-		hash_index = _hash_index(index, dst->capacity);
+		hash_index = index % dst->capacity;
 		entry = &(dst->entries[hash_index]);
 		if (entry->key && !ft_strcmp(entry->key, key))
 			return (entry->value = value, entry);
