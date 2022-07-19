@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 12:54:47 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 13:49:52 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 13:52:37 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * reallocating. If capacity is 0, the hash map will not allocate
  */
 
-#include "ft_string.h"
+#include "ft_stdlib.h"
 #include "hashmap.h"
 
 int	hashmap_new_with_capacity(t_hashmap *dst, size_t capacity)
