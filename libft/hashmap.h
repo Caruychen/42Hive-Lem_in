@@ -6,13 +6,15 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 13:50:55 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 14:25:05 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASHMAP_H
 # define HASHMAP_H
 
+# define HASH_OK 1
+# define HASH_ERR -1
 # define MSG_ERR_HASH_OVER "Error: Hash value out of bounds."
 # define MSG_ERR_HASHMAP_FULL "Error: Hashmap full, couldn't add element."
 # define DJB2_SEED 5281
