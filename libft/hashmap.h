@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 16:46:22 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 22:33:31 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_entry			hashmap_create_entry(char *key, int value);
 unsigned long	hashmap_hasher(t_hashmap *dst, char *str);
 int				hashmap_new(t_hashmap *dst);
 int				hashmap_new_with_capacity(t_hashmap *dst, size_t capacity);
+size_t			hashmap_find_slot(t_hashmap *src, char *key);
 t_entry			*hashmap_entry(t_hashmap *src, char *key);
 int				*hashmap_get(t_hashmap *src, char *key);
 t_entry			*hashmap_insert(t_hashmap *dst, char	*key, int value);
