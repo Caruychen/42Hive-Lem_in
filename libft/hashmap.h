@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 11:58:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 13:50:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define MSG_ERR_HASHMAP_FULL "Error: Hashmap full, couldn't add element."
 # define DJB2_SEED 5281
 
-typedef struct	s_entry
+typedef struct s_entry
 {
 	char	*key;
 	int		value;
