@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 12:54:47 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 14:25:48 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 16:35:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	hashmap_new_with_capacity(t_hashmap *dst, size_t capacity)
 	dst->len = 0;
 	if (capacity == 0)
 		return (dst->entries = NULL, 0);
-	dst->entries = (t_entry *) ft_memalloc(capacity * sizeof(t_entry *));
+	dst->entries = (t_entry *) ft_memalloc(capacity * sizeof(t_entry));
 	if (!dst->entries)
 		return (dst->capacity = 0, HASH_ERR);
 	return (HASH_OK);
