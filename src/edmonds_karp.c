@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/19 15:36:39 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/19 15:50:06 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,51 +51,22 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 	return ((vec_free(path), queue_free(&queue)), 0);
 }
 
-static void	path_print(t_vec *path, t_vec *network, long sink_id)
-{
-	long	node_id;
-
-	ft_putendl("Path found (from sink to source):");
-	node_id = sink_id;
-	while (1)
-	{
-		ft_printf("%i", node_id);
-		ft_printf("(%s)", ((t_flow_node *)vec_get(network, node_id))->alias);
-		ft_putchar(' ');
-		node_id = ((long *)path->memory)[node_id];
-		if (node_id < 0 || (size_t) node_id > network->len)
-			break ;
-		ft_printf("-> ");
-	}
-	ft_putchar('\n');
-}
-
 static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
 {
 	t_flow_edge	*edge;
 	long		current;
-	size_t		i;
+	long		parent;
 
 	current = ek->sink_id;
-	ft_putstr(ek->source->alias);
-	ft_putstr("->");
-	i = 1;
 	while (1)
 	{
-		current = *(long *)vec_get(path, i);
-		edge = node_get(vec_get(network, current), 0);
+		parent = *(long *)vec_get(path, current);
+		edge = node_get_edge_between(vec_get(network, parent), current);
 		edge_augment_flow_to(edge, current);
-		ft_putstr(((t_flow_node *)vec_get(network, current))->alias);
-		if (i == path->len - 1)
+		if (parent == ek->source_id)
 			break ;
-		ft_putstr("->");
-		i++;
-		//TODO: reduce capacity of aug path
-		//TODO: increase capacity of backward edges
-		//TODO: while iterating through path keep track of which nodes are in paths
-		// and which nodes are not
+		current = parent;
 	}
-	ft_putstr("\n");
 	return (OK);
 }
 
