@@ -6,13 +6,14 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/19 09:34:07 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/19 13:20:02 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "edmonds_karp.h"
 #include "flow_edge.h"
 #include "flow_node.h"
+#include "ft_printf.h"
 #include "hashtable.h"
 #include "lem_in.h"
 #include "solve.h"
@@ -70,6 +71,25 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 		}
 	}
 	return ((vec_free(path), queue_free(&queue)), 0);
+}
+
+static void	path_print(t_vec *path, t_vec *network, long sink_id)
+{
+	long	node_id;
+
+	ft_putendl("Path found (from sink to source):");
+	node_id = sink_id;
+	while (1)
+	{
+		ft_printf("%i", node_id);
+		ft_printf("(%s)", ((t_flow_node *)vec_get(network, node_id))->alias);
+		ft_putchar(' ');
+		node_id = ((long *)path->memory)[node_id];
+		if (node_id < 0 || (size_t) node_id > network->len)
+			break ;
+		ft_printf("-> ");
+	}
+	ft_putchar('\n');
 }
 
 static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
