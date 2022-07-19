@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/19 09:12:38 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/19 09:34:07 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 		current_id = hashtable_get_node_index(network, current->alias);
 		if (!current)
 			return (queue_free(&queue), ERROR);
-		if (!ft_strcmp(current->alias, ek->sink->alias)) // make this use id
+		if (current_id == ek->sink_id)
 			return (queue_free(&queue), OK);
 		i = 0;
 		while (i < current->edges.len)
