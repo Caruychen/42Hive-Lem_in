@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/13 00:34:31 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/07/19 14:12:49 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_DIR := ./src
 SRCS := $(SRC_DIR)/main.c
 SRCS += $(SRC_DIR)/parse_input.c
 SRCS += $(SRC_DIR)/cleanup.c
+SRCS += $(SRC_DIR)/edge_list.c
 SRCS += $(SRC_DIR)/flow_edge.c
 SRCS += $(SRC_DIR)/flow_network.c
 SRCS += $(SRC_DIR)/flow_node.c
