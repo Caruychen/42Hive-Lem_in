@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:04:24 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/05 21:46:33 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/19 15:50:52 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,20 @@ void	node_free(t_flow_node *node)
 		ft_strdel(&(node->alias));
 	if (node->edges.memory != NULL)
 		vec_free(&(node->edges));
+}
+
+t_flow_edge	*node_get_edge_between(t_flow_node *node, long other)
+{
+	size_t		i;
+	t_flow_edge	*edge;
+
+	i = 0;
+	while (i < node->edges.len)
+	{
+		edge = edge_list_get(&node->edges, i);
+		if (edge->to == other || edge->from == other)
+			return (edge);
+		i++;
+	}
+	return (NULL);
 }

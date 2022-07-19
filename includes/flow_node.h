@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/05 21:51:14 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/19 15:50:46 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int			node_make(t_flow_node *node, char *alias, int x, int y);
 int			node_push(t_flow_node *node, t_flow_edge *edge);
 t_flow_edge	*node_get(t_flow_node *node, size_t index);
 void		node_free(t_flow_node *node);
+t_flow_edge	*node_get_edge_between(t_flow_node *node, long other);
 
 #endif
