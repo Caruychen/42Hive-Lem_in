@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:35:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 17:10:12 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/19 17:18:53 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
  * updated. It will return a pointer to the entry that was updated.
  */
 
-#include "hashmap.c"
+#include "hashmap.h"
 
 static int	_guards(t_hashmap *dst, char *key)
 {
 	if (!dst || !key)
 		return (HASH_ERR);
-	if (!dst->capacity && hashmap_new_with_capacity(dst, HASH_NEW_CAPACITY) == HASH_ERR)
+	if (!dst->capacity && hashmap_new_with_capacity(dst, HASH_NEW_CAPACITY)
+		== HASH_ERR)
 		return (HASH_ERR);
 	if (!dst->entries)
 		return (HASH_ERR);
@@ -35,9 +36,20 @@ static int	_guards(t_hashmap *dst, char *key)
 	return (HASH_OK);
 }
 
-static inline size_t _hash_index(size_t index, size_t capacity)
+static inline size_t	_hash_index(size_t index, size_t capacity)
 {
 	return (index - (capacity * (index >= capacity)));
+}
+
+static t_entry	*_new_entry(t_hashmap *dst, t_entry new_entry, size_t index)
+{
+	t_entry	*entry_ptr;
+
+	entry_ptr = &(dst->entries[index]);
+	*entry_ptr = new_entry;
+	if (!entry_ptr->key)
+		return (NULL);
+	return (dst->len++, entry);
 }
 
 t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
@@ -46,7 +58,7 @@ t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 	size_t	hash_index;
 	size_t	available_index;
 	size_t	end;
-	t_entry			*entry;
+	t_entry	*entry;
 
 	if (_guards(dst, key) == HASH_ERR)
 		return (NULL);
@@ -63,10 +75,5 @@ t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 			available_index = hash_index;
 		index++;
 	}
-	entry = &(dst->entries[available_index]);
-	*entry = hashmap_create_entry(key, value);
-	if (!entry->key)
-		return (NULL);
-	dst->len++;
-	return (entry);
+	return (_new_entry(dst, hashmap_create_entry(key, value), available_index));
 }
