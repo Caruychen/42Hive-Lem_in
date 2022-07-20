@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:33:12 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 12:55:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define HASH_ERR -1
 # define MSG_ERR_HASH_OVER "Error: Hash value out of bounds."
 # define MSG_ERR_HASHMAP_FULL "Error: Hashmap full, couldn't add element."
+# define MSG_ERR_NO_KEY "Error: Key not found in Hashmap."
+# define MSG_ERR_HASHMAP_EMTPY "Error: Hashmap empty."
 # define DJB2_SEED 5281
 # define HASH_NEW_CAPACITY 2
 
@@ -27,6 +29,7 @@ typedef struct s_entry
 }	t_entry;
 
 t_entry			hashmap_create_entry(char *key, int value);
+int				hashmap_free_entry(t_entry *entry);
 
 typedef struct s_hashmap
 {
