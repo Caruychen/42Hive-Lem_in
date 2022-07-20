@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:35:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:38:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:38:36 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
  * updated. It will return a pointer to the entry that was updated.
  */
 
+#include "ft_stdio.h"
 #include "hashmap.h"
 
 static int	_guards(t_hashmap *dst, char *key)
@@ -36,14 +37,6 @@ static int	_guards(t_hashmap *dst, char *key)
 	return (HASH_OK);
 }
 
-static t_entry	*_write_entry(t_entry *entry, char *key, int value)
-{
-	*entry = hashmap_create_entry(key, value);
-	if (!entry->key)
-		return (NULL);
-	return (dst->len++, entry);
-}
-
 t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 {
 	size_t	index;
@@ -55,5 +48,8 @@ t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 	entry = &(dst->entries[index]);
 	if (entry->key)
 		return (entry->value = value, entry);
-	return (_write_entry(entry, key, value));
+	*entry = hashmap_create_entry(key, value);
+	if (!entry->key)
+		return (NULL);
+	return (dst->len++, entry);
 }
