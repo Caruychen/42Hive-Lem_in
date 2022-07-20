@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:27:51 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 15:42:16 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 15:52:37 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void	test_hashmap_create_entry(void)
 	test_set(&entry, "", 0);
 	test_set(&entry, "-1", -1);
 	test_set(&entry, "1", 1);
+	ft_putendl("");
 }
