@@ -31,7 +31,7 @@ static int	enqueue_children(t_vec *network, t_edm_karp *ek, t_queue *queue)
 				return (ERROR);
 			parent_array_update(&ek->parent_array, ek->other_id, ek->current_id);
 			if (ek->other_id == ek->sink_id)
-				return (OK);
+				return (ek->path_found = TRUE, OK);
 		}
 		i++;
 	}
@@ -42,6 +42,7 @@ static int	bfs(t_vec *network, t_edm_karp *ek)
 {
 	t_queue		queue;
 
+	ek->path_found = FALSE;
 	if (queue_init(&queue, sizeof (t_flow_node)) == ERROR)
 		return (ERROR);
 	if (queue_push(&queue, ek->source) == ERROR)
@@ -54,7 +55,7 @@ static int	bfs(t_vec *network, t_edm_karp *ek)
 			return (queue_free(&queue), ERROR);
 		if (enqueue_children(network, ek, &queue) == ERROR)
 			return (ERROR);
-		if (ek->other_id == ek->sink_id)
+		if (ek->path_found == TRUE)
 			return (queue_free(&queue), OK);
 	}
 	return ((vec_free(&ek->parent_array), queue_free(&queue)), 0);

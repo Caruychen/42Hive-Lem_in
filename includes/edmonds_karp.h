@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:07:53 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 11:55:47 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:37:18 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_edm_karp
 	long		current_id;
 	long		other_id;
 	t_vec		parent_array;
+	int			path_found;
 }	t_edm_karp;
 
 #endif
