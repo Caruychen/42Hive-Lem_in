@@ -59,6 +59,8 @@ static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
 	while (1)
 	{
 		parent = *(long *)vec_get(path, current);
+		if (!parent)
+			return (error(MSG_ERR_NULL_PARENT));
 		edge = node_get_edge_between(vec_get(network, parent), current);
 		if (!edge)
 			return (error(MSG_ERR_NULL_EDGE));
