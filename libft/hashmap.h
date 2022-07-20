@@ -6,12 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:25:23 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:28:17 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASHMAP_H
 # define HASHMAP_H
+
+# include <string.h>
 
 # define HASH_OK 1
 # define HASH_ERR -1
