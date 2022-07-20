@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:26:01 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:35:10 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:38:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ t_entry	*hashmap_try_insert(t_hashmap *dst, char *key, int value)
 	entry = &(dst->entries[index]);
 	if (entry->key)
 		return (NULL);
-	return (_write_entry(entry, key, value);
+	return (_write_entry(entry, key, value));
 }

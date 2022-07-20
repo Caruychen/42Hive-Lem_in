@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:35:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:18:32 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:38:50 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ static int	_guards(t_hashmap *dst, char *key)
 	return (HASH_OK);
 }
 
+static t_entry	*_write_entry(t_entry *entry, char *key, int value)
+{
+	*entry = hashmap_create_entry(key, value);
+	if (!entry->key)
+		return (NULL);
+	return (dst->len++, entry);
+}
+
 t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 {
 	size_t	index;
@@ -47,8 +55,5 @@ t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 	entry = &(dst->entries[index]);
 	if (entry->key)
 		return (entry->value = value, entry);
-	*entry = hashmap_create_entry(key, value);
-	if (!entry->key)
-		return (NULL);
-	return (dst->len++, entry);
+	return (_write_entry(entry, key, value));
 }
