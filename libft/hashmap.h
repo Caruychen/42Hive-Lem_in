@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 22:33:31 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:19:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_entry
 	int		value;
 }	t_entry;
 
+t_entry			hashmap_create_entry(char *key, int value);
+
 typedef struct s_hashmap
 {
 	t_entry	*entries;
@@ -34,7 +36,6 @@ typedef struct s_hashmap
 }	t_hashmap;
 
 
-t_entry			hashmap_create_entry(char *key, int value);
 unsigned long	hashmap_hasher(t_hashmap *dst, char *str);
 int				hashmap_new(t_hashmap *dst);
 int				hashmap_new_with_capacity(t_hashmap *dst, size_t capacity);
