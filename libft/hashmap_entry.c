@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:56:11 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 14:26:53 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:23:19 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,13 @@
 
 t_entry	*hashmap_entry(t_hashmap *src, char *key)
 {
-	unsigned long	index;
-	unsigned long	hash_index;
-	unsigned long	end;
-	t_entry			*entry;
+	size_t	index;
+	t_entry	*entry;
 
 	if (!src || !key || !src->capacity || !src->len)
 		return (NULL);
-	index = hashmap_hasher(src, key);
-	end = src->capacity + index;
-	while (index < end)
-	{
-		hash_index = index - (src->capacity * (index >= src->capacity));
-		entry = &(src->entries[hash_index]);
-		if (entry && !ft_strcmp(entry->key, key))
-			return (entry);
-		index++;
-	}
-	return (NULL);
+	index = hashmap_find_slot(src, key);
+	entry = &(src->entries[index]);
+	if (entry->key)
+		return (entry);
 }
