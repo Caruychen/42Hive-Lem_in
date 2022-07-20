@@ -60,7 +60,10 @@ static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
 	{
 		parent = *(long *)vec_get(path, current);
 		edge = node_get_edge_between(vec_get(network, parent), current);
-		edge_augment_flow_to(edge, current);
+		if (!edge)
+			return (error(MSG_ERR_NULL_EDGE));
+		if (edge_augment_flow_to(edge, current) == ERROR)
+			return (error(MSG_ERR_AUG_FLOW));
 		if (parent == ek->source_id)
 			break ;
 		current = parent;
