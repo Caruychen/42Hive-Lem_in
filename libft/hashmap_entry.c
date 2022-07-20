@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:56:11 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:23:19 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:25:16 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ t_entry	*hashmap_entry(t_hashmap *src, char *key)
 	entry = &(src->entries[index]);
 	if (entry->key)
 		return (entry);
+	return (NULL);
 }
