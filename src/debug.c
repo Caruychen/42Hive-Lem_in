@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:20:12 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/19 15:29:31 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:15:48 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,3 @@ void	debug_parent_array_print(t_vec *path, t_vec *network, long sink_id)
 	}
 	ft_putchar('\n');
 }
-
