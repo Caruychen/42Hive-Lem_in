@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:48:27 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 15:53:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 16:36:30 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <assert.h>
 # include <string.h>
+# include <limits.h>
 # include "hashmap.h"
 # include "ft_stdio.h"
 

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:53:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 16:32:48 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 16:49:46 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,13 @@ void	test_hashmap_insert(void)
 	assert(hashmap.capacity == 0);
 	assert(hashmap.len == 0);
 	assert(hashmap.entries == NULL);
+
+	ft_printf("With large capacity = 100000000: ");
+	assert(hashmap_new_with_capacity(&hashmap, 100000000) == HASH_OK);
+	t_entry *entry = hashmap_insert(&hashmap, "Hello World", 42);
+	assert(hashmap.entries != NULL);
+	assert(hashmap.capacity == 100000000);
+	assert(hashmap.len == 1);
+	validate_entry(entry, "Hello World", 42); 
+	ft_printf("OK\n");
 }
