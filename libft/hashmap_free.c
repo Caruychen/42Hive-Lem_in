@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:06:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:24:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:33:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
  * Frees hashmap and clears memory
  */
 
+#include <stdlib.h>
 #include "hashmap.h"
 
 void	hashmap_free(t_hashmap *src)
