@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:40:04 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:10:12 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:26:25 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	_shift_completed(t_hashmap *dst, size_t index, size_t *next)
 	{
 		*next = (*next + 1) % dst->capacity;
 		if (!dst->entries[*next].key)
-			break;
+			break ;
 		hash = hashmap_hasher(dst, dst->entries[next].key);
-		if ((index <= *next && (hash <= index || *next < hash)) ||
-			(index > *next && hash <= index && *next < hash))
+		if ((index <= *next && (hash <= index || *next < hash))
+			|| (index > *next && hash <= index && *next < hash))
 			res = 0;
 	}
 	return (res);
@@ -67,7 +67,7 @@ int	hashmap_remove(t_hashmap *dst, char *key)
 	{
 		hashmap_free_entry(&(dst->entries[index]));
 		if (_shift_completed(dst, index, &next))
-			break;
+			break ;
 		dst->entries[index] = dst->entries[next];
 		index = next;
 	}
