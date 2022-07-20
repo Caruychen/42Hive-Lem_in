@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:26:01 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:46:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:43:51 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
  * reported and a NULL is returned.
  */
 
+#include "ft_stdio.h"
 #include "ft_string.h"
 #include "hashmap.h"
 
@@ -35,14 +36,6 @@ static int	_guards(t_hashmap *dst, char *key)
 	return (HASH_OK);
 }
 
-static t_entry	*_write_entry(t_entry *entry, char *key, int value)
-{
-	*entry = hashmap_create_entry(key, value);
-	if (!entry->key)
-		return (NULL);
-	return (dst->len++, entry);
-}
-
 t_entry	*hashmap_try_insert(t_hashmap *dst, char *key, int value)
 {
 	size_t	index;
@@ -54,5 +47,8 @@ t_entry	*hashmap_try_insert(t_hashmap *dst, char *key, int value)
 	entry = &(dst->entries[index]);
 	if (entry->key)
 		return (ft_putendl_fd(MSG_ERR_NO_KEY, 2), NULL);
-	return (_write_entry(entry, key, value));
+	*entry = hashmap_create_entry(key, value);
+	if (!entry->key)
+		return (NULL);
+	return (dst->len++, entry);
 }
