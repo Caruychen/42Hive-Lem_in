@@ -6,11 +6,12 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 10:06:24 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 11:02:36 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "vec.h"
 
 static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 {
@@ -101,13 +102,13 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 		info->max_flow += flow;
 		debug_parent_array_print(&parent_array, network, ek.sink_id);
 		if (update_capacities(network, &ek, &parent_array) == ERROR)
-			return (ERROR);
+			return (vec_free(&parent_array), ERROR);
 		if (vec_new(&path, 1, sizeof (long)) == ERROR)
-			return (ERROR);
+			return (vec_free(&parent_array), ERROR);
 		if (parent_array_get_path(&parent_array, &path, ek.sink_id) == ERROR)
-			return (ERROR);
+			return (vec_free(&parent_array), ERROR);
 		if (vec_push(paths, &path) == ERROR)
-			return (ERROR);
+			return (vec_free(&parent_array), ERROR);
 	}
-	return (OK);
+	return (vec_free(&parent_array), OK);
 }
