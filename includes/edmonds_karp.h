@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:07:53 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 11:10:57 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 11:55:47 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ typedef struct s_edm_karp
 	long		sink_id;
 	t_flow_node	*source;
 	t_flow_node	*sink;
+	t_flow_node	*current;
+	long		current_id;
+	long		other_id;
 	t_vec		parent_array;
 }	t_edm_karp;
 
