@@ -85,6 +85,7 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 	t_edm_karp	ek;
 	int			flow;
 	t_vec		parent_array;
+	t_vec		path;
 
 	edmonds_karp_init(network, info, &ek);
 	info->max_flow = 0;
@@ -97,9 +98,14 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 			break ;
 		info->max_flow += flow;
 		debug_parent_array_print(&parent_array, network, ek.sink_id);
-		if (vec_push(paths, &parent_array) == ERROR)
+		if (update_capacities(network, &ek, &parent_array) == ERROR)
 			return (ERROR);
-		update_capacities(network, &ek, &parent_array);
+		if (vec_new(&path, 1, sizeof (long)) == ERROR)
+			return (ERROR);
+		if (parent_array_get_path(&parent_array, &path, ek.sink_id) == ERROR)
+			return (ERROR);
+		if (vec_push(paths, &path) == ERROR)
+			return (ERROR);
 	}
 	return (OK);
 }
