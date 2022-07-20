@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:35:07 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 22:20:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:18:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,19 @@ static int	_guards(t_hashmap *dst, char *key)
 	return (HASH_OK);
 }
 
-static t_entry	*_new_entry(t_hashmap *dst, t_entry new_entry, size_t index)
-{
-	t_entry	*entry_ptr;
-
-	entry_ptr = &(dst->entries[index]);
-	*entry_ptr = new_entry;
-	if (!entry_ptr->key)
-		return (NULL);
-	return (dst->len++, entry);
-}
-
 t_entry	*hashmap_insert(t_hashmap *dst, char *key, int value)
 {
 	size_t	index;
-	size_t	hash_index;
-	size_t	available_index;
-	size_t	end;
 	t_entry	*entry;
 
 	if (_guards(dst, key) == HASH_ERR)
 		return (NULL);
-	index = hashmap_hasher(dst, key);
-	end = dst->capacity + index;
-	available_index = dst->capacity;
-	while (index < end)
-	{
-		hash_index = index % dst->capacity;
-		entry = &(dst->entries[hash_index]);
-		if (entry->key && !ft_strcmp(entry->key, key))
-			return (entry->value = value, entry);
-		if (!entry->key && hash_index < available_index)
-			available_index = hash_index;
-		index++;
-	}
-	return (_new_entry(dst, hashmap_create_entry(key, value), available_index));
+	index = hashmap_find_slot(dst, key);
+	entry = &(dst->entries[index]);
+	if (entry->key)
+		return (entry->value = value, entry);
+	*entry = hashmap_create_entry(key, value);
+	if (!entry->key)
+		return (NULL);
+	return (dst->len++, entry);
 }
