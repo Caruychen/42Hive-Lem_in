@@ -89,10 +89,12 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 
 	edmonds_karp_init(network, info, &ek);
 	info->max_flow = 0;
+	if (vec_new(&parent_array, network->len, sizeof(long)) == ERROR)
+		return (ERROR);
 	while (TRUE)
 	{
-		if (parent_array_init(network, ek.source_id, &parent_array) == ERROR)
-			return (ERROR);
+		if (parent_array_reset(network, ek.source_id, &parent_array) == ERROR)
+			return (vec_free(&parent_array), ERROR);
 		flow = bfs(network, &ek, &parent_array);
 		if (flow == 0)
 			break ;

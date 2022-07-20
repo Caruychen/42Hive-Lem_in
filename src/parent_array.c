@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:23:34 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/20 09:45:06 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 10:59:11 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 
 // Creates an array of the size of n (number of nodes in the graph)
 // filled with -1's and a -2 for the source.
-int	parent_array_init(t_vec *network, long source_id, t_vec *parent_array)
+int	parent_array_reset(t_vec *network, long source_id, t_vec *parent_array)
 {
 	size_t	i;
 
-	if (vec_new(parent_array, network->len, sizeof(long)) == ERROR)
-		return (ERROR);
 	parent_array->len = network->len;
 	i = 0;
 	while (i < parent_array->len)
