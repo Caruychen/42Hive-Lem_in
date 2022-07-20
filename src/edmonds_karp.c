@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 11:02:36 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 11:17:28 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
 
 static int	edmonds_karp_init(t_vec *network, t_info *info, t_edm_karp *ek)
 {
+	info->max_flow = 0;
+	if (vec_new(&ek->parent_array, network->len, sizeof(long)) == ERROR)
+		return (ERROR);
 	ek->source_id = hashtable_get_node_index(network, info->source);
 	ek->sink_id = hashtable_get_node_index(network, info->sink);
 	ek->source = hashtable_get_node(network, info->source);
@@ -85,30 +88,26 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 {
 	t_edm_karp	ek;
 	int			flow;
-	t_vec		parent_array;
 	t_vec		path;
 
 	edmonds_karp_init(network, info, &ek);
-	info->max_flow = 0;
-	if (vec_new(&parent_array, network->len, sizeof(long)) == ERROR)
-		return (ERROR);
 	while (TRUE)
 	{
-		if (parent_array_reset(network, ek.source_id, &parent_array) == ERROR)
-			return (vec_free(&parent_array), ERROR);
-		flow = bfs(network, &ek, &parent_array);
+		if (parent_array_reset(network, ek.source_id, &ek.parent_array) == ERROR)
+			return (vec_free(&ek.parent_array), ERROR);
+		flow = bfs(network, &ek, &ek.parent_array);
 		if (flow == 0)
 			break ;
 		info->max_flow += flow;
-		debug_parent_array_print(&parent_array, network, ek.sink_id);
-		if (update_capacities(network, &ek, &parent_array) == ERROR)
-			return (vec_free(&parent_array), ERROR);
+		debug_parent_array_print(&ek.parent_array, network, ek.sink_id);
+		if (update_capacities(network, &ek, &ek.parent_array) == ERROR)
+			return (vec_free(&ek.parent_array), ERROR);
 		if (vec_new(&path, 1, sizeof (long)) == ERROR)
-			return (vec_free(&parent_array), ERROR);
-		if (parent_array_get_path(&parent_array, &path, ek.sink_id) == ERROR)
-			return (vec_free(&parent_array), ERROR);
+			return (vec_free(&ek.parent_array), ERROR);
+		if (parent_array_get_path(&ek.parent_array, &path, ek.sink_id) == ERROR)
+			return (vec_free(&ek.parent_array), ERROR);
 		if (vec_push(paths, &path) == ERROR)
-			return (vec_free(&parent_array), ERROR);
+			return (vec_free(&ek.parent_array), ERROR);
 	}
-	return (vec_free(&parent_array), OK);
+	return (vec_free(&ek.parent_array), OK);
 }
