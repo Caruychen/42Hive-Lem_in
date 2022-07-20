@@ -6,14 +6,14 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 11:17:28 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 11:22:36 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "vec.h"
 
-static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
+static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *parent_array)
 {
 	long		current_id;
 	long		other_id;
@@ -25,7 +25,7 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 	if (queue_init(&queue, sizeof (t_flow_node)) == ERROR)
 		return (ERROR);
 	if (queue_push(&queue, ek->source) == ERROR)
-		return (ERROR);
+		return (queue_free(&queue), ERROR);
 	while (queue_has_next(&queue))
 	{
 		current = queue_pop(&queue);
@@ -37,20 +37,20 @@ static int	bfs(t_vec *network, t_edm_karp *ek, t_vec *path)
 		{
 			edge = node_get(current, i);
 			other_id = edge_other(edge, current_id);
-			if (has_no_parent(path, other_id) && edge_has_residual_capacity_to(edge, other_id))
+			if (has_no_parent(parent_array, other_id) && edge_has_residual_capacity_to(edge, other_id))
 			{
 				queue_push(&queue, vec_get(network, other_id));
-				parent_array_update(path, other_id, current_id);
+				parent_array_update(parent_array, other_id, current_id);
 				if (other_id == ek->sink_id)
 					return (queue_free(&queue), OK);
 			}
 			i++;
 		}
 	}
-	return ((vec_free(path), queue_free(&queue)), 0);
+	return ((vec_free(parent_array), queue_free(&queue)), 0);
 }
 
-static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
+static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *parent_array)
 {
 	t_flow_edge	*edge;
 	long		current;
@@ -59,7 +59,7 @@ static int	update_capacities(t_vec *network, t_edm_karp *ek, t_vec *path)
 	current = ek->sink_id;
 	while (1)
 	{
-		parent = *(long *)vec_get(path, current);
+		parent = *(long *)vec_get(parent_array, current);
 		edge = node_get_edge_between(vec_get(network, parent), current);
 		if (!edge)
 			return (error(MSG_ERR_NULL_EDGE));
