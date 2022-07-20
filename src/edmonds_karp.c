@@ -6,10 +6,11 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 15:10:16 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:38:49 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "error.h"
 #include "lem_in.h"
 
 static int	enqueue_children(t_vec *network, t_edm_karp *ek, t_queue *queue)
@@ -71,6 +72,8 @@ static int	update_capacities(t_vec *network, t_edm_karp *ek)
 	while (1)
 	{
 		parent = *(long *)vec_get(&ek->parent_array, current);
+		if (parent == -1)
+			return (error(MSG_ERR_INV_PARENT));
 		edge = node_get_edge_between(vec_get(network, parent), current);
 		if (!edge)
 			return (error(MSG_ERR_NULL_EDGE));

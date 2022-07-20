@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 08:57:46 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:24:52 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define MSG_ERROR_MOD "Invalid modification."
 # define MSG_ERR_NETWORK_INIT "Could not initialize flow network."
 # define MSG_ERR_NULL_EDGE "Unexpected null edge."
-# define MSG_ERR_NULL_PARENT "Unexpected null parent node."
+# define MSG_ERR_INV_PARENT "Invalid parent node -1."
 # define MSG_ERR_AUG_FLOW "Could not augment edge flow."
 
 int	error(char *msg);
