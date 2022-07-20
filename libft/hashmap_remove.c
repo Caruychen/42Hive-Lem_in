@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:40:04 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:26:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:41:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * Otherwise, if the key is not found, an error is reported and returns a 0
  */
 
+#include "ft_stdio.h"
 #include "ft_string.h"
 #include "hashmap.h"
 
@@ -25,7 +26,7 @@ static int	_guards(t_hashmap *dst, char *key)
 	if (!dst || !key)
 		return (HASH_ERR);
 	if (!dst->capacity || !dst->len)
-		return (ft_putendl_fd(MSG_ERROR_HASHMAP_EMPTY, 2), HASH_ERR);
+		return (ft_putendl_fd(MSG_ERR_HASHMAP_EMPTY, 2), HASH_ERR);
 	if (!dst->entries)
 		return (HASH_ERR);
 	return (HASH_OK);
