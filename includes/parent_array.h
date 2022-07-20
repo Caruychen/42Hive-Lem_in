@@ -6,12 +6,12 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:18:54 by cnysten           #+#    #+#             */
-/*   Updated: 2022/07/20 11:00:01 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:15:06 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARENT_H
-# define PARENT_H
+#ifndef PARENT_ARRAY_H
+# define PARENT_ARRAY_H
 
 # include "lem_in.h"
 # include "libft.h"
