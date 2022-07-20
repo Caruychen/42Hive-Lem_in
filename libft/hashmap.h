@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:19:47 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:33:12 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t			hashmap_find_slot(t_hashmap *src, char *key);
 t_entry			*hashmap_entry(t_hashmap *src, char *key);
 int				*hashmap_get(t_hashmap *src, char *key);
 t_entry			*hashmap_insert(t_hashmap *dst, char	*key, int value);
-int				hashmap_try_insert(t_hashmap *dst, char *key, int value);
+t_entry			*hashmap_try_insert(t_hashmap *dst, char *key, int value);
 int				hashmap_remove(t_hashmap *dst, char *key);
 void			hashmap_free(t_hashmap *src);
 
