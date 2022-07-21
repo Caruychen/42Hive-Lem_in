@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:11:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 15:38:49 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/21 10:31:39 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ static int	edmonds_karp_init(t_vec *network, t_info *info, t_edm_karp *ek)
 	return (OK);
 }
 
-int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
+int	edmonds_karp(t_vec *network, t_info *info)
 {
 	t_edm_karp	ek;
 	int			flow;
-	t_vec		path;
 
 	edmonds_karp_init(network, info, &ek);
 	while (TRUE)
@@ -115,12 +114,6 @@ int	edmonds_karp(t_vec *network, t_info *info, t_vec *paths)
 		info->max_flow += flow;
 		debug_parent_array_print(&ek.parent_array, network, ek.sink_id);
 		if (update_capacities(network, &ek) == ERROR)
-			return (vec_free(&ek.parent_array), ERROR);
-		if (vec_new(&path, 1, sizeof (long)) == ERROR)
-			return (vec_free(&ek.parent_array), ERROR);
-		if (parent_array_get_path(&ek.parent_array, &path, ek.sink_id) == ERROR)
-			return (vec_free(&ek.parent_array), ERROR);
-		if (vec_push(paths, &path) == ERROR)
 			return (vec_free(&ek.parent_array), ERROR);
 	}
 	return (vec_free(&ek.parent_array), OK);

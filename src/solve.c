@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 22:57:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/20 11:03:40 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/21 10:32:01 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	solve(t_vec *network, t_info *info)
 
 	if (vec_new(&paths, 1, sizeof (t_vec)) == ERROR)
 		return (ERROR);
-	if (edmonds_karp(network, info, &paths) == ERROR)
+	if (edmonds_karp(network, info) == ERROR)
 		return (vec_free(&paths), ERROR);
 	if (send_ants(info, &paths) == ERROR)
 		return (vec_free(&paths), ERROR);
