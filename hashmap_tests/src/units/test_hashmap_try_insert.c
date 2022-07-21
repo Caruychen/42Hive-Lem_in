@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_hashmap_insert.c                              :+:      :+:    :+:   */
+/*   test_hashmap_try_insert.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 15:53:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/21 12:03:42 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/21 11:45:56 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/21 12:07:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	run_test_1(t_hashmap *hashmap, char *key, int value)
 	t_entry		*entry;
 	size_t		index = 0;
 
-	entry = hashmap_insert(hashmap, key, value);
+	entry = hashmap_try_insert(hashmap, key, value);
 	assert(hashmap->entries != NULL);
 	assert(hashmap->capacity == 2);
 	assert(hashmap->len == 1);
@@ -33,8 +33,26 @@ static void	run_test_1(t_hashmap *hashmap, char *key, int value)
 
 	if (hashmap->entries[1].key)
 		index = 1;
-	assert(strcmp(hashmap->entries[index].key, key) == 0);
-	assert(hashmap->entries[index].value == value);
+	validate_entry(&(hashmap->entries[index]), key, value);
+	assert(hashmap->entries[!index].key == NULL);
+	assert(hashmap->entries[!index].value == 0);
+	ft_printf("OK\n");
+}
+
+static void	run_test_err(t_hashmap *hashmap, char *key, int value)
+{
+	t_entry	*entry;
+	size_t	index = 0;
+
+	entry = hashmap_try_insert(hashmap, key, value);
+	assert(hashmap->entries != NULL);
+	assert(hashmap->capacity == 2);
+	assert(hashmap->len == 1);
+	assert(entry == NULL);
+
+	if (hashmap->entries[1].key)
+		index = 1;
+	validate_entry(&(hashmap->entries[index]), key, 42);
 	assert(hashmap->entries[!index].key == NULL);
 	assert(hashmap->entries[!index].value == 0);
 	ft_printf("OK\n");
@@ -45,7 +63,7 @@ static void	run_test_2(t_hashmap *hashmap, char *key, int value)
 	t_entry	*entry;
 	size_t	index = 0;
 
-	entry = hashmap_insert(hashmap, key, value);
+	entry = hashmap_try_insert(hashmap, key, value);
 	assert(hashmap->entries != NULL);
 	assert(hashmap->capacity == 2);
 	assert(hashmap->len == 2);
@@ -54,7 +72,7 @@ static void	run_test_2(t_hashmap *hashmap, char *key, int value)
 	if (strcmp(hashmap->entries[1].key, key) == 0)
 		index = 1;
 	assert(hashmap->entries[index].value == value);
-	validate_entry(&(hashmap->entries[!index]), "Hello World", 21);
+	validate_entry(&(hashmap->entries[!index]), "Hello World", 42);
 	ft_printf("OK\n");
 }
 
@@ -72,25 +90,25 @@ static void	insert_key_test(t_hashmap *hashmap, char *key)
 	hashmap_insert(hashmap, key, hashmap_hasher(hashmap, key));
 }
 
-void	test_hashmap_insert(void)
+void	test_hashmap_try_insert(void)
 {
 	t_hashmap	hashmap;
 	t_entry		*entry;
 	unsigned long	hash;
 
-	ft_printf("Testing hashmap_insert\n");
+	ft_printf("Testing hashmap_try_insert\n");
 	ft_printf("With capacity = 0, resulting capacity should be expanded: ");
 	assert(hashmap_new_with_capacity(&hashmap, 0) == 0);
 	run_test_1(&hashmap, "Hello World", 42);
-	ft_printf("Editing key with new value: ");
-	run_test_1(&hashmap, "Hello World", 21);
+	ft_printf("Editing key with new value, should report error: ");
+	run_test_err(&hashmap, "Hello World", 21);
 	ft_printf("Add another key: ");
 	run_test_2(&hashmap, "Another entry", 24);
 	clear(&hashmap);
 
 	ft_printf("With large capacity = 100000000: ");
 	assert(hashmap_new_with_capacity(&hashmap, 100000000) == HASH_OK);
-	entry = hashmap_insert(&hashmap, "Hello World", 42);
+	entry = hashmap_try_insert(&hashmap, "Hello World", 42);
 	assert(hashmap.entries != NULL);
 	assert(hashmap.capacity == 100000000);
 	assert(hashmap.len == 1);
