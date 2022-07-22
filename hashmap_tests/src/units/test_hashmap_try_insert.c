@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 11:45:56 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/21 12:07:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 12:00:05 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	run_test_2(t_hashmap *hashmap, char *key, int value)
 
 	entry = hashmap_try_insert(hashmap, key, value);
 	assert(hashmap->entries != NULL);
-	assert(hashmap->capacity == 2);
+	assert(hashmap->capacity == 4);
 	assert(hashmap->len == 2);
 
 	validate_entry(entry, key, value);
