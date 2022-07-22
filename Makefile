@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/05 19:22:59 by cnysten          ###   ########.fr        #
+#    Updated: 2022/07/22 16:56:45 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,6 @@ SRCS += $(SRC_DIR)/flow_node.c
 SRCS += $(SRC_DIR)/get_ant_number.c
 SRCS += $(SRC_DIR)/get_room.c
 SRCS += $(SRC_DIR)/get_link.c
-SRCS += $(SRC_DIR)/hashtable.c
-SRCS += $(SRC_DIR)/hashing.c
 
 OBJ_DIR := ./obj
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
