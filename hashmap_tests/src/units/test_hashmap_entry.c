@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:15:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 12:09:44 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 12:42:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	test_hashmap_entry(void)
 	test_assert(&hashmap, "e", 'e');
 	test_assert(&hashmap, "f", 'f');
 	assert(hashmap_entry(&hashmap, "g") == NULL);
-	ft_printf("OK\n");
+	ft_printf("OK\n\n");
 	clear(&hashmap);
 }
