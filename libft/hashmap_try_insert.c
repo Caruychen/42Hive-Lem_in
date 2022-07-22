@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:26:01 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:43:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 11:57:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,26 @@ static int	_guards(t_hashmap *dst, char *key)
 		return (HASH_ERR);
 	if (!dst->entries)
 		return (HASH_ERR);
-	if (dst->len >= dst->capacity)
-		return (ft_putendl_fd(MSG_ERR_HASHMAP_FULL, 2), HASH_ERR);
 	return (HASH_OK);
+}
+
+static t_entry	*get_slot(t_hashmap *dst, char *key)
+{
+	return (&(dst->entries[hashmap_find_slot(dst, key)]));
 }
 
 t_entry	*hashmap_try_insert(t_hashmap *dst, char *key, int value)
 {
-	size_t	index;
 	t_entry	*entry;
 
 	if (_guards(dst, key) == HASH_ERR)
 		return (NULL);
-	index = hashmap_find_slot(dst, key);
-	entry = &(dst->entries[index]);
+	entry = get_slot(dst, key);
 	if (entry->key)
 		return (ft_putendl_fd(MSG_ERR_NO_KEY, 2), NULL);
+	if (dst->len >= dst->capacity - 1 && hashmap_resize(dst) == HASH_ERR)
+		return (NULL);
+	entry = get_slot(dst, key);
 	*entry = hashmap_create_entry(key, value);
 	if (!entry->key)
 		return (NULL);
