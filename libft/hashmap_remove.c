@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:40:04 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:42:04 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 14:04:11 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * Otherwise, if the key is not found, an error is reported and returns a 0
  */
 
+#include <stdlib.h>
 #include "ft_stdio.h"
 #include "ft_string.h"
 #include "hashmap.h"
@@ -63,10 +64,11 @@ int	hashmap_remove(t_hashmap *dst, char *key)
 	entry = &(dst->entries[index]);
 	if (!entry->key)
 		return (ft_putendl_fd(MSG_ERR_NO_KEY, 2), HASH_ERR);
+	free(entry->key);
 	next = index;
 	while (1)
 	{
-		hashmap_free_entry(&(dst->entries[index]));
+		ft_bzero(&(dst->entries[index]), sizeof(t_entry));
 		if (_shift_completed(dst, index, &next))
 			break ;
 		dst->entries[index] = dst->entries[next];
