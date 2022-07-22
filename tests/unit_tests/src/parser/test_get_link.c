@@ -6,11 +6,26 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/05 21:53:27 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/22 17:40:30 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_test.h"
+
+static void	make_hash(t_hashmap *hmap, t_vec *network)
+{
+	size_t	index;
+	char	*alias;
+
+	assert(hashmap_new_with_capacity(hmap, network->len * 1.33) == HASH_OK);
+	index = 0;
+	while (index < network->len)
+	{
+		alias = ((t_flow_node *) vec_get(network, index))->alias;
+		assert(hashmap_try_insert(hmap, alias, (int) index) != NULL);
+		index++;
+	}
+}
 
 void	test_get_link(void)
 {
@@ -30,6 +45,7 @@ void	test_get_link(void)
 		return ;
 	if (!network_add_node(&network, ft_strdup("2"), 2, 1))
 		return ;
+	make_hash(&(parser.hmap), &network);
 	ret = get_link(&parser, &network);
 	assert(ret == OK);
 
