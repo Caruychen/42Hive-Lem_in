@@ -6,26 +6,27 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/09 11:16:17 by cchen             #+#    #+#              #
-#    Updated: 2022/07/05 17:25:05 by cnysten          ###   ########.fr        #
+#    Updated: 2022/07/22 14:25:11 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := test_lem-in
 
+ROOT := ../..
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra
-INCLUDES := -I../libft -I../includes -I./src
+INCLUDES := -I$(ROOT)/libft -I$(ROOT)/includes -I./src
 
 TEST_DIR := ./src
 TESTS := $(shell find $(TEST_DIR) -type f | grep -e "\.c$$")
 
-SRC_DIR := ../src
+SRC_DIR := $(ROOT)/src
 SRCS := $(shell find $(SRC_DIR) -type f | grep -v "\main.c$$")
 
-LIB_DIR := ../libft
+LIB_DIR := $(ROOT)/libft
 LIBFT := $(addprefix $(LIB_DIR), libft.a)
 LIB_OBJS = $(shell find $(LIB_DIR) -type f | grep -E "\.o$$")
-LINK := -L ../libft -lft
+LINK := -L $(ROOT)/libft -lft
 
 .PHONY: all debug fsan clean fclean re
 

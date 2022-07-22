@@ -6,23 +6,24 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:12:16 by cchen             #+#    #+#              #
-#    Updated: 2022/07/20 15:18:08 by cchen            ###   ########.fr        #
+#    Updated: 2022/07/22 14:24:28 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := test_hashmap
 
+ROOT := ../..
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra
-INCLUDES := -I../libft -I./src
+INCLUDES := -I$(ROOT)/libft -I./src
 
 TEST_DIR := ./src
 TESTS := $(shell find $(TEST_DIR) -type f | grep -e "\.c$$")
 
-LIB_DIR := ../libft
+LIB_DIR := $(ROOT)/libft
 LIBFT := $(addprefix $(LIB_DIR), libft.a)
 LIB_OBJS = $(shell find $(LIB_DIR) -type f | grep -E "\.o$$")
-LINK := -L ../libft -lft
+LINK := -L $(ROOT)/libft -lft
 
 .PHONY: all clean fclean re
 
