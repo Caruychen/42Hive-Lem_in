@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/03 22:46:20 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/22 14:15:02 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(void)
 {
 	test_flow_edge();
 	test_edge_list();
-	test_hashtable();
 	test_parser();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:28:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/04 15:50:33 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/22 14:15:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ void	test_edge_augment_flow_to(void);
 void	test_edge_list(void);
 void	test_edge_list_make(void);
 void	test_edge_list_push(void);
-
-
-void	test_hashtable_from(void);
-void	test_hashtable_get_node(void);
-void	test_hashtable_put_node(void);
-void	test_hashtable(void);
 
 void	test_parser(void);
 void	test_get_ant_number(void);
