@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 10:57:36 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 16:48:50 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ typedef struct s_hashmap
 	size_t	len;
 }	t_hashmap;
 
-unsigned long	hashmap_hasher(t_hashmap *dst, char *str);
-size_t			hashmap_find_slot(t_hashmap *src, char *key);
+unsigned long	hashmap_hasher(t_hashmap *dst, const char *str);
+size_t			hashmap_find_slot(t_hashmap *src, const char *key);
 int				hashmap_resize(t_hashmap *src);
 int				hashmap_new(t_hashmap *dst);
 int				hashmap_new_with_capacity(t_hashmap *dst, size_t capacity);
-t_entry			*hashmap_entry(t_hashmap *src, char *key);
-int				*hashmap_get(t_hashmap *src, char *key);
+t_entry			*hashmap_entry(t_hashmap *src, const char *key);
+int				*hashmap_get(t_hashmap *src, const char *key);
 t_entry			*hashmap_insert(t_hashmap *dst, char	*key, int value);
 t_entry			*hashmap_try_insert(t_hashmap *dst, char *key, int value);
 int				hashmap_remove(t_hashmap *dst, char *key);

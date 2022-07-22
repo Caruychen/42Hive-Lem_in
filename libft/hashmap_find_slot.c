@@ -6,14 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 22:19:11 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 14:32:02 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 16:47:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "hashmap.h"
 
-size_t	hashmap_find_slot(t_hashmap *src, char *key)
+size_t	hashmap_find_slot(t_hashmap *src, const char *key)
 {
 	size_t	index;
 	t_entry	entry;

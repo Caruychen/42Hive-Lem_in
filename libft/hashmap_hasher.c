@@ -6,13 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 12:48:33 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/19 12:53:47 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 16:48:29 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashmap.h"
 
-unsigned long	hashmap_hasher(t_hashmap *dst, char *str)
+unsigned long	hashmap_hasher(t_hashmap *dst, const char *str)
 {
 	unsigned long	hash;
 

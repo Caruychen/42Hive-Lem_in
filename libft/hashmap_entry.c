@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:56:11 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/20 11:25:16 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 16:47:34 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #include "hashmap.h"
 
-t_entry	*hashmap_entry(t_hashmap *src, char *key)
+t_entry	*hashmap_entry(t_hashmap *src, const char *key)
 {
 	size_t	index;
 	t_entry	*entry;
