@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:54:41 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 11:32:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 14:09:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	rehash(t_hashmap *dst, t_hashmap *src)
 	return (HASH_OK);
 }
 
-int			hashmap_resize(t_hashmap *src)
+int	hashmap_resize(t_hashmap *src)
 {
 	t_hashmap	dst;
 	size_t		target_cap;
