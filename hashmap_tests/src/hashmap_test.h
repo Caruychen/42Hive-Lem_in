@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:48:27 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/21 12:15:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 13:13:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ void	test_hashmap_new(void);
 void	test_hashmap_insert(void);
 void	test_hashmap_try_insert(void);
 void	test_hashmap_entry(void);
+void	test_hashmap_get(void);
+void	test_hashmap_remove(void);
 
 #endif

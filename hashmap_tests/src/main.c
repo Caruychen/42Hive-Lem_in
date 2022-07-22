@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:46:26 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/21 12:15:07 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 14:00:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(void)
 	test_hashmap_insert();
 	test_hashmap_try_insert();
 	test_hashmap_entry();
+	test_hashmap_get();
+	test_hashmap_remove();
 	system("leaks test_hashmap");
 	return (0);
 }
