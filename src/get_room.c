@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/18 13:41:01 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/22 17:21:37 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,33 @@ static int	get_coordinate(t_parser *parser, int *coord)
 	return (OK);
 }
 
-static int is_finished(t_parser *parser)
+static int	hashmap_from(t_hashmap *hmap, t_vec *network)
 {
-	parser->ptr = ft_strchr(parser->line, ' ');
-	if (parser->ptr)
-		return (FALSE);
-	return (TRUE);
+	size_t	index;
+	size_t	len;
+	char	*alias;
+
+	len = network->len;
+	index = 0;
+	while (index < len)
+	{
+		alias = ((t_flow_node *) vec_get(network, index))->alias;
+		if (!hashmap_try_insert(hmap, alias, (int) index))
+			return (ERROR);
+		index++;
+	}
+	return (OK);
 }
 
 static int	start_links(t_parser *parser, t_vec *network)
 {
-	t_hashtable	htable;
-
 	if (!ft_strchr(parser->line, '-'))
 		return (error(MSG_ERROR_INV_LINE));
-	htable = (t_hashtable){0};
-	if (hashtable_from(&htable, network) == ERROR)
-		return (ERROR);
+	if (hashmap_new_with_capacity(&(parser->hmap), network->len * 1.33)
+		== HASH_ERR)
+		return (error(MSG_ERR_HASH_INIT));
+	if (hashmap_from(&(parser->hmap), network) == ERROR)
+		return (hashmap_free(&(parser->hmap)), ERROR);
 	parser->stage = LINKS;
 	return (get_link(parser, network));
 }
@@ -59,7 +69,8 @@ int	get_room(t_parser *parser, t_vec *network)
 	int		x;
 	int		y;
 
-	if (is_finished(parser))
+	parser->ptr = ft_strchr(parser->line, ' ');
+	if (!parser->ptr)
 		return (start_links(parser, network));
 	if (get_alias(parser, &alias) == ERROR)
 		return (ERROR);
