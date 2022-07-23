@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/22 16:51:54 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/23 11:11:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ typedef struct s_parser
 	t_hashmap	hmap;
 }	t_parser;
 
-typedef int	(*t_parse_func)(t_parser *, t_vec *);
+typedef int	(*t_parse_func)(t_parser *, t_flow_network *);
 
-int	parse_input(t_vec *network, t_info *info);
-int	get_ant_number(t_parser *parser, t_vec *network);
-int	get_room(t_parser *parser, t_vec *network);
-int	get_link(t_parser *parser, t_vec *network);
+int	parse_input(t_flow_network *network, t_info *info);
+int	get_ant_number(t_parser *parser, t_flow_network *network);
+int	get_room(t_parser *parser, t_flow_network *network);
+int	get_link(t_parser *parser, t_flow_network *network);
 
 #endif

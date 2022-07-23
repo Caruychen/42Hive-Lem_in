@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/23 10:57:46 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/23 11:33:52 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 typedef struct	s_flow_network
 {
-	t_vec	network;
+	t_vec	adj_list;
 	t_vec	edge_list;
 }		t_flow_network;
 
