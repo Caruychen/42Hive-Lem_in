@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/05 21:46:41 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/23 10:58:43 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,38 @@
 
 #include "lem_in.h"
 
-int	network_init(t_vec *network)
+int	network_init(t_flow_network *network)
 {
-	return (vec_new(network, 1, sizeof(t_flow_node)));
+	if (edge_list_make(&(network->edge_list)) == -1)
+		return (ERROR);
+	return (vec_new(&(network->network), 1, sizeof(t_flow_node)));
 }
 
-int	network_add_node(t_vec *network, char *alias, int x, int y)
+int	network_add_node(t_flow_network *network, char *alias, int x, int y)
 {
 	t_flow_node	node;
 
 	if (node_make(&node, alias, x, y) == ERROR)
 		return (ERROR);
-	return (vec_push(network, &node));
+	return (vec_push(&(network->network), &node));
 }
 
-int	network_add_edge(t_vec *network, t_flow_edge *edge)
+int	network_add_edge(t_flow_network *network, t_flow_edge *edge)
 {
 	if (node_push((t_flow_node *)vec_get(network, edge->from), edge) == ERROR)
 		return (ERROR);
 	if (node_push((t_flow_node *)vec_get(network, edge->to), edge) == ERROR)
 		return (ERROR);
+	if (edge_list_push(&(network->edge_list), edge) == ERROR)
+		return (ERROR);
 	return (OK);
 }
 
-void	network_free(t_vec *network)
+void	network_free(t_flow_network *network)
 {
 	size_t	index;
 
+	edge_list_free(&(network->edge_list));
 	index = 0;
 	while (index < network->len)
 		node_free(&(network->memory[network->elem_size * index++]));
