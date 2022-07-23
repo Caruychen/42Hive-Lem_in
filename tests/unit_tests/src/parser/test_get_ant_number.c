@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/01 17:07:13 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/07/23 11:44:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	test_get_ant_number(void)
 {
 	t_parser	parser;
-	t_vec		network;
+	t_flow_network	network;
 	int			ret;
 
 	ft_printf("Testing get_ant_number: ");

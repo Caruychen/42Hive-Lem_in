@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 17:40:30 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/23 11:43:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	make_hash(t_hashmap *hmap, t_vec *network)
 void	test_get_link(void)
 {
 	t_parser	parser;
-	t_vec		network;
+	t_flow_network		network;
 	t_flow_edge *edge1;
 	t_flow_edge *edge2;
 	t_flow_node	*node1;
@@ -45,12 +45,12 @@ void	test_get_link(void)
 		return ;
 	if (!network_add_node(&network, ft_strdup("2"), 2, 1))
 		return ;
-	make_hash(&(parser.hmap), &network);
+	make_hash(&(parser.hmap), &(network.adj_list));
 	ret = get_link(&parser, &network);
 	assert(ret == OK);
 
-	node1 = vec_get(&network, 0);
-	node2 = vec_get(&network, 1);
+	node1 = vec_get(&network.adj_list, 0);
+	node2 = vec_get(&network.adj_list, 1);
 	edge1 = node_get(node1, 0);
 	edge2 = node_get(node2, 0);
 	assert(edge1 == edge2);
