@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 12:41:00 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/23 11:03:18 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_for_modification(t_parser *parser)
 	return (OK);
 }
 
-int	parse_input(t_vec *network, t_info *info)
+int	parse_input(t_flow_network *network, t_info *info)
 {
 	t_parser	parser;
 

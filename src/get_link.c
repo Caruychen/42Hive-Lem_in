@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/22 17:54:07 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/23 11:07:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	is_valid_link(t_parser *parser, long *from, long *to)
 	return (TRUE);
 }
 
-int	get_link(t_parser *parser, t_vec *network)
+int	get_link(t_parser *parser, t_flow_network *network)
 {
 	long		from;
 	long		to;
