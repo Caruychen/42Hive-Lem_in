@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   hashmap_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 15:59:25 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/19 13:51:28 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/19 13:55:29 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+/*
+ * Creates an empty Hashmap
+ * The hash map is initially created with a capacity of 0,
+ * so it will not allocate until it is first inserted into.
+ */
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "parser.h"
-# include "info.h"
-# include "error.h"
-# include "pos.h"
+#include "hashmap.h"
 
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-
-#endif
+int	hashmap_new(t_hashmap *dst)
+{
+	return (hashmap_new_with_capacity(dst, 0));
+}

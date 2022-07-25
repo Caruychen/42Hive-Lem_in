@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 11:36:51 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/22 17:18:18 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # define MSG_ERROR_GNL "Could not get next line."
 # define MSG_ERROR_CHAR_ALIAS "Invalid character in room alias."
 # define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
+# define MSG_ERROR_MOD "Invalid modification."
 # define MSG_ERR_NETWORK_INIT "Could not initialize flow network."
+# define MSG_ERR_HASH_INIT "Could not initialize hashmap."
+# define MSG_ERR_HASH_GET "Could not get entry from hashmap."
 
 int	error(char *msg);
 

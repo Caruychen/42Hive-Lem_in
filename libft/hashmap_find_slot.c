@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   hashmap_find_slot.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 15:59:25 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/19 22:19:11 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/22 16:47:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "ft_string.h"
+#include "hashmap.h"
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "parser.h"
-# include "info.h"
-# include "error.h"
-# include "pos.h"
+size_t	hashmap_find_slot(t_hashmap *src, const char *key)
+{
+	size_t	index;
+	t_entry	entry;
 
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-
-#endif
+	index = hashmap_hasher(src, key);
+	entry = src->entries[index];
+	while (entry.key && ft_strcmp(entry.key, key))
+	{
+		index = (index + 1) % src->capacity;
+		entry = src->entries[index];
+	}
+	return (index);
+}

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 11:15:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/23 11:34:43 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,35 +45,45 @@
 
 #include "lem_in.h"
 
-int	network_init(t_vec *network)
+int	network_init(t_flow_network *network)
 {
-	return (vec_new(network, 1, sizeof(t_flow_node)));
+	if (edge_list_make(&(network->edge_list)) == -1)
+		return (ERROR);
+	return (vec_new(&(network->adj_list), 1, sizeof(t_flow_node)));
 }
 
-int	network_add_node(t_vec *network, char *alias)
+int	network_add_node(t_flow_network *network, char *alias, int x, int y)
 {
 	t_flow_node	node;
 
-	if (node_make(&node, alias) == ERROR)
+	if (node_make(&node, alias, x, y) == ERROR)
 		return (ERROR);
-	return (vec_push(network, &node));
+	return (vec_push(&(network->adj_list), &node));
 }
 
-int	network_add_edge(t_vec *network, t_flow_edge *edge)
+int	network_add_edge(t_flow_network *network, t_flow_edge *edge)
 {
-	if (node_push((t_flow_node *)vec_get(network, edge->from), edge) == ERROR)
+	t_vec	*adj_list;
+
+	adj_list = &(network->adj_list);
+	if (node_push((t_flow_node *)vec_get(adj_list, edge->from), edge) == ERROR)
 		return (ERROR);
-	if (node_push((t_flow_node *)vec_get(network, edge->to), edge) == ERROR)
+	if (node_push((t_flow_node *)vec_get(adj_list, edge->to), edge) == ERROR)
+		return (ERROR);
+	if (edge_list_push(&(network->edge_list), edge) == ERROR)
 		return (ERROR);
 	return (OK);
 }
 
-void	network_free(t_vec *network)
+void	network_free(t_flow_network *network)
 {
 	size_t	index;
+	t_vec	*adj_list;
 
+	edge_list_free(&(network->edge_list));
+	adj_list = &(network->adj_list);
 	index = 0;
-	while (index < network->len)
-		node_free(&(network->memory[network->elem_size * index++]));
-	vec_free(network);
+	while (index < adj_list->len)
+		node_free(&(adj_list->memory[adj_list->elem_size * index++]));
+	vec_free(adj_list);
 }

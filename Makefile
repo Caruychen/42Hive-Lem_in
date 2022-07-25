@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/01 17:02:03 by cnysten          ###   ########.fr        #
+#    Updated: 2022/07/23 11:32:18 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS += $(SRC_DIR)/cleanup.c
 SRCS += $(SRC_DIR)/flow_edge.c
 SRCS += $(SRC_DIR)/flow_network.c
 SRCS += $(SRC_DIR)/flow_node.c
+SRCS += $(SRC_DIR)/edge_list.c
 SRCS += $(SRC_DIR)/get_ant_number.c
 SRCS += $(SRC_DIR)/get_room.c
 SRCS += $(SRC_DIR)/get_link.c
@@ -35,7 +36,7 @@ LIBFT := $(addprefix $(LIB_DIR), libft.a)
 LIB_OBJS = $(shell find $(LIB_DIR) -type f | grep -E "\.o$$")
 LINK := -L ./libft -lft
 
-.PHONY: all debug clean fclean re
+.PHONY: all debug fsan clean fclean re
 
 all: $(NAME)
 
@@ -53,6 +54,10 @@ $(LIBFT):
 
 debug: CFLAGS += -g
 debug: clean $(LIBFT) $(OBJ_DIR) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB_OBJS) $(LINK) -o $(NAME)
+
+fsan: CFLAGS += -fsanitize=address -g
+fsan: clean $(LIBFT) $(OBJ_DIR) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB_OBJS) $(LINK) -o $(NAME)
 
 clean:

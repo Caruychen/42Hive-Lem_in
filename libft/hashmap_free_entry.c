@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   hashmap_free_entry.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 15:59:25 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/20 12:55:44 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/20 14:34:43 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include <stdlib.h>
+#include "hashmap.h"
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "parser.h"
-# include "info.h"
-# include "error.h"
-# include "pos.h"
-
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-
-#endif
+int	hashmap_free_entry(t_entry *entry)
+{
+	if (!entry || !entry->key)
+		return (HASH_ERR);
+	free(entry->key);
+	entry->key = NULL;
+	entry->value = 0;
+	return (HASH_OK);
+}

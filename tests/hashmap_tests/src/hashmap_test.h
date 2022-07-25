@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   hashmap_test.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 13:39:10 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 14:26:59 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/20 14:48:27 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/22 13:13:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef HASHMAP_TEST_H
+# define HASHMAP_TEST_H
 
-# include "ft_ctype.h"
-# include "ft_math.h"
-# include "ft_stdio.h"
-# include "ft_stdlib.h"
-# include "ft_string.h"
-# include "get_next_line.h"
-# include "list.h"
-# include "vec.h"
+# include <assert.h>
+# include <string.h>
+# include <limits.h>
 # include "hashmap.h"
+# include "ft_stdio.h"
+
+void	test_hashmap_create_entry(void);
+void	test_hashmap_new_with_capacity(void);
+void	test_hashmap_new(void);
+void	test_hashmap_insert(void);
+void	test_hashmap_try_insert(void);
+void	test_hashmap_entry(void);
+void	test_hashmap_get(void);
+void	test_hashmap_remove(void);
 
 #endif

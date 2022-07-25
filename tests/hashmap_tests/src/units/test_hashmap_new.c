@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   test_hashmap_new.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 15:59:25 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/20 15:23:27 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/20 15:26:22 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "hashmap_test.h"
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "parser.h"
-# include "info.h"
-# include "error.h"
-# include "pos.h"
+void	test_hashmap_new(void)
+{
+	t_hashmap	hashmap;
 
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-
-#endif
+	ft_printf("Testing hashmap_new\n");
+	ft_printf("Default capacity = 0: ");
+	assert(hashmap_new(&hashmap) == 0);
+	assert(hashmap.capacity == 0);
+	assert(hashmap.len == 0);
+	assert(hashmap.entries == NULL);
+	ft_printf("OK\n");
+	ft_putendl("");
+}

@@ -6,13 +6,13 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:51 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/06/27 20:23:47 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/23 11:04:17 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	get_ant_number(t_parser *parser, t_vec *network)
+int	get_ant_number(t_parser *parser, t_flow_network *network)
 {
 	char	*ptr;
 

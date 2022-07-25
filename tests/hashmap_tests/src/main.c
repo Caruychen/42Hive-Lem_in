@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 15:59:25 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/20 14:46:26 by cchen             #+#    #+#             */
+/*   Updated: 2022/07/22 14:00:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+/*
+ * Unite test suite for Hashmap implementation
+ */
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "parser.h"
-# include "info.h"
-# include "error.h"
-# include "pos.h"
+#include <stdlib.h>
+#include "hashmap_test.h"
 
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-
-#endif
+int	main(void)
+{
+	test_hashmap_create_entry();
+	test_hashmap_new_with_capacity();
+	test_hashmap_new();
+	test_hashmap_insert();
+	test_hashmap_try_insert();
+	test_hashmap_entry();
+	test_hashmap_get();
+	test_hashmap_remove();
+	system("leaks test_hashmap");
+	return (0);
+}
