@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 16:30:05 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/25 13:03:15 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,5 @@ long		edge_other(t_flow_edge *edge, const long node);
 int			edge_has_residual_capacity_to(t_flow_edge *edge, const long node);
 int			edge_augment_flow_to(t_flow_edge *edge, const long node);
 void		edge_free(t_flow_edge **edge);
-
-int			edge_list_make(t_vec *edge_list);
-int			edge_list_push(t_vec *edge_list, t_flow_edge *edge);
-void		edge_list_free(t_vec *edge_list);
-t_flow_edge	*edge_list_get(t_vec *edge_list, size_t index);
 
 #endif
