@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 23:59:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 00:26:58 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ long	edge_other(t_flow_edge *edge, const long node)
 	return (ERROR);
 }
 
-int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to, t_flow_network *network)
+int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
+		t_flow_network *network)
 {
 	t_flow_node	*origin;
 	t_flow_node	*dst;
@@ -84,7 +85,8 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to, t_flow_netwo
 	return (ERROR);
 }
 
-int	edge_augment_flow_to(t_flow_edge *edge, const long to, t_flow_network *network)
+int	edge_augment_flow_to(t_flow_edge *edge, const long to,
+		t_flow_network *network)
 {
 	t_flow_node	*origin;
 
@@ -95,7 +97,7 @@ int	edge_augment_flow_to(t_flow_edge *edge, const long to, t_flow_network *netwo
 		return (ERROR);
 	if (!edge->flow && edge->to != to)
 		ft_swap_l(&(edge->from), &(edge->to));
-	origin->is_free = edge->flow && origin->is_via_augment;
+	origin->is_free = (edge->flow && origin->is_via_augment);
 	edge->flow = ~edge->flow;
 	return (OK);
 }

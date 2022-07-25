@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:04:24 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 22:17:58 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 00:24:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 */
 
 #include "lem_in.h"
-#include "libft.h"
 
 int	node_make(t_flow_node *node, char *alias, int x, int y)
 {
