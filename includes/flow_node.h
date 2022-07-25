@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 14:29:49 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/25 22:17:33 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_flow_node
 	t_vec	edges;
 	int		x;
 	int		y;
-	uint8_t	is_taken: 1;
+	uint8_t	is_free: 1;
 	uint8_t	is_via_augment: 1;
 }				t_flow_node;
 

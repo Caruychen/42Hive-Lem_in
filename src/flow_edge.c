@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 14:43:38 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/25 23:09:58 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,40 @@ long	edge_other(t_flow_edge *edge, const long node)
 	return (ERROR);
 }
 
-int	edge_has_residual_capacity_to(t_flow_edge *edge, const long node, t_flow_node *origin)
+int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to, t_flow_network *network)
 {
-	if ((edge->from != node && edge->to != node) || !origin)
+	t_flow_node	*origin;
+	t_flow_node	*dst;
+
+	origin = network_get(&network->adj_list, edge_other(edge, to));
+	dst = network_get(&network->adj_list, to);
+	if ((edge->from != to && edge->to != to) || !origin || !dst)
 		return (ERROR);
 	if (!edge->flow)
-		return (!origin->is_taken || origin->is_via_augment)
-	if (edge->to == node)
+	{
+		if (origin->is_free || origin->is_via_augment)
+			return (dst->is_via_augment = 0, TRUE);
 		return (FALSE);
-	if (edge->from == node)
-		return (TRUE);
+	}
+	if (edge->to == to)
+		return (FALSE);
+	if (edge->from == to)
+		return (dst->is_via_augment = 1, TRUE);
 	return (ERROR);
 }
 
-int	edge_augment_flow_to(t_flow_edge *edge, const long node)
+int	edge_augment_flow_to(t_flow_edge *edge, const long to, t_flow_network *network)
 {
-	if (edge->from != node && edge->to != node)
+	t_flow_node	*origin;
+
+	origin = network_get(&network->adj_list, edge_other(edge, to));
+	if (edge->from != to && edge->to != to)
 		return (ERROR);
-	if (edge->flow && edge->to == node)
+	if (edge->flow && edge->to == to)
 		return (ERROR);
-	if (!edge->flow && edge->to != node)
+	if (!edge->flow && edge->to != to)
 		ft_swap_l(&(edge->from), &(edge->to));
+	origin->is_free = edge->flow && origin->is_via_augment;
 	edge->flow = ~edge->flow;
 	return (OK);
 }
