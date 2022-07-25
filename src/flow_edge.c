@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 23:09:58 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/25 23:59:24 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
  *       * Directionality is embedded into FROM & TO
 */
 
+#include <stdint.h>
 #include "lem_in.h"
 
 t_flow_edge	*edge_make(const long from, const long to)
@@ -66,8 +67,8 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to, t_flow_netwo
 	t_flow_node	*origin;
 	t_flow_node	*dst;
 
-	origin = network_get(&network->adj_list, edge_other(edge, to));
-	dst = network_get(&network->adj_list, to);
+	origin = network_get(network, edge_other(edge, to));
+	dst = network_get(network, to);
 	if ((edge->from != to && edge->to != to) || !origin || !dst)
 		return (ERROR);
 	if (!edge->flow)
@@ -87,7 +88,7 @@ int	edge_augment_flow_to(t_flow_edge *edge, const long to, t_flow_network *netwo
 {
 	t_flow_node	*origin;
 
-	origin = network_get(&network->adj_list, edge_other(edge, to));
+	origin = network_get(network, edge_other(edge, to));
 	if (edge->from != to && edge->to != to)
 		return (ERROR);
 	if (edge->flow && edge->to == to)
