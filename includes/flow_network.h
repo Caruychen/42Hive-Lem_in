@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 13:04:29 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/25 23:24:09 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int			network_init(t_flow_network *network);
 int			network_add_node(t_flow_network *network, char *alias,
 				int x, int y);
 int			network_add_edge(t_flow_network *network, t_flow_edge *edge);
+t_flow_node	*network_get(t_flow_network *network, size_t index);
 void		network_free(t_flow_network *network);
 
 int			edge_list_make(t_vec *edge_list);
