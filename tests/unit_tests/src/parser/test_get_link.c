@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 13:35:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 13:37:24 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	test_get_link(void)
 	assert(edge1->to == edge2->to);
 	assert(edge1->from == edge2->from);
 	network_free(&network);
+	hashmap_free(&parser.hmap);
 
 	parser = (t_parser){.line = "", .stage = LINKS};
 	ret = get_link(&parser, &network);
