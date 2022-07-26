@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 11:21:31 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 14:57:41 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ long	edge_other(t_flow_edge *edge, const long node)
 }
 
 int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
-		t_flow_network *network)
+		t_vec *adj_list)
 {
 	t_flow_node	*origin;
 	t_flow_node	*dst;
 
-	origin = network_get(network, edge_other(edge, to));
-	dst = network_get(network, to);
+	origin = (t_flow_node *) vec_get(adj_list, edge_other(edge, to));
+	dst = (t_flow_node *) vec_get(adj_list, to);
 	if ((edge->from != to && edge->to != to) || !origin || !dst)
 		return (ERROR);
 	if (edge->from == edge->to)
@@ -87,12 +87,11 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
 	return (ERROR);
 }
 
-int	edge_augment_flow_to(t_flow_edge *edge, const long to,
-		t_flow_network *network)
+int	edge_augment_flow_to(t_flow_edge *edge, const long to, t_vec *adj_list)
 {
 	t_flow_node	*origin;
 
-	origin = network_get(network, edge_other(edge, to));
+	origin = (t_flow_node *) vec_get(adj_list, edge_other(edge, to));
 	if (edge->from != to && edge->to != to)
 		return (ERROR);
 	if (edge->flow && edge->to == to)
