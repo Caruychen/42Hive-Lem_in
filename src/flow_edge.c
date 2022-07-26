@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 00:26:58 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 11:21:31 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
 	dst = network_get(network, to);
 	if ((edge->from != to && edge->to != to) || !origin || !dst)
 		return (ERROR);
+	if (edge->from == edge->to)
+		return (FALSE);
 	if (!edge->flow)
 	{
 		if (origin->is_free || origin->is_via_augment)
