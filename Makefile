@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/23 11:32:18 by cchen            ###   ########.fr        #
+#    Updated: 2022/07/25 13:07:02 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS += $(SRC_DIR)/cleanup.c
 SRCS += $(SRC_DIR)/flow_edge.c
 SRCS += $(SRC_DIR)/flow_network.c
 SRCS += $(SRC_DIR)/flow_node.c
-SRCS += $(SRC_DIR)/edge_list.c
+SRCS += $(SRC_DIR)/flow_network_edge_list.c
 SRCS += $(SRC_DIR)/get_ant_number.c
 SRCS += $(SRC_DIR)/get_room.c
 SRCS += $(SRC_DIR)/get_link.c

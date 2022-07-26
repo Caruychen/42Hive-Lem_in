@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/09 16:30:05 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:00:00 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@
 #ifndef FLOW_EDGE_H
 # define FLOW_EDGE_H
 
-# include <stdint.h>
-# include "vec.h"
-
 typedef struct s_flow_edge
 {
 	long		from;
@@ -51,13 +48,10 @@ typedef struct s_flow_edge
 
 t_flow_edge	*edge_make(const long from, const long to);
 long		edge_other(t_flow_edge *edge, const long node);
-int			edge_has_residual_capacity_to(t_flow_edge *edge, const long node);
-int			edge_augment_flow_to(t_flow_edge *edge, const long node);
+int			edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
+				t_vec *adj_list);
+int			edge_augment_flow_to(t_flow_edge *edge, const long to,
+				t_vec *adj_list);
 void		edge_free(t_flow_edge **edge);
-
-int			edge_list_make(t_vec *edge_list);
-int			edge_list_push(t_vec *edge_list, t_flow_edge *edge);
-void		edge_list_free(t_vec *edge_list);
-t_flow_edge	*edge_list_get(t_vec *edge_list, size_t index);
 
 #endif

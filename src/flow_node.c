@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:04:24 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/05 21:46:33 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/26 00:24:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@
 */
 
 #include "lem_in.h"
-#include "libft.h"
 
 int	node_make(t_flow_node *node, char *alias, int x, int y)
 {
 	node->alias = alias;
 	node->x = x;
 	node->y = y;
+	node->is_free = 1;
+	node->is_via_augment = 0;
 	return (vec_new(&(node->edges), 1, sizeof(t_flow_edge *)));
 }
 
