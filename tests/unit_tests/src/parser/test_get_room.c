@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/23 11:45:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 13:29:58 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	test_get_room(void)
 {
-	t_parser	parser;
+	t_parser		parser;
 	t_flow_network	network;
-	t_flow_node	*node;
-	int			ret;
+	t_flow_node		*node;
+	int				ret;
 
 	ft_printf("Testing get_room: ");
 
