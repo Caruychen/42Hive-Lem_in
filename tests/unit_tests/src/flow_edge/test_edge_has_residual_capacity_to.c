@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:53:42 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 11:44:30 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:05:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,29 @@ void	test_edge_has_residual_capacity_to(void)
 	assert(network_add_edge(&network, edge32) == OK);
 	assert(network_add_edge(&network, edge24) == OK);
 
-	assert(edge_has_residual_capacity_to(edge32, 3, &network) == FALSE);
-	assert(edge_has_residual_capacity_to(edge24, 4, &network) == FALSE);
-	assert(edge_has_residual_capacity_to(edge02, 0, &network) == TRUE);
-	assert(edge_has_residual_capacity_to(edge21, 1, &network) == FALSE);
-	assert(edge_has_residual_capacity_to(edge22, 2, &network) == FALSE);
+	assert(edge_has_residual_capacity_to(edge32, 3, &network.adj_list) == FALSE);
+	assert(edge_has_residual_capacity_to(edge24, 4, &network.adj_list) == FALSE);
+	assert(edge_has_residual_capacity_to(edge02, 0, &network.adj_list) == TRUE);
+	assert(edge_has_residual_capacity_to(edge21, 1, &network.adj_list) == FALSE);
+	assert(edge_has_residual_capacity_to(edge22, 2, &network.adj_list) == FALSE);
 	assert(network_get(&network, 0)->is_via_augment == TRUE);
 
 	network_get(&network, 2)->is_via_augment = TRUE;
-	assert(edge_has_residual_capacity_to(edge32, 3, &network) == TRUE);
-	assert(edge_has_residual_capacity_to(edge24, 4, &network) == TRUE);
-	assert(edge_has_residual_capacity_to(edge02, 0, &network) == TRUE);
-	assert(edge_has_residual_capacity_to(edge21, 1, &network) == FALSE);
-	assert(edge_has_residual_capacity_to(edge22, 2, &network) == FALSE);
+	assert(edge_has_residual_capacity_to(edge32, 3, &network.adj_list) == TRUE);
+	assert(edge_has_residual_capacity_to(edge24, 4, &network.adj_list) == TRUE);
+	assert(edge_has_residual_capacity_to(edge02, 0, &network.adj_list) == TRUE);
+	assert(edge_has_residual_capacity_to(edge21, 1, &network.adj_list) == FALSE);
+	assert(edge_has_residual_capacity_to(edge22, 2, &network.adj_list) == FALSE);
 	assert(network_get(&network, 3)->is_via_augment == FALSE);
 	assert(network_get(&network, 4)->is_via_augment == FALSE);
 	assert(network_get(&network, 0)->is_via_augment == TRUE);
 
-	assert(edge_has_residual_capacity_to(edge32, 2, &network) == TRUE);
-	assert(edge_has_residual_capacity_to(edge24, 2, &network) == TRUE);
-	assert(edge_has_residual_capacity_to(edge02, 2, &network) == FALSE);
-	assert(edge_has_residual_capacity_to(edge21, 2, &network) == TRUE);
+	assert(edge_has_residual_capacity_to(edge32, 2, &network.adj_list) == TRUE);
+	assert(edge_has_residual_capacity_to(edge24, 2, &network.adj_list) == TRUE);
+	assert(edge_has_residual_capacity_to(edge02, 2, &network.adj_list) == FALSE);
+	assert(edge_has_residual_capacity_to(edge21, 2, &network.adj_list) == TRUE);
 
-	assert(edge_has_residual_capacity_to(edge24, 5, &network) == ERROR);
+	assert(edge_has_residual_capacity_to(edge24, 5, &network.adj_list) == ERROR);
 
 	network_free(&network);
 	ft_printf("OK\n");
