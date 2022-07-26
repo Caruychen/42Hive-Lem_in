@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/23 11:43:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/26 13:37:24 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,20 @@ static void	make_hash(t_hashmap *hmap, t_vec *network)
 
 void	test_get_link(void)
 {
-	t_parser	parser;
-	t_flow_network		network;
-	t_flow_edge *edge1;
-	t_flow_edge *edge2;
-	t_flow_node	*node1;
-	t_flow_node	*node2;
-	int			ret;
+	t_parser		parser;
+	t_flow_network	network;
+	t_flow_edge		*edge1;
+	t_flow_edge		*edge2;
+	t_flow_node		*node1;
+	t_flow_node		*node2;
+	int				ret;
 
 	ft_printf("Testing get_link: ");
 
 	network_init(&network);
 	parser = (t_parser){.line = "1-2", .stage = LINKS};
-	if (!network_add_node(&network, ft_strdup("1"), 4, 2))
-		return ;
-	if (!network_add_node(&network, ft_strdup("2"), 2, 1))
-		return ;
+	assert(network_add_node(&network, ft_strdup("1"), 4, 2) != ERROR);
+	assert(network_add_node(&network, ft_strdup("2"), 2, 1) != ERROR);
 	make_hash(&(parser.hmap), &(network.adj_list));
 	ret = get_link(&parser, &network);
 	assert(ret == OK);
@@ -57,6 +55,7 @@ void	test_get_link(void)
 	assert(edge1->to == edge2->to);
 	assert(edge1->from == edge2->from);
 	network_free(&network);
+	hashmap_free(&parser.hmap);
 
 	parser = (t_parser){.line = "", .stage = LINKS};
 	ret = get_link(&parser, &network);
