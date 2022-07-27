@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:01:04 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/13 10:38:46 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/07/27 17:38:28 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 int	queue_has_next(t_queue *queue)
 {
-	if (queue->head == queue->tail)
-		return (FALSE);
-	return (TRUE);
+	return (queue->head > queue->tail);
 }
 
 int	queue_push(t_queue *queue, void *src)
