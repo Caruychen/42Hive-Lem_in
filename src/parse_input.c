@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/23 11:03:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/27 15:42:16 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	get_link
 };
 
-static void	parser_set_info(t_info *info, t_parser *parser)
+static void	parser_set_info(t_flow_network *network, t_parser *parser)
 {
-	info->source = parser->source;
-	info->sink = parser->sink;
-	info->n_ants = parser->n_ants;
+	network->source = parser->source;
+	network->sink = parser->sink;
+	network->n_ants = parser->n_ants;
 }
 
 static int	check_for_modification(t_parser *parser)
@@ -36,7 +36,7 @@ static int	check_for_modification(t_parser *parser)
 	return (OK);
 }
 
-int	parse_input(t_flow_network *network, t_info *info)
+int	parse_input(t_flow_network *network)
 {
 	t_parser	parser;
 
@@ -59,7 +59,7 @@ int	parse_input(t_flow_network *network, t_info *info)
 	}
 	if (parser.stage != LINKS)
 		return (error(MSG_ERROR_INV_FILE));
-	parser_set_info(info, &parser);
+	parser_set_info(network, &parser);
 	ft_putchar('\n');
 	return (OK);
 }
