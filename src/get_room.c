@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/27 15:46:14 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/27 15:49:46 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int	get_room(t_parser *parser, t_flow_network *network)
 	if (network_add_node(network, alias, x, y) == ERROR)
 		return (ERROR);
 	if (parser->modification == START)
-		parser->source = network->adj_list.len - 1;
+		network->source = network->adj_list.len - 1;
 	else if (parser->modification == END)
-		parser->sink = network->adj_list.len - 1;
+		network->sink = network->adj_list.len - 1;
 	parser->modification = NONE;
 	return (OK);
 }

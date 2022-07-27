@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/27 15:47:19 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/27 15:51:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ typedef struct s_parser
 	char		*ptr;
 	t_stage		stage;
 	t_mod		modification;
-	size_t		source;
-	size_t		sink;
-	size_t		n_ants;
 	t_hashmap	hmap;
 }	t_parser;
 
