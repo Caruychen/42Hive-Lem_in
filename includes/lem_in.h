@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 00:22:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/27 15:22:31 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "flow_node.h"
 # include "flow_network.h"
 # include "parser.h"
-# include "info.h"
 # include "error.h"
 # include "pos.h"
 
