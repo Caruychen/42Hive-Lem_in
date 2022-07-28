@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 15:03:21 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:20:28 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	test_edge_augment_flow_to(void)
 	assert(edge->flow == 0);
 
 	// Adding forward flow
-	assert(edge_augment_flow_to(edge, 2, &network.adj_list) == OK);
+	assert(edge_augment_flow_to(edge, 2, &network) == OK);
 	assert(edge->from == 1);
 	assert(edge->to == 2);
 	assert(edge->flow == 1);
@@ -44,7 +44,7 @@ void	test_edge_augment_flow_to(void)
 	assert(node2->is_free == TRUE);
 
 	// Reversing flow backward
-	assert(edge_augment_flow_to(edge, 1, &network.adj_list) == OK);
+	assert(edge_augment_flow_to(edge, 1, &network) == OK);
 	assert(edge->from == 1);
 	assert(edge->to == 2);
 	assert(edge->flow == 0);
@@ -52,8 +52,8 @@ void	test_edge_augment_flow_to(void)
 	assert(node2->is_free == FALSE);
 
 	// Adding forward flow twice, result in error
-	assert(edge_augment_flow_to(edge, 2, &network.adj_list) == OK);
-	assert(edge_augment_flow_to(edge, 2, &network.adj_list) == ERROR);
+	assert(edge_augment_flow_to(edge, 2, &network) == OK);
+	assert(edge_augment_flow_to(edge, 2, &network) == ERROR);
 	assert(edge->from == 1);
 	assert(edge->to == 2);
 	assert(edge->flow == 1);
@@ -61,13 +61,13 @@ void	test_edge_augment_flow_to(void)
 	assert(node2->is_free == FALSE);
 
 	// Reversing flow twice
-	assert(edge_augment_flow_to(edge, 1, &network.adj_list) == OK);
+	assert(edge_augment_flow_to(edge, 1, &network) == OK);
 	assert(edge->from == 1);
 	assert(edge->to == 2);
 	assert(edge->flow == 0);
 	assert(node1->is_free == FALSE);
 	assert(node2->is_free == FALSE);
-	assert(edge_augment_flow_to(edge, 1, &network.adj_list) == OK);
+	assert(edge_augment_flow_to(edge, 1, &network) == OK);
 	assert(edge->from == 2);
 	assert(edge->to == 1);
 	assert(edge->flow == 1);
@@ -77,29 +77,29 @@ void	test_edge_augment_flow_to(void)
 	// reverse flow again, result in error
 	node1->is_via_augment = 1;
 	node2->is_via_augment = 1;
-	assert(edge_augment_flow_to(edge, 1, &network.adj_list) == ERROR);
+	assert(edge_augment_flow_to(edge, 1, &network) == ERROR);
 	assert(edge->from == 2);
 	assert(edge->to == 1);
 	assert(edge->flow == 1);
 	assert(node1->is_free == FALSE);
 	assert(node2->is_free == FALSE);
 
-	assert(edge_augment_flow_to(edge, 2, &network.adj_list) == OK);
+	assert(edge_augment_flow_to(edge, 2, &network) == OK);
 	assert(edge->from == 2);
 	assert(edge->to == 1);
 	assert(edge->flow == 0);
 	assert(node1->is_free == TRUE);
 	assert(node2->is_free == FALSE);
-	assert(edge_augment_flow_to(edge, 2, &network.adj_list) == OK);
+	assert(edge_augment_flow_to(edge, 2, &network) == OK);
 	assert(edge->from == 1);
 	assert(edge->to == 2);
 	assert(edge->flow == 1);
 	assert(node1->is_free == FALSE);
 	assert(node2->is_free == FALSE);
 
-	assert(edge_augment_flow_to(edge, 3, &network.adj_list) == ERROR);
-	assert(edge_augment_flow_to(edge, 0, &network.adj_list) == ERROR);
-	assert(edge_augment_flow_to(edge, -1, &network.adj_list) == ERROR);
+	assert(edge_augment_flow_to(edge, 3, &network) == ERROR);
+	assert(edge_augment_flow_to(edge, 0, &network) == ERROR);
+	assert(edge_augment_flow_to(edge, -1, &network) == ERROR);
 
 	network_free(&network);
 	ft_printf("OK\n");
