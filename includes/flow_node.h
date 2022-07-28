@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 15:00:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:14:59 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,7 @@
 #ifndef FLOW_NODE_H
 # define FLOW_NODE_H
 
-typedef struct s_flow_node
-{
-	char	*alias;
-	t_vec	edges;
-	int		x;
-	int		y;
-	uint8_t	is_free: 1;
-	uint8_t	is_via_augment: 1;
-}				t_flow_node;
+# include "flow.h"
 
 int			node_make(t_flow_node *node, char *alias, int x, int y);
 int			node_push(t_flow_node *node, t_flow_edge *edge);

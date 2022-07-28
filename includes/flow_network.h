@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/27 15:18:37 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:14:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,7 @@
 #ifndef FLOW_NETWORK_H
 # define FLOW_NETWORK_H
 
-typedef struct s_flow_network
-{
-	t_vec	adj_list;
-	t_vec	edge_list;
-	size_t	source;
-	size_t	sink;
-	size_t	n_ants;
-}		t_flow_network;
+# include "flow.h"
 
 int			network_init(t_flow_network *network);
 int			network_add_node(t_flow_network *network, char *alias,

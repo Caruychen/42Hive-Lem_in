@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 13:39:53 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:44:19 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,29 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const size_t to,
 	return (ERROR);
 }
 
-int	edge_augment_flow_to(t_flow_edge *edge, const size_t to, t_vec *adj_list)
+int	edge_has_flow_to(t_flow_edge *edge, const size_t to, t_vec *adj_list)
+{
+	(void) adj_list;
+	if ((edge->from != to && edge->to != to))
+		return (ERROR);
+	return (edge->flow && edge->to == to);
+}
+
+int	edge_augment_flow_to(t_flow_edge *edge, const size_t to, t_flow_network *network)
 {
 	t_flow_node	*origin;
+	size_t		origin_id;
 
-	origin = (t_flow_node *) vec_get(adj_list, edge_other(edge, to));
+	origin_id = edge_other(edge, to);
+	origin = (t_flow_node *) vec_get(&network->adj_list, origin_id);
 	if (edge->from != to && edge->to != to)
 		return (ERROR);
 	if (edge->flow && edge->to == to)
 		return (ERROR);
 	if (!edge->flow && edge->to != to)
 		ft_swap_ul(&(edge->from), &(edge->to));
-	origin->is_free = (edge->flow && origin->is_via_augment);
+	origin->is_free = (edge->flow && origin->is_via_augment)
+		|| origin_id == network->source;
 	edge->flow = ~edge->flow;
 	return (OK);
 }
