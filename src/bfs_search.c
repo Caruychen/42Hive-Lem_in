@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 11:42:19 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:33:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 }
 
 static int	search_edges(t_flow_network *network, t_bfs_utils *bfs_utils,
-		int (*condition)(t_flow_edge *, size_t, t_vec *))
+		int (*condition)(t_flow_edge *, const size_t, t_vec *))
 {
 	size_t		current;
 	size_t		index;
@@ -51,8 +51,9 @@ static int	search_edges(t_flow_network *network, t_bfs_utils *bfs_utils,
 }
 
 int	bfs_search(t_flow_network *network, t_bfs_utils *bfs_utils,
-		int (*condition)(t_flow_edge *, size_t, t_vec *))
+		int (*condition)(t_flow_edge *, const size_t, t_vec *))
 {
+	bfs_reset(bfs_utils, network);
 	while (queue_has_next(&bfs_utils->queue))
 	{
 		if (search_edges(network, bfs_utils, condition))

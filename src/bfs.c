@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 11:38:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:32:15 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 		return (ERROR);
 	bfs_utils->saturate_trace = saturate;
 	return ((bfs_utils->marked)[*source] = 1, OK);
+}
+
+int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
+{
+	ft_bzero(bfs_utils->marked, sizeof(int) * network->adj_list.len);
+	bfs_utils->queue.vec.len = 0;
+	bfs_utils->queue.head = 0;
+	bfs_utils->queue.tail = 0;
+	if (queue_push(&bfs_utils->queue, &network->source) == ERROR)
+		return (ERROR);
+	return ((bfs_utils->marked)[network->source] = 1, OK);
 }
 
 void	bfs_free(t_bfs_utils *bfs_utils)
