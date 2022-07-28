@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:35:57 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 11:30:31 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:29:52 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_bfs_utils
 }		t_bfs_utils;
 
 int		bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate);
+int		bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network);
 int		bfs_search(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, size_t, t_vec *));
 void	bfs_free(t_bfs_utils *bfs_utils);
