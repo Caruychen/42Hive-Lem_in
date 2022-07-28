@@ -6,18 +6,22 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/27 20:17:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/28 11:38:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "lem_in.h"
 
 int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 {
 	size_t	*source;
 
+	source = &network->source;
 	bfs_utils->marked = ft_memalloc(sizeof(int) * network->adj_list.len);
 	if (!bfs_utils->marked)
 		return (ERROR);
-	bfs_utils->trace.edge_to = ft_memalloc(sizeof(*edge_to) * network->adj_list.len);
+	bfs_utils->trace.edge_to = ft_memalloc(sizeof(t_flow_edge*)
+			* network->adj_list.len);
 	if (!bfs_utils->trace.edge_to)
 		return (ERROR);
 	if (edge_list_make(&bfs_utils->trace.sink_edges) == ERROR)
@@ -33,9 +37,9 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 void	bfs_free(t_bfs_utils *bfs_utils)
 {
 	if (bfs_utils->marked)
-		ft_memdel(&bfs_utils->marked);
+		ft_memdel((void **)&bfs_utils->marked);
 	if (bfs_utils->trace.edge_to)
-		ft_memdel(&bfs_utils->trace.edge_to);
+		ft_memdel((void **)&bfs_utils->trace.edge_to);
 	if (bfs_utils->trace.sink_edges.memory)
 		vec_free(&bfs_utils->trace.sink_edges);
 	if (bfs_utils->queue.vec.memory)

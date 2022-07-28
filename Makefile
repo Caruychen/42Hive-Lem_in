@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/25 13:07:02 by cchen            ###   ########.fr        #
+#    Updated: 2022/07/28 11:39:16 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,9 @@ SRCS += $(SRC_DIR)/flow_network_edge_list.c
 SRCS += $(SRC_DIR)/get_ant_number.c
 SRCS += $(SRC_DIR)/get_room.c
 SRCS += $(SRC_DIR)/get_link.c
+SRCS += $(SRC_DIR)/queue.c
+SRCS += $(SRC_DIR)/bfs.c
+SRCS += $(SRC_DIR)/bfs_search.c
 
 OBJ_DIR := ./obj
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
