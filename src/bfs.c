@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 13:32:15 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 12:14:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 	bfs_utils->marked = ft_memalloc(sizeof(int) * network->adj_list.len);
 	if (!bfs_utils->marked)
 		return (ERROR);
-	bfs_utils->trace.edge_to = ft_memalloc(sizeof(t_flow_edge*)
+	bfs_utils->trace.edge_to = ft_memalloc(sizeof(t_flow_edge *)
 			* network->adj_list.len);
 	if (!bfs_utils->trace.edge_to)
 		return (ERROR);

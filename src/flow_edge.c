@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 14:44:19 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 12:18:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	edge_has_flow_to(t_flow_edge *edge, const size_t to, t_vec *adj_list)
 	return (edge->flow && edge->to == to);
 }
 
-int	edge_augment_flow_to(t_flow_edge *edge, const size_t to, t_flow_network *network)
+int	edge_augment_flow_to(t_flow_edge *edge, const size_t to,
+		t_flow_network *network)
 {
 	t_flow_node	*origin;
 	size_t		origin_id;
@@ -108,14 +109,8 @@ int	edge_augment_flow_to(t_flow_edge *edge, const size_t to, t_flow_network *net
 		return (ERROR);
 	if (!edge->flow && edge->to != to)
 		ft_swap_ul(&(edge->from), &(edge->to));
-	origin->is_free = (edge->flow && origin->is_via_augment)
-		|| origin_id == network->source;
+	origin->is_free = ((edge->flow && origin->is_via_augment)
+			|| origin_id == network->source);
 	edge->flow = ~edge->flow;
 	return (OK);
-}
-
-void	edge_free(t_flow_edge **edge)
-{
-	free(*edge);
-	*edge = NULL;
 }
