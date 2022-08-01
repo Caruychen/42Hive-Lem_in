@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_ant_number.c                                   :+:      :+:    :+:   */
+/*   queue.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 12:37:51 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/27 15:50:19 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/13 00:04:06 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/07/13 01:16:11 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef QUEUE_H
+# define QUEUE_H
 
-int	get_ant_number(t_parser *parser, t_flow_network *network)
+/* A queue implementation based on a a dynamic array (t_vec). */
+typedef struct s_queue
 {
-	char	*ptr;
+	t_vec	vec;
+	size_t	head;
+	size_t	tail;
+}	t_queue;
 
-	(void) network;
-	ptr = parser->line;
-	if (!ft_isdigit(*ptr))
-		return (error(MSG_ERROR_INV_LINE));
-	while (*(++ptr))
-		if (!ft_isdigit(*ptr))
-			return (error(MSG_ERROR_INV_LINE));
-	network->n_ants = ft_atoi(parser->line);
-	parser->stage = ROOMS;
-	return (OK);
-}
+int		queue_init(t_queue *queue, size_t elem_size);
+int		queue_has_next(t_queue *queue);
+int		queue_push(t_queue *queue, void *src);
+void	*queue_pop(t_queue *queue);
+void	queue_free(t_queue *queue);
+
+#endif

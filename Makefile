@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/07/25 13:07:02 by cchen            ###   ########.fr        #
+#    Updated: 2022/08/01 13:43:19 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,18 @@ INCLUDES := -I./libft -I./includes
 
 SRC_DIR := ./src
 SRCS := $(SRC_DIR)/main.c
-SRCS += $(SRC_DIR)/parse_input.c
+SRCS += $(SRC_DIR)/parse.c
 SRCS += $(SRC_DIR)/cleanup.c
 SRCS += $(SRC_DIR)/flow_edge.c
 SRCS += $(SRC_DIR)/flow_network.c
 SRCS += $(SRC_DIR)/flow_node.c
 SRCS += $(SRC_DIR)/flow_network_edge_list.c
-SRCS += $(SRC_DIR)/get_ant_number.c
-SRCS += $(SRC_DIR)/get_room.c
-SRCS += $(SRC_DIR)/get_link.c
+SRCS += $(SRC_DIR)/parse_ant_number.c
+SRCS += $(SRC_DIR)/parse_room.c
+SRCS += $(SRC_DIR)/parse_link.c
+SRCS += $(SRC_DIR)/queue.c
+SRCS += $(SRC_DIR)/bfs.c
+SRCS += $(SRC_DIR)/bfs_search.c
 
 OBJ_DIR := ./obj
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

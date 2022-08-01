@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pos.h                                              :+:      :+:    :+:   */
+/*   parse_ant_number.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/17 11:50:00 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/17 11:51:10 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/26 12:37:51 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/08/01 13:38:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POS_H
-# define POS_H
+#include "lem_in.h"
 
-typedef struct s_pos
+int	parse_ant_number(t_parser *parser, t_flow_network *network)
 {
-	int	x;
-	int	y;
-}	t_pos;
+	char	*ptr;
 
-#endif
+	(void) network;
+	ptr = parser->line;
+	if (!ft_isdigit(*ptr))
+		return (error(MSG_ERROR_INV_LINE));
+	while (*(++ptr))
+		if (!ft_isdigit(*ptr))
+			return (error(MSG_ERROR_INV_LINE));
+	network->n_ants = ft_atoi(parser->line);
+	parser->stage = ROOMS;
+	return (OK);
+}

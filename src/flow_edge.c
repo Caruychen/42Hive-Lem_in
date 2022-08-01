@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 14:57:41 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 12:18:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ t_flow_edge	*edge_make(const long from, const long to)
 	edge = (t_flow_edge *) ft_memalloc(sizeof(*edge));
 	if (!edge)
 		return (NULL);
-	edge->from = from;
-	edge->to = to;
+	edge->from = (size_t) from;
+	edge->to = (size_t) to;
 	return (edge);
 }
 
-long	edge_other(t_flow_edge *edge, const long node)
+long	edge_other(t_flow_edge *edge, const size_t node)
 {
 	if (edge->from == node)
 		return (edge->to);
@@ -62,7 +62,7 @@ long	edge_other(t_flow_edge *edge, const long node)
 	return (ERROR);
 }
 
-int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
+int	edge_has_residual_capacity_to(t_flow_edge *edge, const size_t to,
 		t_vec *adj_list)
 {
 	t_flow_node	*origin;
@@ -87,24 +87,30 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const long to,
 	return (ERROR);
 }
 
-int	edge_augment_flow_to(t_flow_edge *edge, const long to, t_vec *adj_list)
+int	edge_has_flow_to(t_flow_edge *edge, const size_t to, t_vec *adj_list)
+{
+	(void) adj_list;
+	if ((edge->from != to && edge->to != to))
+		return (ERROR);
+	return (edge->flow && edge->to == to);
+}
+
+int	edge_augment_flow_to(t_flow_edge *edge, const size_t to,
+		t_flow_network *network)
 {
 	t_flow_node	*origin;
+	size_t		origin_id;
 
-	origin = (t_flow_node *) vec_get(adj_list, edge_other(edge, to));
+	origin_id = edge_other(edge, to);
+	origin = (t_flow_node *) vec_get(&network->adj_list, origin_id);
 	if (edge->from != to && edge->to != to)
 		return (ERROR);
 	if (edge->flow && edge->to == to)
 		return (ERROR);
 	if (!edge->flow && edge->to != to)
-		ft_swap_l(&(edge->from), &(edge->to));
-	origin->is_free = (edge->flow && origin->is_via_augment);
+		ft_swap_ul(&(edge->from), &(edge->to));
+	origin->is_free = ((edge->flow && origin->is_via_augment)
+			|| origin_id == network->source);
 	edge->flow = ~edge->flow;
 	return (OK);
-}
-
-void	edge_free(t_flow_edge **edge)
-{
-	free(*edge);
-	*edge = NULL;
 }

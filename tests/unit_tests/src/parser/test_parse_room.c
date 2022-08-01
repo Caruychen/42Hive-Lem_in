@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_get_room.c                                    :+:      :+:    :+:   */
+/*   test_parse_room.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 13:29:58 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 13:41:30 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_test.h"
 
-void	test_get_room(void)
+void	test_parse_room(void)
 {
 	t_parser		parser;
 	t_flow_network	network;
 	t_flow_node		*node;
 	int				ret;
 
-	ft_printf("Testing get_room: ");
+	ft_printf("Testing parse_room: ");
 
 	network_init(&network);
 	parser = (t_parser){.line = "1 2 3", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	node = vec_get(&network.adj_list, 0);
 	assert(ret == OK);
 	assert(!ft_strcmp(node->alias, "1"));
@@ -31,7 +31,7 @@ void	test_get_room(void)
 
 	network_init(&network);
 	parser = (t_parser){.line = "start 0 0", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	node = vec_get(&network.adj_list, 0);
 	assert(ret == OK);
 	assert(!ft_strcmp(node->alias, "start"));
@@ -41,31 +41,31 @@ void	test_get_room(void)
 
 	network_init(&network);
 	parser = (t_parser){.line = "", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	assert(ret == ERROR);
 	network_free(&network);
 
 	network_init(&network);
 	parser = (t_parser){.line = "L1 1 1", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	assert(ret == ERROR);
 	network_free(&network);
 
 	network_init(&network);
 	parser = (t_parser){.line = "1 2 3 4", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	assert(ret == ERROR);
 	network_free(&network);
 
 	network_init(&network);
 	parser = (t_parser){.line = "1 2 3 ", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	assert(ret == ERROR);
 	network_free(&network);
 
 	network_init(&network);
 	parser = (t_parser){.line = " 1 2 3", .stage = ROOMS};
-	ret = get_room(&parser, &network);
+	ret = parse_room(&parser, &network);
 	assert(ret == ERROR);
 	network_free(&network);
 
