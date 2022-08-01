@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 13:10:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 13:54:12 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "bfs.h"
 # include "parser.h"
 # include "error.h"
-# include "pos.h"
 # include "queue.h"
 
 # define OK 1
