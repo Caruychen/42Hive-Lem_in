@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 12:35:30 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 14:47:01 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 14:22:41 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	test_bfs_search(void)
 
 	ft_printf("Searching for final paths: ");
 	second_augment(&network, bfs_utils.trace);
+	assert(bfs_search(&network, &bfs_utils, &edge_has_residual_capacity_to) == 0);
 	bfs_utils.saturate_trace = 1;
 	final_search(&network, &bfs_utils);
 	ft_printf("OK\n");
