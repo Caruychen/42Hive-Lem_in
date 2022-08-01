@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 13:54:12 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 23:04:56 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "parser.h"
 # include "error.h"
 # include "queue.h"
+# include "pathset.h"
+# include "printer.h"
 
 # define OK 1
 # define TRUE 1
