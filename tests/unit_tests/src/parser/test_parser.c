@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:08:46 by cchen             #+#    #+#             */
-/*   Updated: 2022/06/26 19:50:05 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/01 13:41:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	test_parser(void)
 {
-	test_get_ant_number();
-	test_get_room();
-	test_get_link();
+	test_parse_ant_number();
+	test_parse_room();
+	test_parse_link();
 }

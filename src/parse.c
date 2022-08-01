@@ -6,16 +6,16 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/27 15:52:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 13:39:51 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 static const t_parse_func	g_parser_jumptable[3] = {
-	get_ant_number,
-	get_room,
-	get_link
+	parse_ant_number,
+	parse_room,
+	parse_link
 };
 
 static int	check_for_modification(t_parser *parser)

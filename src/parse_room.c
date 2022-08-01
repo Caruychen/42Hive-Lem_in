@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/27 15:49:46 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 13:36:50 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ static int	start_links(t_parser *parser, t_flow_network *network)
 	if (hashmap_from(&(parser->hmap), &(network->adj_list)) == ERROR)
 		return (hashmap_free(&(parser->hmap)), ERROR);
 	parser->stage = LINKS;
-	return (get_link(parser, network));
+	return (parse_link(parser, network));
 }
 
-int	get_room(t_parser *parser, t_flow_network *network)
+int	parse_room(t_parser *parser, t_flow_network *network)
 {
 	char	*alias;
 	int		x;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_ant_number.c                                   :+:      :+:    :+:   */
+/*   parse_ant_number.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:51 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/27 15:50:19 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 13:38:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	get_ant_number(t_parser *parser, t_flow_network *network)
+int	parse_ant_number(t_parser *parser, t_flow_network *network)
 {
 	char	*ptr;
 
