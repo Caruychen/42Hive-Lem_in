@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:51 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/23 11:04:17 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/27 15:50:19 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_ant_number(t_parser *parser, t_flow_network *network)
 	while (*(++ptr))
 		if (!ft_isdigit(*ptr))
 			return (error(MSG_ERROR_INV_LINE));
-	parser->n_ants = ft_atoi(parser->line);
+	network->n_ants = ft_atoi(parser->line);
 	parser->stage = ROOMS;
 	return (OK);
 }

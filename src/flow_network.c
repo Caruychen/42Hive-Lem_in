@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/25 23:32:07 by cchen            ###   ########.fr       */
+/*   Updated: 2022/07/27 15:44:09 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 
 int	network_init(t_flow_network *network)
 {
+	*network = (t_flow_network){0};
 	if (edge_list_make(&(network->edge_list)) == -1)
 		return (ERROR);
 	return (vec_new(&(network->adj_list), 1, sizeof(t_flow_node)));
