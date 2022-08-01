@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 16:42:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 23:09:36 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,4 @@ int	network_augment(t_flow_network *network, t_trace trace)
 		index = edge_other(edge, index);
 	}
 	return (OK);
-}
-
-t_pathset	network_export_pathset(t_flow_network *network,
-		t_bfs_utils *bfs_utils)
-{
-	t_pathset	pathset;
-	t_trace		trace;
-
-	bfs_utils->saturate_trace = TRUE;
-	bfs_search(network, bfs_utils, &edge_has_flow_to);
-	trace = bfs_utils->trace;
-	if (pathset_init(&pathset, trace.sink_edges.len, network->n_ants) == ERROR)
-		return (pathset);
-	if (pathset_fill(&pathset, trace) == ERROR)
-		return (pathset_free(&pathset), pathset);
-	return (pathset);
 }

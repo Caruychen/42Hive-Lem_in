@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paths.c                                            :+:      :+:    :+:   */
+/*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 17:11:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 23:12:12 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int	solve(t_flow_network *network, t_pathset *pathset)
 	while (network_has_augmenting_path(network, &bfs_utils))
 	{
 		network_augment(network, bfs_utils.trace);
-		best_path = network_export_pathset(network, &bfs_utils);
-		if (!best_path.paths.memory)
+		if (pathset_from_network(&best_path, network, &bfs_utils) == ERROR)
 			return (ERROR);
 		test(network, best_path);
 	}
