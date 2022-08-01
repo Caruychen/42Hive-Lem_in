@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 15:50:34 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 16:28:19 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,27 @@ int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 	}
 	pathset->ants = n_ants;
 	return (OK);
+}
+
+int	pathset_fill(t_pathset *pathset, t_trace trace)
+{
+	size_t	index;
+	t_path	*path;
+
+	index = 0;
+	while (index < trace.sink_edges.len)
+	{
+		path = pathset_get(pathset, index);
+		if (path_populate(path, index, trace) == ERROR)
+			return (ERROR);
+		index++;
+	}
+	return (OK);
+}
+
+t_path	*pathset_get(t_pathset *pathset, size_t index)
+{
+	return ((t_path *) vec_get(&pathset->paths, index));
 }
 
 void	pathset_free(t_pathset *pathset)
