@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 01:05:50 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 01:07:13 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ static int	printer_init(t_printer *printer, t_pathset *pathset)
 static void	update_move_prefix(t_printer *printer)
 {
 	char	*number_string;
+	char	*move;
 
 	printer->move.len = 1;
+	move = printer->move.memory;
+	move[1] = '\0';
 	number_string = ft_itoa(printer->ant_number);
 	if (!number_string)
 		return ;
