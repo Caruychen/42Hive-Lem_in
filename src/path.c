@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:00:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 16:27:16 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 16:56:22 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	path_fill(t_path *path, size_t index, t_trace trace)
 		return (ERROR);
 	while (edge)
 	{
-		if (vec_push(path, &edge->to) == ERROR)
+		if (vec_push(&path->nodes, &edge->to) == ERROR)
 			return (ERROR);
 		edge = trace.edge_to[edge->from];
 	}
