@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_printer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 23:07:02 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/06/09 13:08:46 by cchen             #+#    #+#             */
+/*   Updated: 2022/08/01 22:24:00 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_test.h"
 
-int	main(void)
+void	test_printer(void)
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	test_bfs();
-	test_printer();
-	system("leaks test_lem-in");
-	return (0);
+	test_print();
 }
