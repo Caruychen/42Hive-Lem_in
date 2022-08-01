@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 16:29:58 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 16:42:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_pathset	network_export_pathset(t_flow_network *network,
 	trace = bfs_utils->trace;
 	if (pathset_init(&pathset, trace.sink_edges.len, network->n_ants) == ERROR)
 		return (pathset);
-	pathset_fill(&pathset, trace);
+	if (pathset_fill(&pathset, trace) == ERROR)
+		return (pathset_free(&pathset), pathset);
 	return (pathset);
 }
