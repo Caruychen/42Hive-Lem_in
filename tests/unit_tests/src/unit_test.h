@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:28:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 22:50:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 11:47:33 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	test_bfs(void);
 void	test_bfs_search(void);
 
 void	test_printer(void);
-void	test_print(void);
+void	test_print_solution(void);
 
 #endif

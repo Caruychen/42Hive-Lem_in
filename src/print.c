@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 10:12:12 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 12:15:44 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	update_move_prefix(t_printer *printer)
 	number_string = ft_itoa(printer->ant_number);
 	if (!number_string)
 		return ;
-	ft_printf("ns adr %p\n", number_string);
 	vec_append_str(&printer->move, number_string);
 	ft_strdel(&number_string);
 	vec_append_strn(&printer->move, "-", 1);
@@ -78,13 +77,14 @@ static void	send_ant(t_printer *printer, t_flow_network *network)
 
 	update_move_prefix(printer);
 	dash_id = printer->move.len;
-	i = 1;
-	while (i < printer->path->nodes.len)
+	i = 0;
+	while (i < printer->path->nodes.len - 1)
 	{
 		printer->move.len = dash_id;
-		node_id = *(size_t *)vec_get(&printer->path->nodes, i);
+		node_id = *(size_t *)vec_get(&printer->path->nodes,
+				printer->path->nodes.len - i - 2);
 		vec_append_str(&printer->move, network_get(network, node_id)->alias);
-		line = vec_get(&printer->lines, printer->start_line + i - 1);
+		line = vec_get(&printer->lines, printer->start_line + i);
 		vec_append_str(line, printer->move.memory);
 		vec_append_strn(line, " ", 1);
 		i++;

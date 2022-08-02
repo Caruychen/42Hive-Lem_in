@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 22:24:15 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 10:12:52 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 11:46:51 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	init_dummy_pathset(t_pathset *pathset)
 {
 	t_path	path_a;
 	t_path	path_b;
-	size_t	nodes_a[] = {0, 1, 4, 5, 7};
-	size_t	nodes_b[] = {0, 2, 3, 6, 7};
+	size_t	nodes_a[] = {7, 5, 4, 1, 0};
+	size_t	nodes_b[] = {7, 6, 3, 2, 0};
 
 	path_a = (t_path){.ants = 3};
 	path_b = (t_path){.ants = 2};
@@ -65,7 +65,7 @@ static void	init_dummy_pathset(t_pathset *pathset)
 	assert(vec_push(&pathset->paths, &path_b) != ERROR);
 }
 
-void	test_print(void)
+void	test_print_solution(void)
 {
 	t_flow_network	network;
 	t_pathset		pathset;
