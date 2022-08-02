@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 17:22:59 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 19:19:10 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,13 @@ void	pathset_assign_ants(t_pathset *pathset)
 	ants = pathset->ants;
 	len = pathset->paths.len;
 	remainder = (ants + pathset->total_nodes) % len;
-	pathset->steps += remainder > 0;
 	index = 0;
 	while (index < len)
 	{
 		path = pathset_get(pathset, index++);
-		path->ants = (pathset->steps - (remainder <= 0)) - path->height;
+		path->ants = (pathset->steps + (remainder > 0)) - path->height;
 		remainder -= remainder > 0;
 		ants -= path->ants;
 	}
-	pathset->steps--;
+	pathset->steps -= ((ants + pathset->total_nodes) % len) == 0;
 }
