@@ -6,10 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 20:30:21 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 20:57:38 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "lem_in.h"
 
 int	main(int argc, char **argv)
@@ -26,7 +27,9 @@ int	main(int argc, char **argv)
 		return (network_free(&network), ERROR);
 	if (solve(&network, &pathset) == ERROR)
 		return (network_free(&network), ERROR);
-	if (print_solution(&pathset) == ERROR)
+	if (options.quiet)
+		ft_printf("Solved with %i steps.\n", (int) pathset.steps);
+	else if (print_solution(&pathset) == ERROR)
 	{
 		network_free(&network);
 		return (pathset_free(&pathset), ERROR);
