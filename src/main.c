@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 16:54:46 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 13:56:21 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int	main(void)
 	if (solve(&network, &pathset) == ERROR)
 		return (network_free(&network), ERROR);
 	network_free(&network);
+	pathset_free(&pathset);
+	//system("leaks lem-in");
 	return (0);
 }
