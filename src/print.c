@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 01:07:13 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 10:06:00 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,32 @@ static int	printer_init(t_printer *printer, t_pathset *pathset)
 	if (vec_from(&printer->move, "L\0", 2, sizeof (char)) == ERROR)
 		return (ERROR);
 	i = 0;
-	/* line = (t_vec){.elem_size = sizeof (char)}; */
 	while (i < pathset->steps)
 	{
-		/* vec_new(&line, pathset->flow, sizeof (char)); */
-		vec_new(&line, 64, sizeof (char));
+		vec_new(&line, 8, sizeof (char));
 		vec_push(&printer->lines, &line);
 		i++;
 	}
 	return (OK);
+}
+
+static void	printer_free(t_printer *printer)
+{
+	size_t	i;
+	t_vec	*line;
+
+	i = 0;
+	while (i < printer->lines.len)
+	{
+		line = vec_get(&printer->lines, i);
+		if (line && line->memory)
+			vec_free(line);
+		i++;
+	}
+	if (printer->lines.memory)
+		vec_free(&printer->lines);
+	if (printer->move.memory)
+		vec_free(&printer->move);
 }
 
 static void	update_move_prefix(t_printer *printer)
@@ -46,6 +63,7 @@ static void	update_move_prefix(t_printer *printer)
 	number_string = ft_itoa(printer->ant_number);
 	if (!number_string)
 		return ;
+	ft_printf("ns adr %p\n", number_string);
 	vec_append_str(&printer->move, number_string);
 	ft_strdel(&number_string);
 	vec_append_strn(&printer->move, "-", 1);
@@ -117,11 +135,11 @@ int	print(t_flow_network *network, t_pathset *pathset)
 	t_printer	printer;
 
 	if (printer_init(&printer, pathset) == ERROR)
-		return (ERROR);
+		return (printer_free(&printer), ERROR);
 	while (has_ants_to_send(pathset))
 	{
 		send_ant_wave(&printer, pathset, network);
 	}
 	vec_iter(&printer.lines, put_line);
-	return (OK);
+	return (printer_free(&printer), OK);
 }
