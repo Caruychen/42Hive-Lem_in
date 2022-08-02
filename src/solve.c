@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 12:08:36 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 13:30:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	is_better(t_pathset pathset)
 	size_t			current_r;
 	size_t			res;
 
-	current_q = (pathset.ants + pathset.steps) / pathset.paths.len;
-	current_r = (pathset.ants + pathset.steps) % pathset.paths.len;
+	current_q = (pathset.ants + pathset.total_nodes) / pathset.paths.len;
+	current_r = (pathset.ants + pathset.total_nodes) % pathset.paths.len;
 	res = (!quotient || current_q < quotient
 			|| (current_q == quotient && current_r < remainder));
 	quotient = current_q * res + quotient * !res;
@@ -58,28 +58,33 @@ int	is_better(t_pathset pathset)
 	return (res);
 }
 
+void	select_paths(t_pathset *pathset)
+{
+	static t_pathset	best;
+
+	if (is_better(*pathset))
+	{
+		pathset_free(&best);
+		best = *pathset;
+		return;
+	}
+	pathset_free(pathset);
+	*pathset = best;
+}
+
 int	solve(t_flow_network *network, t_pathset *pathset)
 {
 	t_bfs_utils	bfs_utils;
-	t_pathset	best_path;
-	t_pathset	tmp_set;
 
-	best_path = (t_pathset){0};
 	bfs_init(&bfs_utils, network, 0);
 	while (network_has_augmenting_path(network, &bfs_utils))
 	{
 		network_augment(network, bfs_utils.trace);
-		if (pathset_from_network(&tmp_set, network, &bfs_utils) == ERROR)
+		if (pathset_from_network(pathset, network, &bfs_utils) == ERROR)
 			return (ERROR);
-		if (is_better(tmp_set))
-		{
-			pathset_free(&best_path);
-			best_path = tmp_set;
-			continue ;
-		}
-		pathset_free(&tmp_set);
+		select_paths(pathset);
 	}
-	*pathset = best_path;
-	test(network, best_path);
+	test(network, *pathset);
+	bfs_free(&bfs_utils);
 	return (OK);
 }
