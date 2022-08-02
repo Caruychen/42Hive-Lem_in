@@ -6,13 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 13:30:23 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 14:23:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	test(t_flow_network *network, t_pathset best_path)
+void	test(t_pathset best_path)
 {
 	size_t		index;
 	size_t		node_id;
@@ -31,8 +31,7 @@ void	test(t_flow_network *network, t_pathset best_path)
 		node_id = 0;
 		while (node_id < path->nodes.len)
 		{
-			node = network_get(network,
-					*(size_t *)vec_get(&path->nodes, node_id));
+			node = path_get(path, node_id);
 			ft_printf("%s, ", node->alias);
 			node_id++;
 		}
@@ -84,7 +83,7 @@ int	solve(t_flow_network *network, t_pathset *pathset)
 			return (ERROR);
 		select_paths(pathset);
 	}
-	test(network, *pathset);
+	test(*pathset);
 	bfs_free(&bfs_utils);
 	return (OK);
 }
