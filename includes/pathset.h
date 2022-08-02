@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 14:24:45 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 15:54:03 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ typedef struct s_path
 {
 	t_vec		nodes;	
 	size_t		ants;
+	size_t		height;
 }				t_path;
 
 int			path_new(t_path *path);
 t_flow_node *path_get(t_path *path, size_t index);
 int			path_fill(t_path *path, size_t index, t_trace trace, t_flow_network *network);
+void		path_free(t_path *path);
 
 typedef struct s_pathset
 {
