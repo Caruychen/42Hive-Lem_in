@@ -6,18 +6,20 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 17:36:44 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 20:25:12 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "printer.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	t_options		options;
 	t_flow_network	network;
 	t_pathset		pathset;
 
+	if (options_init(&options, argc, argv) == ERROR)
+		return (ft_putendl(MSG_USAGE), OK);
 	if (network_init(&network) == ERROR)
 		return (error(MSG_ERR_NETWORK_INIT));
 	if (parse_input(&network) == ERROR)
