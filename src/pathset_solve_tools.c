@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 16:42:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 16:46:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_better(t_pathset pathset)
 	return (res);
 }
 
-void	pathset_select(t_pathset *pathset)
+void	pathset_keep_best(t_pathset *pathset)
 {
 	static t_pathset	best;
 
