@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 12:11:10 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 16:54:05 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define FLOW_NETWORK_H
 
 # include "flow.h"
+# include "bfs.h"
+# include "pathset.h"
 
 int			network_init(t_flow_network *network);
 int			network_add_node(t_flow_network *network, char *alias,
@@ -54,6 +56,12 @@ int			network_add_node(t_flow_network *network, char *alias,
 int			network_add_edge(t_flow_network *network, t_flow_edge *edge);
 t_flow_node	*network_get(t_flow_network *network, size_t index);
 void		network_free(t_flow_network *network);
+
+int			network_has_augmenting_path(t_flow_network *network,
+				t_bfs_utils *bfs_utils);
+int			network_augment(t_flow_network *network, t_trace trace);
+t_pathset	network_export_pathset(t_flow_network *network,
+				t_bfs_utils *bfs_utils);
 
 void		edge_free(t_flow_edge **edge);
 int			edge_list_make(t_vec *edge_list);

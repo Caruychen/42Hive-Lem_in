@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 23:04:56 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 09:34:13 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "queue.h"
 # include "pathset.h"
 # include "printer.h"
+# include "solve.h"
 
 # define OK 1
 # define TRUE 1

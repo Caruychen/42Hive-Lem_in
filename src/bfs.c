@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 12:14:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 14:42:18 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 	bfs_utils->queue.vec.len = 0;
 	bfs_utils->queue.head = 0;
 	bfs_utils->queue.tail = 0;
+	bfs_utils->trace.sink_edges.len = 0;
 	if (queue_push(&bfs_utils->queue, &network->source) == ERROR)
 		return (ERROR);
 	return ((bfs_utils->marked)[network->source] = 1, OK);
