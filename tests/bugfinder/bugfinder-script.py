@@ -2,6 +2,7 @@ import os
 import uuid
 from tempfile import TemporaryDirectory, TemporaryFile
 from subprocess import run, PIPE
+import random
 
 print("Lem-in bugfinder 🔍")
 
@@ -26,14 +27,19 @@ for path in os.scandir(mapdir):
         mapnumber += 1
 mapnumber += 1
 
+generator_flag_list = ["--flow-one", "--flow-ten", "--flow-thousand", "--big", "--big-superposition"]
+
 with TemporaryDirectory() as tmpdir:
 
     print("Generating maps and testing...")
 
     for _ in range(100):
+        generator_flag = random.choice(generator_flag_list)
+        maptype = generator_flag.strip('-')
         mapname = tmpdir + str(uuid.uuid4().hex)
+
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-        gen_result = run([generator_binary, "--big"], stdout = fd)
+        gen_result = run([generator_binary, generator_flag], stdout = fd)
 
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
         with TemporaryFile() as tmp:
@@ -45,7 +51,12 @@ with TemporaryDirectory() as tmpdir:
             steps_taken = int(output_lines[2].split(' ')[2])
 
             if steps_required != steps_taken:
-                print("Map found. Steps required: " + str(steps_required) + ". Steps taken: " + str(steps_taken))
-                new_mapname = mapdir + "/map_" + str(mapnumber)
+                print("Map found. Steps required: " + str(steps_required) + ". Steps taken: " + str(steps_taken) + ".")
+                new_mapname = mapdir + "/" + maptype
+                if steps_taken > steps_required:
+                    new_mapname = new_mapname + "-more-"
+                else:
+                    new_mapname = new_mapname + "-less-"
+                new_mapname = new_mapname + str(mapnumber)
                 mapnumber += 1
                 os.rename(mapname, new_mapname)
