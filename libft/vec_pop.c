@@ -6,11 +6,12 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:43:56 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 15:46:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 16:31:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
+#include "ft_string.h"
 
 int	vec_pop(void *dst, t_vec *src)
 {
