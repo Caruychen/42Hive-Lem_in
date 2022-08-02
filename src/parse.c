@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 21:00:05 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 21:13:24 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	parse_input(t_flow_network *network, t_options *options)
 		}
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
 			return (parser_free(&parser), ERROR);
-		if (!options->quiet)
+		if (!options->quiet || (parser.line[0] == '#' && parser.line[1] != '#'))
 			ft_putendl(parser.line);
 		ft_strdel(&parser.line);
 	}
