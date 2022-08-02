@@ -21,13 +21,18 @@ if not os.path.exists(lem_in_binary):
 if not os.path.exists(mapdir):
     os.mkdir(mapdir)
 
+mapnumber = 0
+for path in os.scandir(mapdir):
+    if path.is_file():
+        mapnumber += 1
+mapnumber += 1
+
 with TemporaryDirectory() as tmpdir:
 
     print("Generating maps and testing...")
 
     mapname = tmpdir + str(uuid.uuid4().hex)
     fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-
     gen_result = run([generator_binary, "--flow-one"], stdout = fd)
 
     fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
@@ -36,5 +41,7 @@ with TemporaryDirectory() as tmpdir:
         output_lines = lem_in_result.stdout.split('\n')
         steps_required = int(output_lines[1].split(' ')[7])
         steps_taken = int(output_lines[2].split(' ')[2])
-        print("Steps required by generator: " + str(steps_required))
-        print("Steps taken: " + str(steps_taken))
+        if steps_required != steps_taken:
+            new_mapname = mapdir + "/map_" + str(mapnumber)
+            mapnumber += 1
+            os.rename(mapname, new_mapname)
