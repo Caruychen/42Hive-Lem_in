@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:00:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 15:54:01 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 16:38:52 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	path_new(t_path *path)
 	return (OK);
 }
 
-int	path_fill(t_path *path, size_t index, t_trace trace, t_flow_network *network)
+int	path_fill(t_path *path, size_t index, t_trace trace,
+		t_flow_network *network)
 {
 	t_flow_edge	*edge;
 
