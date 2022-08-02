@@ -6,11 +6,10 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 20:57:38 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 21:02:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "lem_in.h"
 
 int	main(int argc, char **argv)
