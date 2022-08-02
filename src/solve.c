@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 14:23:44 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 16:12:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,27 @@ void	select_paths(t_pathset *pathset)
 	*pathset = best;
 }
 
+void	trim_paths(t_pathset *pathset)
+{
+	size_t	quotient;
+	t_vec	*path;
+
+	if (!pathset || !pathset->paths.len)
+		return ;
+	while (1)
+	{
+		quotient = (pathset->ants + pathset->total_nodes) / pathset->paths.len;
+		if (quotient > pathset_get(pathset, pathset->paths.len - 1)->height)
+			break ;
+		while (quotient <= pathset_get(pathset, pathset->paths.len - 1)->height)
+		{
+			vec_pop(path, &pathset->paths);
+			path_free(path);
+		}
+	}
+	pathset->steps = quotient;
+}
+
 int	solve(t_flow_network *network, t_pathset *pathset)
 {
 	t_bfs_utils	bfs_utils;
@@ -83,6 +104,8 @@ int	solve(t_flow_network *network, t_pathset *pathset)
 			return (ERROR);
 		select_paths(pathset);
 	}
+	trim_paths(pathset);
+	assign_ants(pathset);
 	test(*pathset);
 	bfs_free(&bfs_utils);
 	return (OK);
