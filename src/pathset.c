@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 12:08:07 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 13:30:11 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 	}
 	pathset->ants = n_ants;
 	pathset->steps = 0;
+	pathset->total_nodes = 0;
 	return (OK);
 }
 
@@ -42,7 +43,7 @@ int	pathset_fill(t_pathset *pathset, t_trace trace)
 		path = pathset_get(pathset, index);
 		if (path_fill(path, index, trace) == ERROR)
 			return (ERROR);
-		pathset->steps += path->nodes.len;
+		pathset->total_nodes += path->nodes.len;
 		index++;
 	}
 	return (OK);
@@ -73,7 +74,7 @@ void	pathset_free(t_pathset *pathset)
 	size_t	index;
 	t_path	*path;
 
-	if (!pathset || !pathset->paths.memory)
+	if (!pathset)
 		return ;
 	index = 0;
 	while (index < pathset->paths.len)

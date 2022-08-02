@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 12:08:53 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 12:14:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_pathset
 	t_vec	paths;
 	size_t	ants;
 	size_t	steps;
+	size_t	total_nodes;
 }				t_pathset;
 
 int		pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants);
