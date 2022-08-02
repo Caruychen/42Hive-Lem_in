@@ -1,7 +1,7 @@
 import os
 import uuid
-from tempfile import TemporaryDirectory
-from subprocess import run
+from tempfile import TemporaryDirectory, TemporaryFile
+from subprocess import run, STDOUT
 
 print("Lem-in bugfinder 🔍")
 
@@ -23,10 +23,13 @@ if not os.path.exists(mapdir):
 
 with TemporaryDirectory() as tmpdir:
 
-    print("Running matches")
+    print("Generating maps and testing...")
 
-    mapname = str(uuid.uuid4().hex)
-    fd = os.open(tmpdir + mapname, os.O_RDWR | os.O_CREAT)
+    mapname = tmpdir + str(uuid.uuid4().hex)
+    fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
+
     gen_result = run([generator_binary, "--flow-one"], stdout = fd)
-    # print(gen_result)
-    # restuil = run("./../../lem-in < testmap")
+
+    fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
+    with TemporaryFile() as tmp:
+        lem_in_result = run([lem_in_binary, "-q"], stdin = fd)
