@@ -6,7 +6,6 @@ from subprocess import run, PIPE
 print("Lem-in bugfinder 🔍")
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-# tempdir = os.path.abspath(os.path.join(__file__, "temp/"))
 rootdir = os.path.abspath(os.path.join(__file__, "../../.."))
 mapdir = os.path.abspath(os.path.join(script_dir, "maps/"))
 
@@ -31,17 +30,22 @@ with TemporaryDirectory() as tmpdir:
 
     print("Generating maps and testing...")
 
-    mapname = tmpdir + str(uuid.uuid4().hex)
-    fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-    gen_result = run([generator_binary, "--flow-one"], stdout = fd)
+    for _ in range(100):
+        mapname = tmpdir + str(uuid.uuid4().hex)
+        fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
+        gen_result = run([generator_binary, "--big"], stdout = fd)
 
-    fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-    with TemporaryFile() as tmp:
-        lem_in_result = run([lem_in_binary, "-q"], stdin = fd, stdout = PIPE, universal_newlines = True)
-        output_lines = lem_in_result.stdout.split('\n')
-        steps_required = int(output_lines[1].split(' ')[7])
-        steps_taken = int(output_lines[2].split(' ')[2])
-        if steps_required != steps_taken:
-            new_mapname = mapdir + "/map_" + str(mapnumber)
-            mapnumber += 1
-            os.rename(mapname, new_mapname)
+        fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
+        with TemporaryFile() as tmp:
+
+            lem_in_result = run([lem_in_binary, "-q"], stdin = fd, stdout = PIPE, universal_newlines = True)
+            output_lines = lem_in_result.stdout.split('\n')
+
+            steps_required = int(output_lines[1].split(' ')[7])
+            steps_taken = int(output_lines[2].split(' ')[2])
+
+            if steps_required != steps_taken:
+                print("Map found. Steps required: " + str(steps_required) + ". Steps taken: " + str(steps_taken))
+                new_mapname = mapdir + "/map_" + str(mapnumber)
+                mapnumber += 1
+                os.rename(mapname, new_mapname)
