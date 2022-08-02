@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 23:03:06 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/01 23:05:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 10:12:28 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ typedef struct s_printer
 	size_t	start_line;
 }	t_printer;
 
-int	print(t_flow_network *network, t_pathset *pathset);
+int	print_solution(t_flow_network *network, t_pathset *pathset);
 
 #endif

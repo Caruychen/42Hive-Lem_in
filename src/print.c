@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 10:06:00 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 10:12:12 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ static void	put_line(void *line)
 	ft_putchar('\n');
 }
 
-int	print(t_flow_network *network, t_pathset *pathset)
+int	print_solution(t_flow_network *network, t_pathset *pathset)
 {
 	t_printer	printer;
 
