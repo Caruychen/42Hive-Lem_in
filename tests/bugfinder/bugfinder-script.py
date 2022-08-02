@@ -1,7 +1,7 @@
 import os
 import uuid
 from tempfile import TemporaryDirectory, TemporaryFile
-from subprocess import run, STDOUT
+from subprocess import run, PIPE
 
 print("Lem-in bugfinder 🔍")
 
@@ -32,4 +32,9 @@ with TemporaryDirectory() as tmpdir:
 
     fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
     with TemporaryFile() as tmp:
-        lem_in_result = run([lem_in_binary, "-q"], stdin = fd)
+        lem_in_result = run([lem_in_binary, "-q"], stdin = fd, stdout = PIPE, universal_newlines = True)
+        output_lines = lem_in_result.stdout.split('\n')
+        steps_required = int(output_lines[1].split(' ')[7])
+        steps_taken = int(output_lines[2].split(' ')[2])
+        print("Steps required by generator: " + str(steps_required))
+        print("Steps taken: " + str(steps_taken))
