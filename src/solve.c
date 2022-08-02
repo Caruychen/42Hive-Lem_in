@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 00:14:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 10:15:43 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,15 @@ int	is_better(t_pathset pathset)
 	static size_t	remainder;
 	size_t			current_q;
 	size_t			current_r;
+	size_t			res;
 
 	current_q = (pathset.ants + pathset.steps) / pathset.paths.len;
 	current_r = (pathset.ants + pathset.steps) % pathset.paths.len;
-	if (!quotient || current_q < quotient
-		|| (current_q == quotient && current_r < remainder))
-	{
-		quotient = current_q;
-		remainder = current_r;
-		return (TRUE);
-	}
-	return (FALSE);
+	res = (!quotient || current_q < quotient
+		|| (current_q == quotient && current_r < remainder));
+	quotient = current_q * res + quotient * !res;
+	remainder = current_r * res + remainder * !res;
+	return (res);
 }
 
 int	solve(t_flow_network *network, t_pathset *pathset)
