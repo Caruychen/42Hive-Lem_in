@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:28:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 13:41:55 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/01 22:50:11 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "lem_in.h"
+# include "pathset.h"
 # include <assert.h>
 # include <limits.h>
 
@@ -35,5 +36,8 @@ void	test_parse_link(void);
 
 void	test_bfs(void);
 void	test_bfs_search(void);
+
+void	test_printer(void);
+void	test_print(void);
 
 #endif

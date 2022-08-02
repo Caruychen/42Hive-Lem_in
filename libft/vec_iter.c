@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vec_iter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 11:28:22 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 23:07:02 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/07/25 19:20:59 by cnysten           #+#    #+#             */
+/*   Updated: 2022/07/25 19:33:40 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_test.h"
+#include "vec.h"
 
-int	main(void)
+void	vec_iter(t_vec *vec, void (*f) (void *))
 {
-	test_flow_edge();
-	test_edge_list();
-	test_parser();
-	test_bfs();
-	test_printer();
-	system("leaks test_lem-in");
-	return (0);
+	size_t	i;
+
+	if (!vec || !vec->memory || !f)
+		return ;
+	i = 0;
+	while (i < vec->len)
+		f(vec->memory + (i++ *vec->elem_size));
 }
