@@ -6,39 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 16:12:42 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 16:38:21 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	test(t_pathset best_path)
-{
-	size_t		index;
-	size_t		node_id;
-	t_flow_node	*node;
-	t_path		*path;
-
-	ft_printf("test\n");
-	ft_printf("%ld ants\n", best_path.ants);
-	ft_printf("%ld paths\n", best_path.paths.len);
-	index = 0;
-	while (index < best_path.paths.len)
-	{
-		path = pathset_get(&best_path, index);
-		ft_printf("Path %ld:\n", index);
-		ft_printf("%ld nodes\n", path->nodes.len);
-		node_id = 0;
-		while (node_id < path->nodes.len)
-		{
-			node = path_get(path, node_id);
-			ft_printf("%s, ", node->alias);
-			node_id++;
-		}
-		ft_printf("\n");
-		index++;
-	}
-}
 
 int	is_better(t_pathset pathset)
 {
@@ -65,7 +37,7 @@ void	select_paths(t_pathset *pathset)
 	{
 		pathset_free(&best);
 		best = *pathset;
-		return;
+		return ;
 	}
 	pathset_free(pathset);
 	*pathset = best;
@@ -74,7 +46,7 @@ void	select_paths(t_pathset *pathset)
 void	trim_paths(t_pathset *pathset)
 {
 	size_t	quotient;
-	t_vec	*path;
+	t_path	path;
 
 	if (!pathset || !pathset->paths.len)
 		return ;
@@ -85,11 +57,34 @@ void	trim_paths(t_pathset *pathset)
 			break ;
 		while (quotient <= pathset_get(pathset, pathset->paths.len - 1)->height)
 		{
-			vec_pop(path, &pathset->paths);
-			path_free(path);
+			vec_pop(&path, &pathset->paths);
+			pathset->total_nodes -= path.height;
+			path_free(&path);
 		}
 	}
 	pathset->steps = quotient;
+}
+
+void	assign_ants(t_pathset *pathset)
+{
+	size_t	ants;
+	size_t	index;
+	size_t	len;
+	size_t	remainder;
+	t_path	*path;
+
+	ants = pathset->ants;
+	len = pathset->paths.len;
+	remainder = (ants + pathset->total_nodes) % len;
+	pathset->steps += remainder > 0;
+	index = 0;
+	while (index < len)
+	{
+		path = pathset_get(pathset, index++);
+		path->ants = (pathset->steps - (remainder <= 0)) - path->height;
+		remainder -= remainder > 0;
+		ants -= path->ants;
+	}
 }
 
 int	solve(t_flow_network *network, t_pathset *pathset)
@@ -106,7 +101,6 @@ int	solve(t_flow_network *network, t_pathset *pathset)
 	}
 	trim_paths(pathset);
 	assign_ants(pathset);
-	test(*pathset);
 	bfs_free(&bfs_utils);
 	return (OK);
 }
