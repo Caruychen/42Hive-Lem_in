@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 16:43:30 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 16:46:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		pathset_from_network(t_pathset *pathset, t_flow_network *network,
 t_path	*pathset_get(t_pathset *pathset, size_t index);
 void	pathset_free(t_pathset *pathset);
 
-void	pathset_select(t_pathset *pathset);
+void	pathset_keep_best(t_pathset *pathset);
 void	pathset_trim(t_pathset *pathset);
 void	pathset_assign_ants(t_pathset *pathset);
 
