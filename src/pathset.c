@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 00:10:49 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 12:08:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	pathset_free(t_pathset *pathset)
 	index = 0;
 	while (index < pathset->paths.len)
 	{
-		path = (t_path*) vec_get(&pathset->paths, index);
+		path = (t_path *) vec_get(&pathset->paths, index);
 		vec_free(&path->nodes);
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 10:15:43 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 12:08:36 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	test(t_flow_network *network, t_pathset best_path)
 		node_id = 0;
 		while (node_id < path->nodes.len)
 		{
-			node = network_get(network, *(size_t *)vec_get(&path->nodes, node_id));
+			node = network_get(network,
+					*(size_t *)vec_get(&path->nodes, node_id));
 			ft_printf("%s, ", node->alias);
 			node_id++;
 		}
@@ -51,7 +52,7 @@ int	is_better(t_pathset pathset)
 	current_q = (pathset.ants + pathset.steps) / pathset.paths.len;
 	current_r = (pathset.ants + pathset.steps) % pathset.paths.len;
 	res = (!quotient || current_q < quotient
-		|| (current_q == quotient && current_r < remainder));
+			|| (current_q == quotient && current_r < remainder));
 	quotient = current_q * res + quotient * !res;
 	remainder = current_r * res + remainder * !res;
 	return (res);
@@ -74,7 +75,7 @@ int	solve(t_flow_network *network, t_pathset *pathset)
 		{
 			pathset_free(&best_path);
 			best_path = tmp_set;
-			continue;
+			continue ;
 		}
 		pathset_free(&tmp_set);
 	}
