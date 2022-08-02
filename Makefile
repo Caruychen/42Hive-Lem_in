@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 10:56:18 by cchen             #+#    #+#              #
-#    Updated: 2022/08/01 16:55:51 by cchen            ###   ########.fr        #
+#    Updated: 2022/08/02 14:40:51 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRCS += $(SRC_DIR)/bfs.c
 SRCS += $(SRC_DIR)/bfs_search.c
 SRCS += $(SRC_DIR)/path.c
 SRCS += $(SRC_DIR)/pathset.c
+SRCS += $(SRC_DIR)/print.c
+SRCS += $(SRC_DIR)/print_utils.c
 SRCS += $(SRC_DIR)/solve.c
 
 OBJ_DIR := ./obj

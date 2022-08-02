@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 14:32:35 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 14:41:01 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,10 @@ static void	send_ant_wave(t_printer *printer, t_pathset *pathset)
 	printer->start_line++;
 }
 
-int	print_solution(t_flow_network *network, t_pathset *pathset)
+int	print_solution(t_pathset *pathset)
 {
 	t_printer	printer;
 
-	(void) network;
 	if (printer_init(&printer, pathset) == ERROR)
 		return (printer_free(&printer), ERROR);
 	while (has_ants_to_send(pathset))

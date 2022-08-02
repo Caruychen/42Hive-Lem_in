@@ -6,11 +6,12 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 13:56:21 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 14:39:45 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "printer.h"
 
 int	main(void)
 {
@@ -23,6 +24,11 @@ int	main(void)
 		return (network_free(&network), ERROR);
 	if (solve(&network, &pathset) == ERROR)
 		return (network_free(&network), ERROR);
+	if (print_solution(&pathset) == ERROR)
+	{
+		network_free(&network);
+		return (pathset_free(&pathset), ERROR);
+	}
 	network_free(&network);
 	pathset_free(&pathset);
 	//system("leaks lem-in");

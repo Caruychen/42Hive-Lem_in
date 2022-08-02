@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 22:24:15 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 13:23:41 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 14:43:25 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	test_print_solution(void)
 
 	init_dummy_network(&network);
 	init_dummy_pathset(&pathset, &network);
-	assert(print_solution(&network, &pathset) == OK);
+	assert(print_solution(&pathset) == OK);
 	network_free(&network);
 	pathset_free(&pathset);
 }
