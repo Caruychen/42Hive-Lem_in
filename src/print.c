@@ -111,15 +111,6 @@ static void	send_ant_wave(t_printer *printer, t_pathset *pathset,
 	printer->start_line++;
 }
 
-static int	has_ants_to_send(t_pathset *pathset)
-{
-	static t_path	*shortest_path;
-
-	if (!shortest_path)
-		shortest_path = vec_get(&pathset->paths, 0);
-	return (shortest_path->ants > 0);
-}
-
 static void	put_line(void *line)
 {
 	char	*str;

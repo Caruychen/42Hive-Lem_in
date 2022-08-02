@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printer.h                                          :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 23:03:06 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 10:17:11 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/08/02 10:16:28 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/08/02 11:42:18 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTER_H
-# define PRINTER_H
+#include "lem_in.h"
 
-# include "lem_in.h"
-
-typedef struct s_printer
+int	has_ants_to_send(t_pathset *pathset)
 {
-	t_vec	lines;
-	t_path	*path;
-	t_vec	move;
-	int		ant_number;
-	size_t	start_line;
-}	t_printer;
+	static t_path	*shortest_path;
 
-int	print_solution(t_flow_network *network, t_pathset *pathset);
-int	has_ants_to_send(t_pathset *pathset);
+	if (!shortest_path)
+		shortest_path = vec_get(&pathset->paths, 0);
+	return (shortest_path->ants > 0);
+}
 
-#endif
