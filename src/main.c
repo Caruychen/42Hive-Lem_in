@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 14:39:45 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 17:36:44 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int	main(void)
 	}
 	network_free(&network);
 	pathset_free(&pathset);
-	//system("leaks lem-in");
 	return (0);
 }
