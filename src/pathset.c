@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 00:10:49 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 14:06:37 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 	}
 	pathset->ants = n_ants;
 	pathset->steps = 0;
+	pathset->total_nodes = 0;
 	return (OK);
 }
 
-int	pathset_fill(t_pathset *pathset, t_trace trace)
+int	pathset_fill(t_pathset *pathset, t_trace trace, t_flow_network *network)
 {
 	size_t	index;
 	t_path	*path;
@@ -40,9 +41,9 @@ int	pathset_fill(t_pathset *pathset, t_trace trace)
 	while (index < trace.sink_edges.len)
 	{
 		path = pathset_get(pathset, index);
-		if (path_fill(path, index, trace) == ERROR)
+		if (path_fill(path, index, trace, network) == ERROR)
 			return (ERROR);
-		pathset->steps += path->nodes.len;
+		pathset->total_nodes += path->nodes.len;
 		index++;
 	}
 	return (OK);
@@ -58,7 +59,7 @@ int	pathset_from_network(t_pathset *pathset, t_flow_network *network,
 	trace = bfs_utils->trace;
 	if (pathset_init(pathset, trace.sink_edges.len, network->n_ants) == ERROR)
 		return (ERROR);
-	if (pathset_fill(pathset, trace) == ERROR)
+	if (pathset_fill(pathset, trace, network) == ERROR)
 		return (pathset_free(pathset), ERROR);
 	return (OK);
 }
@@ -73,12 +74,12 @@ void	pathset_free(t_pathset *pathset)
 	size_t	index;
 	t_path	*path;
 
-	if (!pathset || !pathset->paths.memory)
+	if (!pathset)
 		return ;
 	index = 0;
 	while (index < pathset->paths.len)
 	{
-		path = (t_path*) vec_get(&pathset->paths, index);
+		path = (t_path *) vec_get(&pathset->paths, index);
 		vec_free(&path->nodes);
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/01 13:39:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 13:55:43 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	parse_input(t_flow_network *network)
 		ft_putendl(parser.line);
 		ft_strdel(&parser.line);
 	}
+	hashmap_free(&parser.hmap);
 	if (parser.stage != LINKS)
 		return (error(MSG_ERROR_INV_FILE));
 	ft_putchar('\n');

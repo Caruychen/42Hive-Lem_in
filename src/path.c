@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:00:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 23:02:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 14:25:54 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	path_new(t_path *path)
 {
 	path->ants = 0;
-	if (vec_new(&path->nodes, 1, sizeof(size_t)) == ERROR)
+	if (vec_new(&path->nodes, 1, sizeof(t_flow_node *)) == ERROR)
 		return (ERROR);
 	return (OK);
 }
 
-int	path_fill(t_path *path, size_t index, t_trace trace)
+int	path_fill(t_path *path, size_t index, t_trace trace, t_flow_network *network)
 {
 	t_flow_edge	*edge;
 
@@ -31,9 +31,14 @@ int	path_fill(t_path *path, size_t index, t_trace trace)
 		return (ERROR);
 	while (edge)
 	{
-		if (vec_push(&path->nodes, &edge->to) == ERROR)
+		if (vec_push(&path->nodes, network_get(network, edge->to)) == ERROR)
 			return (ERROR);
 		edge = trace.edge_to[edge->from];
 	}
 	return (OK);
+}
+
+t_flow_node	*path_get(t_path *path, size_t index)
+{
+	return ((t_flow_node *) vec_get(&path->nodes, index));
 }

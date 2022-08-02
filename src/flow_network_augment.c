@@ -6,12 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 23:09:36 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 12:07:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
 
 int	network_has_augmenting_path(t_flow_network *network, t_bfs_utils *bfs_utils)
 {

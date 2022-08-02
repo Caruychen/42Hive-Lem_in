@@ -6,13 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 00:14:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 14:23:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	test(t_flow_network *network, t_pathset best_path)
+void	test(t_pathset best_path)
 {
 	size_t		index;
 	size_t		node_id;
@@ -31,7 +31,7 @@ void	test(t_flow_network *network, t_pathset best_path)
 		node_id = 0;
 		while (node_id < path->nodes.len)
 		{
-			node = network_get(network, *(size_t *)vec_get(&path->nodes, node_id));
+			node = path_get(path, node_id);
 			ft_printf("%s, ", node->alias);
 			node_id++;
 		}
@@ -46,41 +46,44 @@ int	is_better(t_pathset pathset)
 	static size_t	remainder;
 	size_t			current_q;
 	size_t			current_r;
+	size_t			res;
 
-	current_q = (pathset.ants + pathset.steps) / pathset.paths.len;
-	current_r = (pathset.ants + pathset.steps) % pathset.paths.len;
-	if (!quotient || current_q < quotient
-		|| (current_q == quotient && current_r < remainder))
+	current_q = (pathset.ants + pathset.total_nodes) / pathset.paths.len;
+	current_r = (pathset.ants + pathset.total_nodes) % pathset.paths.len;
+	res = (!quotient || current_q < quotient
+			|| (current_q == quotient && current_r < remainder));
+	quotient = current_q * res + quotient * !res;
+	remainder = current_r * res + remainder * !res;
+	return (res);
+}
+
+void	select_paths(t_pathset *pathset)
+{
+	static t_pathset	best;
+
+	if (is_better(*pathset))
 	{
-		quotient = current_q;
-		remainder = current_r;
-		return (TRUE);
+		pathset_free(&best);
+		best = *pathset;
+		return;
 	}
-	return (FALSE);
+	pathset_free(pathset);
+	*pathset = best;
 }
 
 int	solve(t_flow_network *network, t_pathset *pathset)
 {
 	t_bfs_utils	bfs_utils;
-	t_pathset	best_path;
-	t_pathset	tmp_set;
 
-	best_path = (t_pathset){0};
 	bfs_init(&bfs_utils, network, 0);
 	while (network_has_augmenting_path(network, &bfs_utils))
 	{
 		network_augment(network, bfs_utils.trace);
-		if (pathset_from_network(&tmp_set, network, &bfs_utils) == ERROR)
+		if (pathset_from_network(pathset, network, &bfs_utils) == ERROR)
 			return (ERROR);
-		if (is_better(tmp_set))
-		{
-			pathset_free(&best_path);
-			best_path = tmp_set;
-			continue;
-		}
-		pathset_free(&tmp_set);
+		select_paths(pathset);
 	}
-	*pathset = best_path;
-	test(network, best_path);
+	test(*pathset);
+	bfs_free(&bfs_utils);
 	return (OK);
 }
