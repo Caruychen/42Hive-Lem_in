@@ -6,12 +6,11 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 12:15:44 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 13:22:32 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "vec.h"
 
 static int	printer_init(t_printer *printer, t_pathset *pathset)
 {
@@ -68,12 +67,12 @@ static void	update_move_prefix(t_printer *printer)
 	vec_append_strn(&printer->move, "-", 1);
 }
 
-static void	send_ant(t_printer *printer, t_flow_network *network)
+static void	send_ant(t_printer *printer)
 {
-	size_t	i;
-	size_t	node_id;
-	size_t	dash_id;
-	t_vec	*line;
+	t_flow_node	*node;
+	t_vec		*line;
+	size_t		i;
+	size_t		dash_id;
 
 	update_move_prefix(printer);
 	dash_id = printer->move.len;
@@ -81,9 +80,8 @@ static void	send_ant(t_printer *printer, t_flow_network *network)
 	while (i < printer->path->nodes.len - 1)
 	{
 		printer->move.len = dash_id;
-		node_id = *(size_t *)vec_get(&printer->path->nodes,
-				printer->path->nodes.len - i - 2);
-		vec_append_str(&printer->move, network_get(network, node_id)->alias);
+		node = vec_get(&printer->path->nodes, printer->path->nodes.len - i - 2);
+		vec_append_str(&printer->move, node->alias);
 		line = vec_get(&printer->lines, printer->start_line + i);
 		vec_append_str(line, printer->move.memory);
 		vec_append_strn(line, " ", 1);
@@ -91,8 +89,7 @@ static void	send_ant(t_printer *printer, t_flow_network *network)
 	}
 }
 
-static void	send_ant_wave(t_printer *printer, t_pathset *pathset,
-	t_flow_network *network)
+static void	send_ant_wave(t_printer *printer, t_pathset *pathset)
 {
 	size_t	i;
 
@@ -104,7 +101,7 @@ static void	send_ant_wave(t_printer *printer, t_pathset *pathset,
 		{
 			printer->path->ants--;
 			printer->ant_number++;
-			send_ant(printer, network);
+			send_ant(printer);
 		}
 		i++;
 	}
@@ -125,11 +122,12 @@ int	print_solution(t_flow_network *network, t_pathset *pathset)
 {
 	t_printer	printer;
 
+	(void) network;
 	if (printer_init(&printer, pathset) == ERROR)
 		return (printer_free(&printer), ERROR);
 	while (has_ants_to_send(pathset))
 	{
-		send_ant_wave(&printer, pathset, network);
+		send_ant_wave(&printer, pathset);
 	}
 	vec_iter(&printer.lines, put_line);
 	return (printer_free(&printer), OK);

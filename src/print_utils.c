@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:16:28 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 11:42:18 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 13:25:00 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,3 @@ int	has_ants_to_send(t_pathset *pathset)
 		shortest_path = vec_get(&pathset->paths, 0);
 	return (shortest_path->ants > 0);
 }
-
