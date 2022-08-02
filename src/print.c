@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 14:27:46 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 14:32:35 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,6 @@ static void	printer_free(t_printer *printer)
 		vec_free(&printer->move);
 }
 
-static void	update_move_prefix(t_printer *printer)
-{
-	char	*number_string;
-
-	printer->move.len = 1;
-	number_string = ft_itoa(printer->ant_number);
-	if (!number_string)
-		return ;
-	vec_append_str(&printer->move, number_string);
-	ft_strdel(&number_string);
-	vec_append_strn(&printer->move, "-", 1);
-	printer->dash_id = printer->move.len;
-}
-
 static void	send_ant(t_printer *printer)
 {
 	t_flow_node	*node;
@@ -102,16 +88,6 @@ static void	send_ant_wave(t_printer *printer, t_pathset *pathset)
 		i++;
 	}
 	printer->start_line++;
-}
-
-static void	put_line(void *ptr)
-{
-	t_vec	*line;
-
-	line = (t_vec *)ptr;
-	((char *)line->memory)[line->len - 1] = '\n';
-	vec_append_strn(line, "\0", 1);
-	ft_putstr(((t_vec *)line)->memory);
 }
 
 int	print_solution(t_flow_network *network, t_pathset *pathset)
