@@ -1,4 +1,5 @@
 import os
+import sys
 import uuid
 from tempfile import TemporaryDirectory, TemporaryFile
 from subprocess import run, PIPE
@@ -27,13 +28,22 @@ for path in os.scandir(mapdir):
         mapnumber += 1
 mapnumber += 1
 
-generator_flag_list = ["--flow-one", "--flow-ten", "--flow-thousand", "--big", "--big-superposition"]
+number_of_tests = 60
+
+generator_flag_list = ["--flow-one",
+                        "--flow-ten",
+                        "--flow-thousand",
+                        "--big",
+                        "--big-superposition"]
+
+if len(sys.argv) > 1 and sys.argv[1].isdigit():
+    number_of_tests = int(sys.argv[1])
 
 with TemporaryDirectory() as tmpdir:
 
     print("Generating maps and testing...")
 
-    for _ in range(100):
+    for _ in range(number_of_tests):
         generator_flag = random.choice(generator_flag_list)
         maptype = generator_flag.strip('-')
         mapname = tmpdir + str(uuid.uuid4().hex)
@@ -44,19 +54,39 @@ with TemporaryDirectory() as tmpdir:
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
         with TemporaryFile() as tmp:
 
-            lem_in_result = run([lem_in_binary, "-q"], stdin = fd, stdout = PIPE, universal_newlines = True)
+            lem_in_result = run([lem_in_binary, "-q"],
+                                stdin = fd,
+                                stdout = PIPE,
+                                universal_newlines = True)
+
             output_lines = lem_in_result.stdout.split('\n')
 
+            if lem_in_result.returncode != 0:
+                print("Map found. Lem-in raised an error.", end = "")
+                new_mapname = maptype + "-error-" + str(mapnumber)
+                print(" Saved as " + new_mapname + ".")
+                new_mapname = mapdir + "/" + new_mapname
+                mapnumber += 1
+                os.rename(mapname, new_mapname)
+
+                continue
+             
             steps_required = int(output_lines[1].split(' ')[7])
             steps_taken = int(output_lines[2].split(' ')[2])
 
             if steps_required != steps_taken:
-                print("Map found. Steps required: " + str(steps_required) + ". Steps taken: " + str(steps_taken) + ".")
-                new_mapname = mapdir + "/" + maptype
+                print("Map found. Steps required: "
+                          + str(steps_required)
+                          + ". Steps taken: "
+                          + str(steps_taken) + ".", end = "")
                 if steps_taken > steps_required:
-                    new_mapname = new_mapname + "-more-"
+                    new_mapname = maptype + "-more-"
                 else:
-                    new_mapname = new_mapname + "-less-"
+                    new_mapname = maptype + "-less-"
                 new_mapname = new_mapname + str(mapnumber)
+                print(" Saved as " + new_mapname + ".")
+                new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
                 os.rename(mapname, new_mapname)
+
+print("Done.")
