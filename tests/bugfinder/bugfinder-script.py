@@ -50,6 +50,7 @@ with TemporaryDirectory() as tmpdir:
 
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
         gen_result = run([generator_binary, generator_flag], stdout = fd)
+        os.close(fd)
 
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
         with TemporaryFile() as tmp:
@@ -68,7 +69,7 @@ with TemporaryDirectory() as tmpdir:
                 new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
                 os.rename(mapname, new_mapname)
-
+                os.close(fd)
                 continue
              
             steps_required = int(output_lines[1].split(' ')[7])
@@ -88,5 +89,6 @@ with TemporaryDirectory() as tmpdir:
                 new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
                 os.rename(mapname, new_mapname)
+                os.close(fd)
 
 print("Done.")
