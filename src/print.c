@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 14:41:01 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/03 10:52:49 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	printer_init(t_printer *printer, t_pathset *pathset)
 	size_t	i;
 	t_vec	line;
 
-	*printer = (t_printer){0};
 	if (vec_new(&printer->lines, pathset->steps, sizeof (t_vec)) == ERROR)
 		return (ERROR);
 	if (vec_from(&printer->move, "L\0", 2, sizeof (char)) == ERROR)
@@ -29,6 +28,9 @@ static int	printer_init(t_printer *printer, t_pathset *pathset)
 		vec_push(&printer->lines, &line);
 		i++;
 	}
+	printer->ant_number = 0;
+	printer->start_line = 0;
+	printer->dash_id = 0;
 	return (OK);
 }
 
