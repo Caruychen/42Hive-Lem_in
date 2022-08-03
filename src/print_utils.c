@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:16:28 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 14:33:39 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/03 11:53:46 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,8 @@ int	has_ants_to_send(t_pathset *pathset)
 
 void	put_line(void *ptr)
 {
-	t_vec	*line;
-
-	line = (t_vec *)ptr;
-	((char *)line->memory)[line->len - 1] = '\n';
-	vec_append_strn(line, "\0", 1);
-	ft_putstr(((t_vec *)line)->memory);
+	write(1, ((t_vec *)ptr)->memory, ((t_vec *)ptr)->len);
+	ft_putchar('\n');
 }
 
 void	update_move_prefix(t_printer *printer)
