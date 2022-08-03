@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/01 13:36:37 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:42:21 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "vec.h"
 # include "hashmap.h"
+# include "options.h"
 
 typedef enum e_stage
 {
@@ -41,7 +42,7 @@ typedef struct s_parser
 
 typedef int	(*t_parse_func)(t_parser *, t_flow_network *);
 
-int	parse_input(t_flow_network *network);
+int	parse_input(t_flow_network *network, t_options *options);
 int	parse_ant_number(t_parser *parser, t_flow_network *network);
 int	parse_room(t_parser *parser, t_flow_network *network);
 int	parse_link(t_parser *parser, t_flow_network *network);

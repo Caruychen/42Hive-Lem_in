@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:08:46 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 22:24:00 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/02 11:49:34 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	test_printer(void)
 {
-	test_print();
+	test_print_solution();
 }

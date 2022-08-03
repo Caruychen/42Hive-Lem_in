@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_input.c                                      :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 13:55:43 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/02 21:13:24 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	parse_room,
 	parse_link
 };
+
+static void	parser_free(t_parser *parser)
+{
+	if (parser->line)
+		ft_strdel(&parser->line);
+	hashmap_free(&parser->hmap);
+}
 
 static int	check_for_modification(t_parser *parser)
 {
@@ -29,7 +36,7 @@ static int	check_for_modification(t_parser *parser)
 	return (OK);
 }
 
-int	parse_input(t_flow_network *network)
+int	parse_input(t_flow_network *network, t_options *options)
 {
 	t_parser	parser;
 
@@ -37,22 +44,23 @@ int	parse_input(t_flow_network *network)
 	while (1)
 	{
 		if (get_next_line(0, &parser.line) == ERROR)
-			return (error(MSG_ERROR_GNL));
+			return (parser_free(&parser), error(MSG_ERROR_GNL));
 		if (!parser.line)
 			break ;
 		if (parser.line[0] == '#')
 		{
 			if (check_for_modification(&parser) == ERROR)
-				return (ft_strdel(&parser.line), ERROR);
+				return (parser_free(&parser), ERROR);
 		}
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
-			return (ft_strdel(&parser.line), ERROR);
-		ft_putendl(parser.line);
+			return (parser_free(&parser), ERROR);
+		if (!options->quiet || (parser.line[0] == '#' && parser.line[1] != '#'))
+			ft_putendl(parser.line);
 		ft_strdel(&parser.line);
 	}
-	hashmap_free(&parser.hmap);
 	if (parser.stage != LINKS)
-		return (error(MSG_ERROR_INV_FILE));
-	ft_putchar('\n');
-	return (OK);
+		return (parser_free(&parser), error(MSG_ERROR_INV_FILE));
+	if (!options->quiet)
+		ft_putchar('\n');
+	return (parser_free(&parser), OK);
 }

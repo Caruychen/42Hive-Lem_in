@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printer.h                                          :+:      :+:    :+:   */
+/*   options.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 23:03:06 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 14:40:03 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/08/02 20:10:11 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/08/02 20:27:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTER_H
-# define PRINTER_H
+#ifndef OPTIONS_H
+# define OPTIONS_H
 
-# include "lem_in.h"
+# define MSG_USAGE "Usage: ./lem-in\n  -q, quiet mode\n  -v, verbose mode"
 
-typedef struct s_printer
+typedef struct s_options
 {
-	t_vec	lines;
-	t_path	*path;
-	t_vec	move;
-	int		ant_number;
-	size_t	start_line;
-	size_t	dash_id;
-}	t_printer;
+	uint8_t	quiet;
+	uint8_t	verbose;
+}	t_options;
 
-int		print_solution(t_pathset *pathset);
-int		has_ants_to_send(t_pathset *pathset);
-void	put_line(void *ptr);
-void	update_move_prefix(t_printer *printer);
+int	options_init(t_options *options, int argc, char **argv);
 
 #endif
