@@ -75,15 +75,12 @@ with TemporaryDirectory() as tmpdir:
             steps_required = int(output_lines[1].split(' ')[7])
             steps_taken = int(output_lines[2].split(' ')[2])
 
-            if steps_required != steps_taken:
+            if steps_taken > steps_required:
                 print("Map found. Steps required: "
                           + str(steps_required)
                           + ". Steps taken: "
                           + str(steps_taken) + ".", end = "")
-                if steps_taken > steps_required:
-                    new_mapname = maptype + "-more-"
-                else:
-                    new_mapname = maptype + "-less-"
+                new_mapname = maptype + "-more-"
                 new_mapname = new_mapname + str(mapnumber)
                 print(" Saved as " + new_mapname + ".")
                 new_mapname = mapdir + "/" + new_mapname
