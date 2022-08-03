@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 21:02:52 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/03 11:00:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int	main(int argc, char **argv)
 	if (options.quiet)
 		ft_printf("Solved with %i steps.\n", (int) pathset.steps);
 	else if (print_solution(&pathset) == ERROR)
-	{
-		network_free(&network);
-		return (pathset_free(&pathset), ERROR);
-	}
-	network_free(&network);
-	pathset_free(&pathset);
-	return (0);
+		return (main_free(ERROR, &network, &pathset));
+	return (main_free(0, &network, &pathset));
 }
