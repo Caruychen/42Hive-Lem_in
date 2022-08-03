@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/03 14:04:48 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/03 17:02:11 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	pathset_trim(t_pathset *pathset)
 	while (1)
 	{
 		quotient = (pathset->ants + pathset->total_nodes) / pathset->paths.len;
-		if (quotient > pathset_get(pathset, pathset->paths.len - 1)->height)
+		if (quotient >= pathset_get(pathset, pathset->paths.len - 1)->height)
 			break ;
-		while (quotient <= pathset_get(pathset, pathset->paths.len - 1)->height)
+		while (quotient < pathset_get(pathset, pathset->paths.len - 1)->height)
 		{
 			vec_pop(&path, &pathset->paths);
 			pathset->total_nodes -= path.height;
