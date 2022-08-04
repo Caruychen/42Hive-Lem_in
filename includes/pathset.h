@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 16:50:13 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/04 15:02:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_path		*pathset_get(t_pathset *pathset, size_t index);
 void		pathset_free(t_pathset *pathset);
 
 void		pathset_keep_best(t_pathset *pathset);
-void		pathset_trim(t_pathset *pathset);
 void		pathset_assign_ants(t_pathset *pathset);
 
 #endif

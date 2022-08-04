@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 16:46:36 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/04 15:01:54 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	solve(t_flow_network *network, t_pathset *pathset)
 			return (ERROR);
 		pathset_keep_best(pathset);
 	}
-	pathset_trim(pathset);
 	pathset_assign_ants(pathset);
 	bfs_free(&bfs_utils);
 	return (OK);
