@@ -46,6 +46,6 @@ start-15
 17-18
 18-19
 19-4
-# The solution to the previous case may lead to optimal paths being over-written by longer paths. Checks whether this is dealt with
+# The solution to the previous case may lead to optimal paths being over-written by longer paths. The longer path arrives at the same nodes the shorter path has visited, and replaces those nodes. Checks whether this is dealt with
 # Ideally finds 2 paths, 7 nodes each. Otherwise, may find path of 7, and path of 8 nodes. Worst case, 1 paths of 6 nodes.
 # Here is the number of lines required: 9
