@@ -20,6 +20,8 @@ end 1 0
 15 1 0
 16 1 0
 17 1 0
+18 1 0
+19 1 0
 start-1
 1-2
 2-3
@@ -41,6 +43,9 @@ start-14
 15-16
 16-17
 17-4
+start-18
+18-19
+19-2
 # If the overwriting is fixed from augmentation 3, it may result in less optimal path selection for some cases. Sometimes over-writing can result in finding shorter paths, creating a trade-off. Are both case 3 and 4 handled?
 # Ideally finds 2 paths, 7 nodes each. Otherwise, may find path of 7, and path of 8 nodes
 # Here is the number of lines required: 9

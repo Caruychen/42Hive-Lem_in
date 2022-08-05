@@ -29,6 +29,8 @@ end 1 0
 24 1 0
 25 1 0
 26 1 0
+27 1 0
+28 1 0
 start-1
 1-2
 2-3
@@ -60,5 +62,8 @@ start-14
 24-25
 25-26
 26-end
+start-27
+27-28
+28-2
 # If all the previous issues are solved, there is a possibility that it may ignore a path that extends from one of the possible augmentation paths (the longer one). Has this possibility been handled? If you passed all the tests, you've passed the gauntlet, email caruychen@gmail.com, I'd be interested in hearing how you did it.
 # Here is the number of lines required: 17
