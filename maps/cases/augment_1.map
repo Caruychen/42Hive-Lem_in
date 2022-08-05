@@ -133,4 +133,5 @@ start-39
 60-61
 61-62
 62-end
+#This case checks whether the algorithms stops too early. Path lengths go from 32->22->23->21
 #Here is the number of lines required: 21
