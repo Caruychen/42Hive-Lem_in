@@ -60,6 +60,8 @@ def main():
         print(RED + "FAILED >> " + END + "Parser output was not followed by a newline.")
 
     for line in map_lines[:-1]:
+        if line[0] == '#':
+            continue
         node_a, node_b = line.split('-')
         adjacency_list[node_a].append(node_b)
         adjacency_list[node_b].append(node_a)
@@ -67,7 +69,7 @@ def main():
     # print("Adjacency list")
     # print(adjacency_list)
 
-    print(UNDERLINE + "\nLem-in output:" + END)
+    print(UNDERLINE + "\nLem-in solution:" + END)
     for line in solution_lines:
         print(line)
 
@@ -77,24 +79,43 @@ def main():
 
     print("Checking output...")
 
+    expected_ant_id = 1
+    ant_ids = []
+    previous = ["" for _ in range(ants + 1)]
     for line in solution_lines:
-        ant_numbers = []
         tokens = line.split(' ')
+        current_line_ant_ids = []
         for token in tokens:
-            try:
-                ant_number, room_alias = token[1:].split('-')
-            except:
-                invalid(token)
-                continue
+
             if not token.startswith('L'):
                 invalid(token)
-            elif not ant_number.isnumeric():
+
+            split = token[1:].split('-')
+            if len(split) != 2:
                 invalid(token)
+                continue
+            ant_id, room_alias = split
+
+            if not ant_id.isnumeric():
+                invalid(token)
+            ant_id = int(ant_id)
+
+            if ant_id not in ant_ids:
+                if ant_id != expected_ant_id:
+                    print("Expected ant id to be " + str(expected_ant_id) + " but was " + str(ant_id))
+                expected_ant_id += 1
+                if room_alias not in adjacency_list[source]:
+                    print("Ant moved from source to a node that is not adjacent with source")
+            elif room_alias not in adjacency_list[previous[ant_id]]:
+                print("Ant moved to a node that was not adjacent to the previous node")
             elif room_alias.startswith(('#', 'L')):
                 invalid(token)
-            elif ant_number in ant_numbers:
-                invalid(token)
-            ant_numbers.append(ant_number)
+            if ant_id in current_line_ant_ids:
+                print("Ant already moved during this turn")
+            ant_ids.append(ant_id)
+            current_line_ant_ids.append(ant_id)
+
+            previous[ant_id] = room_alias
 
 if __name__ == "__main__":
     main()
