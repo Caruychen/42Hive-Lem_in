@@ -1,27 +1,27 @@
 6
 ##start
-start 1 0
+start 0 3
 ##end
-end 1 0
-1 1 0
-2 1 0
-3 1 0
-4 1 0
-5 1 0
-6 1 0
-7 1 0
-8 1 0
-9 1 0
-10 1 0
-11 1 0
-12 1 0
-13 1 0
-14 1 0
-15 1 0
-16 1 0
-17 1 0
-18 1 0
-19 1 0
+end 6 3
+1 1 3
+2 2 3
+3 3 3
+4 4 3
+5 5 3
+6 1 5
+7 2 5
+8 2 0
+9 3 0
+10 4 0
+11 5 0
+12 1 7
+13 2 7
+14 3 7
+15 0 9
+16 1 9
+17 2 9
+18 3 9
+19 4 9
 start-1
 1-2
 2-3
@@ -46,6 +46,13 @@ start-15
 17-18
 18-19
 19-4
-# The solution to the previous case may lead to optimal paths being over-written by longer paths. The longer path arrives at the same nodes the shorter path has visited, and replaces those nodes. Checks whether this is dealt with
-# Ideally finds 2 paths, 7 nodes each. Otherwise, may find path of 7, and path of 8 nodes. Worst case, 1 paths of 6 nodes.
+#               8 - 9 - 10 - 11
+#              /               \
+# start - 1 - 2 - 3 - 4 - 5 - end
+#  | | \     /    |   |
+#  | |  6 - 7     |   |
+#  |  \           |   |
+#  |   12 - 13 - 14   |
+#  |                   \
+#  15 - 16 - 17 - 18 - 19
 # Here is the number of lines required: 9
