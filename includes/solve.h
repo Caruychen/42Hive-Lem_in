@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   solve.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 20:18:30 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/08/01 16:51:52 by cchen             #+#    #+#             */
+/*   Updated: 2022/08/01 16:52:25 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef SOLVE_H
+# define SOLVE_H
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "bfs.h"
-# include "parser.h"
-# include "error.h"
-# include "queue.h"
-# include "pathset.h"
-# include "printer.h"
-# include "solve.h"
-# include "options.h"
-
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
+int	solve(t_flow_network *network, t_pathset *pathset);
 
 #endif

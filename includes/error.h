@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/07/22 17:18:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/03 11:00:25 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 # define MSG_ERR_HASH_GET "Could not get entry from hashmap."
 
 int	error(char *msg);
+int	main_free(int res, t_flow_network *network, t_pathset *pathset);
 
 #endif

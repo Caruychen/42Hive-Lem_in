@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   options.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 11:13:07 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/03 10:58:04 by cchen            ###   ########.fr       */
+/*   Created: 2022/08/02 20:10:11 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/08/02 20:27:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef OPTIONS_H
+# define OPTIONS_H
 
-int	error(char *msg)
-{
-	ft_putendl_fd(msg, 2);
-	return (ERROR);
-}
+# define MSG_USAGE "Usage: ./lem-in\n  -q, quiet mode\n  -v, verbose mode"
 
-int	main_free(int res, t_flow_network *network, t_pathset *pathset)
+typedef struct s_options
 {
-	network_free(network);
-	pathset_free(pathset);
-	return (res);
-}
+	uint8_t	quiet;
+	uint8_t	verbose;
+}	t_options;
+
+int	options_init(t_options *options, int argc, char **argv);
+
+#endif

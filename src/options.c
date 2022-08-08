@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 11:13:07 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/03 10:58:04 by cchen            ###   ########.fr       */
+/*   Created: 2022/08/02 20:25:23 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/08/02 20:26:48 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	error(char *msg)
+int	options_init(t_options *options, int argc, char **argv)
 {
-	ft_putendl_fd(msg, 2);
-	return (ERROR);
-}
+	int	i;
 
-int	main_free(int res, t_flow_network *network, t_pathset *pathset)
-{
-	network_free(network);
-	pathset_free(pathset);
-	return (res);
+	*options = (t_options){FALSE};
+	if (argc == 1)
+		return (OK);
+	i = 1;
+	while (i < argc)
+	{
+		if (!ft_strcmp(argv[i], "-q"))
+			options->quiet = TRUE;
+		else if (!ft_strcmp(argv[i], "-v"))
+			options->verbose = TRUE;
+		else
+			return (ERROR);
+		i++;
+	}
+	return (OK);
 }

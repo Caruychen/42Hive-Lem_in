@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   vec_pop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:04:58 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 20:18:30 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/08/02 15:43:56 by cchen             #+#    #+#             */
+/*   Updated: 2022/08/02 16:31:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "vec.h"
+#include "ft_string.h"
 
-# include "libft.h"
-# include "flow_edge.h"
-# include "flow_node.h"
-# include "flow_network.h"
-# include "bfs.h"
-# include "parser.h"
-# include "error.h"
-# include "queue.h"
-# include "pathset.h"
-# include "printer.h"
-# include "solve.h"
-# include "options.h"
-
-# define OK 1
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-
-#endif
+int	vec_pop(void *dst, t_vec *src)
+{
+	if (!dst || !src)
+		return (-1);
+	if (!src->memory || src->len == 0)
+		return (0);
+	ft_memcpy(dst, vec_get(src, src->len - 1), src->elem_size);
+	src->len--;
+	return (1);
+}

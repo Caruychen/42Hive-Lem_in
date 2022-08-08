@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   vec_iter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 11:13:07 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/03 10:58:04 by cchen            ###   ########.fr       */
+/*   Created: 2022/07/25 19:20:59 by cnysten           #+#    #+#             */
+/*   Updated: 2022/07/25 19:33:40 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "vec.h"
 
-int	error(char *msg)
+void	vec_iter(t_vec *vec, void (*f) (void *))
 {
-	ft_putendl_fd(msg, 2);
-	return (ERROR);
-}
+	size_t	i;
 
-int	main_free(int res, t_flow_network *network, t_pathset *pathset)
-{
-	network_free(network);
-	pathset_free(pathset);
-	return (res);
+	if (!vec || !vec->memory || !f)
+		return ;
+	i = 0;
+	while (i < vec->len)
+		f(vec->memory + (i++ *vec->elem_size));
 }

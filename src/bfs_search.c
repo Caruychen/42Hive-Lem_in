@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 13:33:44 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/04 14:48:39 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		SEARCH_CONTINUE);
 }
 
+static int	is_backtrack(t_flow_edge edge, size_t to, size_t source)
+{
+	return (edge.flow && edge.from == to && to != source);
+}
+
+static int	is_valid_neighbour(size_t to, t_flow_edge edge,
+		t_bfs_utils bfs_utils, t_flow_network network)
+{
+	return (!bfs_utils.marked[to]
+		|| is_backtrack(edge, to, network.source) || to == network.sink);
+}
+
 static int	search_edges(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, const size_t, t_vec *))
 {
@@ -41,7 +53,7 @@ static int	search_edges(t_flow_network *network, t_bfs_utils *bfs_utils,
 	{
 		edge = node_get(&node, index);
 		to = edge_other(edge, current);
-		if ((!bfs_utils->marked[to] || to == network->sink)
+		if (is_valid_neighbour(to, *edge, *bfs_utils, *network)
 			&& condition(edge, to, &network->adj_list)
 			&& save_edge(network, bfs_utils, to, edge))
 			return (SEARCH_END);
