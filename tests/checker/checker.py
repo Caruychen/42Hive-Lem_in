@@ -89,8 +89,11 @@ def main():
         sys.exit()
 
     print(UNDERLINE + "\nLem-in solution:" + END)
-    for line in solution_lines:
-        print(line)
+    if len(solution_lines) < 25:
+        for line in solution_lines:
+            print(line)
+    else:
+        print("Solution not printed, too many lines")
 
     print("Checking output...")
 
