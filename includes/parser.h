@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 20:42:21 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/09 13:30:27 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_mod
 
 typedef struct s_parser
 {
+	t_vec		inputs;
 	char		*line;
 	char		*ptr;
 	t_stage		stage;
