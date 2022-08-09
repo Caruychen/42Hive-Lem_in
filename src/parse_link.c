@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 15:13:04 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 15:39:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ static int	is_valid_link(t_parser *parser, long *from, long *to)
 	ptr = ft_strchr(parser->line, '-');
 	if (!ptr)
 		return (FALSE);
-	if (set_index(from, &(parser->hmap),
-			ft_strsub(parser->line, 0, ptr - parser->line)) == ERROR)
-		return (FALSE);
-	if (set_index(to, &(parser->hmap), ft_strdup(ptr + 1)) == ERROR)
-		return (FALSE);
-	return (TRUE);
+	return (set_index(from, &(parser->hmap),
+			ft_strsub(parser->line, 0, ptr - parser->line)) == OK
+		&& set_index(to, &(parser->hmap), ft_strdup(ptr + 1)) == OK);
 }
 
 int	parse_link(t_parser *parser, t_flow_network *network)
@@ -48,7 +45,7 @@ int	parse_link(t_parser *parser, t_flow_network *network)
 	t_flow_edge	*edge;
 
 	if (!is_valid_link(parser, &from, &to))
-		return (error(MSG_ERROR_INV_LINE));
+		return (error(MSG_ERROR_INV_LINK));
 	edge = edge_make(from, to);
 	if (!edge)
 		return (ERROR);

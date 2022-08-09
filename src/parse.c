@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 14:54:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 15:24:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void	parser_free(t_parser *parser)
 
 static int	check_for_modification(t_parser *parser)
 {
+	if (parser->modification != NONE)
+		return (error(MSG_ERROR_MOD));
 	if (ft_strcmp(parser->line, "##start") == 0)
 		parser->modification = START;
 	else if (ft_strcmp(parser->line, "##end") == 0)
 		parser->modification = END;
-	if (parser->stage != ROOMS && parser->modification != NONE)
-		return (error(MSG_ERROR_MOD));
 	return (OK);
 }
 

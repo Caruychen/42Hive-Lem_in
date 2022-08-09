@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 15:01:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 15:37:53 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define MSG_ERROR_INV_FILE "ERROR: File did not contain ant number, rooms or links."
 # define MSG_ERROR_INV_LINE "ERROR: File contained an invalid line."
+# define MSG_ERROR_INV_LINK "Error: File contained an invalid link input"
 # define MSG_ERROR_GNL "ERROR: Could not get next line."
 # define MSG_ERROR_CHAR_ALIAS "ERROR: Invalid character in room alias."
 # define MSG_ERROR_MALLOC_VLINK "ERROR: Could not allocate memory in is_valid_link."
