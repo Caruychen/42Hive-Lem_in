@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:35:39 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/01 13:37:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 15:13:04 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	parse_link(t_parser *parser, t_flow_network *network)
 	t_flow_edge	*edge;
 
 	if (!is_valid_link(parser, &from, &to))
-		return (ERROR);
+		return (error(MSG_ERROR_INV_LINE));
 	edge = edge_make(from, to);
 	if (!edge)
 		return (ERROR);
