@@ -99,6 +99,7 @@ def main():
 
     expected_ant_id = 1
     ant_ids = []
+    ants_in_sink = 0
     previous = ["" for _ in range(ants + 1)]
     for line in solution_lines:
         moves = line.split(' ')
@@ -128,12 +129,19 @@ def main():
                 invalid_move(move, "Ant moved to a node that was not adjacent to the previous node")
             elif room_alias.startswith(('#', 'L')):
                 invalid_move(move, "Room name should not begin with 'L' or '#'")
+
             if ant_id in current_line_ant_ids:
                 invalid_move(move, "Ant already moved during this turn")
             ant_ids.append(ant_id)
             current_line_ant_ids.append(ant_id)
 
+            if room_alias == sink:
+                ants_in_sink += 1
+
             previous[ant_id] = room_alias
+
+    if ants_in_sink != ants:
+        print(RED + 'Invalid solution >>' + END + " Not all ants made it to the end of the graph")
 
 if __name__ == "__main__":
     main()
