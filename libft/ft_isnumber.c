@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ctype.h                                         :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/01 22:59:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/09 17:47:17 by cchen            ###   ########.fr       */
+/*   Created: 2022/08/09 17:44:41 by cchen             #+#    #+#             */
+/*   Updated: 2022/08/09 18:00:10 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CTYPE_H
-# define FT_CTYPE_H
+#include "ft_ctype.h"
 
-int		ft_isalpha(int c);
-int		ft_isdigit(int c);
-int		ft_isalnum(int c);
-int		ft_isascii(int c);
-int		ft_isprint(int c);
-int		ft_toupper(int c);
-int		ft_tolower(int c);
-int		ft_isupper(int c);
-int		ft_islower(int c);
-int		ft_iswhitespace(char c);
-int		ft_isnumber(char *str);
-
-#endif
+int	ft_isnumber(char *str)
+{
+	if (!*str)
+		return (0);
+	while (*str)
+	{
+		if (!ft_isdigit(*str++))
+			return (0);
+	}
+	return (1);
+}
