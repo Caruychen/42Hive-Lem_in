@@ -5,10 +5,16 @@ UNDERLINE = '\033[4m'
 RED = "\u001b[31m"
 END = "\u001b[0m"
 
+def invalid_move(move, msg):
+    print(RED + 'Invalid move >>' + END +' "' + move + '" ' + msg)
+
 def main():
     print(BOLD + "Lem-in Checker 🐜" + END)
 
     lines = [line.strip('\n') for line in sys.stdin.readlines()]
+    if not lines[0].isnumeric():
+        print("Invalid ant number")
+        sys.exit()
     ants = int(lines[0])
     source = None
     sink = None
@@ -56,6 +62,13 @@ def main():
             sink = node
             next_is_sink = False
 
+    if sink == None:
+        print("Input did not contain sink node")
+        sys.exit()
+    if source == None:
+        print("Input did not contain source node")
+        sys.exit()
+
     if map_lines[-1] != "":
         print(RED + "FAILED >> " + END + "Parser output was not followed by a newline.")
 
@@ -68,14 +81,16 @@ def main():
 
     # print("Adjacency list")
     # print(adjacency_list)
+    if len(adjacency_list[sink]) == 0:
+        print("Sink node has no neighbours")
+        sys.exit()
+    if len(adjacency_list[source]) == 0:
+        print("Source node has no neighbours")
+        sys.exit()
 
     print(UNDERLINE + "\nLem-in solution:" + END)
     for line in solution_lines:
         print(line)
-
-    def invalid(token):
-        print(RED + 'FAILED >>' + END +' "' + token + '"')
-        # sys.exit()
 
     print("Checking output...")
 
@@ -83,35 +98,35 @@ def main():
     ant_ids = []
     previous = ["" for _ in range(ants + 1)]
     for line in solution_lines:
-        tokens = line.split(' ')
+        moves = line.split(' ')
         current_line_ant_ids = []
-        for token in tokens:
+        for move in moves:
 
-            if not token.startswith('L'):
-                invalid(token)
+            if not move.startswith('L'):
+                invalid_move(move, "Move should follow format L[ant number]-[room name]")
 
-            split = token[1:].split('-')
+            split = move[1:].split('-')
             if len(split) != 2:
-                invalid(token)
+                invalid_move(move, "Move should follow format L[ant number]-[room name]")
                 continue
             ant_id, room_alias = split
 
             if not ant_id.isnumeric():
-                invalid(token)
+                invalid_move(move, "Ant number should consist of only numbers")
             ant_id = int(ant_id)
 
             if ant_id not in ant_ids:
                 if ant_id != expected_ant_id:
-                    print("Expected ant id to be " + str(expected_ant_id) + " but was " + str(ant_id))
+                    invalid_move(move, "Expected ant id to be " + str(expected_ant_id) + " but was " + str(ant_id))
                 expected_ant_id += 1
                 if room_alias not in adjacency_list[source]:
-                    print("Ant moved from source to a node that is not adjacent with source")
+                    invalid_move(move, "Ant moved from source to a node that is not adjacent with source")
             elif room_alias not in adjacency_list[previous[ant_id]]:
-                print("Ant moved to a node that was not adjacent to the previous node")
+                invalid_move(move, "Ant moved to a node that was not adjacent to the previous node")
             elif room_alias.startswith(('#', 'L')):
-                invalid(token)
+                invalid_move(move, "Room name should not begin with 'L' or '#'")
             if ant_id in current_line_ant_ids:
-                print("Ant already moved during this turn")
+                invalid_move(move, "Ant already moved during this turn")
             ant_ids.append(ant_id)
             current_line_ant_ids.append(ant_id)
 
