@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 17:50:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 21:08:10 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define ALIAS 0
 # define X_COORD 1
 # define Y_COORD 2
+# define ALL_MODS 3
 
 typedef enum e_stage
 {
@@ -42,6 +43,7 @@ typedef struct s_parser
 	char		*ptr;
 	t_stage		stage;
 	t_mod		modification;
+	uint8_t		mods: 2;
 	t_hashmap	hmap;
 }	t_parser;
 

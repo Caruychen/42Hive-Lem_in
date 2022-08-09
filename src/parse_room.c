@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_room.c                                         :+:      :+:    :+:   */
+/*   parse_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 18:04:31 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 21:08:15 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	hashmap_from(t_hashmap *hmap, t_vec *adj_list)
 
 static int	start_links(t_parser *parser, t_flow_network *network)
 {
+	if (parser->mods != ALL_MODS)
+		return (error(MSG_ERROR_MOD_MISSING));
 	if (!ft_strchr(parser->line, '-'))
 		return (error(MSG_ERROR_INV_LINE));
 	if (hashmap_new_with_capacity(&(parser->hmap), network->adj_list.len * 1.33)
