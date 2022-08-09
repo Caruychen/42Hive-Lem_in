@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 15:24:06 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 18:29:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ static int	parser_init(t_parser *parser)
 	return (OK);
 }
 
+static int	append_buffer(t_parser *parser, uint8_t quiet)
+{
+	if (quiet && !(parser->line[0] == '#' && parser->line[1] != '#'))
+		return (OK);
+	return (vec_append_str(&parser->inputs, parser->line) != ERROR
+		&& vec_append_str(&parser->inputs, "\n") != ERROR);
+}
+
 int	parse_input(t_flow_network *network, t_options *options)
 {
 	t_parser	parser;
@@ -66,9 +74,7 @@ int	parse_input(t_flow_network *network, t_options *options)
 		}
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
 			return (parser_free(&parser), ERROR);
-		if ((!options->quiet || (parser.line[0] == '#' && parser.line[1] != '#'))
-				&& (vec_append_str(&parser.inputs, parser.line) == ERROR
-				|| vec_append_str(&parser.inputs, "\n") == ERROR))
+		if (!append_buffer(&parser, options->quiet))
 			return (parser_free(&parser), ERROR);
 		ft_strdel(&parser.line);
 	}
