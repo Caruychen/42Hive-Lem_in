@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/03 11:00:13 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 16:12:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,22 @@ int	main(int argc, char **argv)
 	t_options		options;
 	t_flow_network	network;
 	t_pathset		pathset;
+	t_vec			inputs;
 
 	if (options_init(&options, argc, argv) == ERROR)
 		return (ft_putendl(MSG_USAGE), OK);
 	if (network_init(&network) == ERROR)
 		return (error(MSG_ERR_NETWORK_INIT));
-	if (parse_input(&network, &options) == ERROR)
+	if (parse_input(&network, &options, &inputs) == ERROR)
 		return (network_free(&network), ERROR);
 	if (solve(&network, &pathset) == ERROR)
 		return (network_free(&network), ERROR);
+	write(1, inputs.memory, inputs.len);
+	vec_free(&inputs);
 	if (options.quiet)
-		ft_printf("Solved with %i steps.\n", (int) pathset.steps);
-	else if (print_solution(&pathset) == ERROR)
+		return (ft_printf("Solved with %i steps.\n", (int) pathset.steps),
+				main_free(0, &network, &pathset));
+	if (print_solution(&pathset) == ERROR)
 		return (main_free(ERROR, &network, &pathset));
 	return (main_free(0, &network, &pathset));
 }

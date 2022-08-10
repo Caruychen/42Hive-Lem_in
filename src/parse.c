@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 11:41:19 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 16:12:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	append_buffer(t_parser *parser, uint8_t quiet)
 	return (ft_strdel(&parser->line), OK);
 }
 
-int	parse_input(t_flow_network *network, t_options *options)
+int	parse_input(t_flow_network *network, t_options *options, t_vec *inputs)
 {
 	t_parser	parser;
 	int			res;
@@ -66,6 +66,6 @@ int	parse_input(t_flow_network *network, t_options *options)
 	if (parser.stage != LINKS)
 		return (parser_free(&parser), error(MSG_ERROR_INV_FILE));
 	vec_append_str(&parser.inputs, "\n");
-	write(1, parser.inputs.memory, parser.inputs.len);
+	vec_from(inputs, parser.inputs.memory, parser.inputs.len, parser.inputs.elem_size);
 	return (parser_free(&parser), OK);
 }

@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 11:15:26 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 16:09:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		parser_init(t_parser *parser);
 int		parse_readline(const int fd, char **line, int *res);
 void	parser_free(t_parser *parser);
 
-int		parse_input(t_flow_network *network, t_options *options);
+int		parse_input(t_flow_network *network, t_options *options, t_vec *inputs);
 int		parse_ant_number(t_parser *parser, t_flow_network *network);
 int		parse_room(t_parser *parser, t_flow_network *network);
 int		parse_link(t_parser *parser, t_flow_network *network);
