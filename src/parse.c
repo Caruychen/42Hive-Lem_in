@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 11:15:29 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:41:19 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ static int	check_for_modification(t_parser *parser)
 static int	append_buffer(t_parser *parser, uint8_t quiet)
 {
 	if (quiet && !(parser->line[0] == '#' && parser->line[1] != '#'))
-		return (OK);
-	return (vec_append_str(&parser->inputs, parser->line) != ERROR
-		&& vec_append_str(&parser->inputs, "\n") != ERROR);
+		return (ft_strdel(&parser->line), OK);
+	if (vec_append_str(&parser->inputs, parser->line) == ERROR
+		|| vec_append_str(&parser->inputs, "\n") == ERROR)
+		return (ERROR);
+	return (ft_strdel(&parser->line), OK);
 }
 
 int	parse_input(t_flow_network *network, t_options *options)
@@ -58,9 +60,8 @@ int	parse_input(t_flow_network *network, t_options *options)
 		}
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
 			return (parser_free(&parser), ERROR);
-		if (!append_buffer(&parser, options->quiet))
+		if (append_buffer(&parser, options->quiet) == ERROR)
 			return (parser_free(&parser), ERROR);
-		ft_strdel(&parser.line);
 	}
 	if (parser.stage != LINKS)
 		return (parser_free(&parser), error(MSG_ERROR_INV_FILE));

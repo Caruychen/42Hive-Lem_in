@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 21:08:15 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:35:26 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,21 @@ static int	is_valid_line(char **room)
 	return (index == 3);
 }
 
+static void	assign_modifier(t_mod mod, t_flow_network *network)
+{
+	size_t	index;
+
+	index = network->adj_list.len - 1;
+	network->source = (mod == START) * index + (mod != START) * network->source;
+	network->sink = (mod == END) * index + (mod != END) * network->sink;
+}
+
 int	parse_room(t_parser *parser, t_flow_network *network)
 {
 	char	**room;
 
 	room = ft_strsplit(parser->line, ' ');
-	if (room[ALIAS] && !room[1])
+	if (room[ALIAS] && !room[X_COORD])
 		return (ft_strdelarray(&room), start_links(parser, network));
 	if (!is_valid_line(room))
 		return (ft_strdelarray(&room), error(MSG_ERROR_INV_LINE));
@@ -77,10 +86,7 @@ int	parse_room(t_parser *parser, t_flow_network *network)
 			ft_atoi(room[X_COORD]),
 			ft_atoi(room[Y_COORD])) == ERROR)
 		return (ft_strdelarray(&room), ERROR);
-	if (parser->modification == START)
-		network->source = network->adj_list.len - 1;
-	else if (parser->modification == END)
-		network->sink = network->adj_list.len - 1;
+	assign_modifier(parser->modification, network);
 	parser->modification = NONE;
 	ft_strdelarray(&room);
 	return (OK);

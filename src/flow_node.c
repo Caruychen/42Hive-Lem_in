@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:04:24 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/26 00:24:23 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:31:53 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 
 int	node_make(t_flow_node *node, char *alias, int x, int y)
 {
+	if (!alias)
+		return (error(MSG_ERROR_NODE_ALIAS));
 	node->alias = alias;
 	node->x = x;
 	node->y = y;
