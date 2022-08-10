@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:18:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 16:48:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:09:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 # define HASH_OK 1
 # define HASH_ERR -1
-# define MSG_ERR_HASH_OVER "Error: Hash value out of bounds."
-# define MSG_ERR_HASHMAP_FULL "Error: Hashmap full, couldn't add element."
-# define MSG_ERR_NO_KEY "Error: Key not found in Hashmap."
-# define MSG_ERR_HASHMAP_EMPTY "Error: Hashmap empty."
+# define MSG_ERR_HASH_OVER "ERROR: Hash value out of bounds."
+# define MSG_ERR_HASHMAP_FULL "ERROR: Hashmap full, couldn't add element."
+# define MSG_ERR_NO_KEY "ERROR: Key not found in Hashmap."
+# define MSG_ERR_HASHMAP_EMPTY "ERROR: Hashmap empty."
 # define DJB2_SEED 5281
 # define HASH_NEW_CAPACITY 2
 
