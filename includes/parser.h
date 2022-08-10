@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:58:46 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 21:08:10 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:15:26 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ typedef struct s_parser
 
 typedef int	(*t_parse_func)(t_parser *, t_flow_network *);
 
-int	parse_input(t_flow_network *network, t_options *options);
-int	parse_ant_number(t_parser *parser, t_flow_network *network);
-int	parse_room(t_parser *parser, t_flow_network *network);
-int	parse_link(t_parser *parser, t_flow_network *network);
+int		parser_init(t_parser *parser);
+int		parse_readline(const int fd, char **line, int *res);
+void	parser_free(t_parser *parser);
+
+int		parse_input(t_flow_network *network, t_options *options);
+int		parse_ant_number(t_parser *parser, t_flow_network *network);
+int		parse_room(t_parser *parser, t_flow_network *network);
+int		parse_link(t_parser *parser, t_flow_network *network);
 
 #endif

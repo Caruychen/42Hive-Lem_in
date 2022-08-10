@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 10:23:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:15:29 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	parse_room,
 	parse_link
 };
-
-static void	parser_free(t_parser *parser)
-{
-	if (parser->line)
-		ft_strdel(&parser->line);
-	vec_free(&parser->inputs);
-	hashmap_free(&parser->hmap);
-}
 
 static int	check_for_modification(t_parser *parser)
 {
@@ -40,16 +32,6 @@ static int	check_for_modification(t_parser *parser)
 	return (OK);
 }
 
-static int	parser_init(t_parser *parser)
-{
-	if (vec_new(&parser->inputs, RESIZE_FACTOR, sizeof(char)) == ERROR)
-		return (ERROR);
-	parser->line = NULL;
-	parser->stage = 0;
-	parser->modification = 0;
-	return (OK);
-}
-
 static int	append_buffer(t_parser *parser, uint8_t quiet)
 {
 	if (quiet && !(parser->line[0] == '#' && parser->line[1] != '#'))
@@ -61,15 +43,14 @@ static int	append_buffer(t_parser *parser, uint8_t quiet)
 int	parse_input(t_flow_network *network, t_options *options)
 {
 	t_parser	parser;
+	int			res;
 
 	if (parser_init(&parser) == ERROR)
 		return (ERROR);
-	while (1)
+	while (parse_readline(0, &parser.line, &res))
 	{
-		if (get_next_line(0, &parser.line) == ERROR)
+		if (res == ERROR)
 			return (parser_free(&parser), error(MSG_ERROR_GNL));
-		if (!parser.line)
-			break ;
 		if (parser.line[0] == '#')
 		{
 			if (check_for_modification(&parser) == ERROR)
