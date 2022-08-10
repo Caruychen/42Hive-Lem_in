@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 20:47:49 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 10:18:27 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define MSG_ERR_NETWORK_INIT "ERROR: Could not initialize flow network."
 # define MSG_ERR_HASH_INIT "ERROR: Could not initialize hashmap."
 # define MSG_ERR_HASH_GET "ERROR: Could not get entry from hashmap."
+# define MSG_ERROR_NO_ANTS "ERROR: Insufficient ants."
+# define MSG_ERROR_NO_PATHS "\nSorry, I couldn't find any paths."
 
 int	error(char *msg);
 int	main_free(int res, t_flow_network *network, t_pathset *pathset);
