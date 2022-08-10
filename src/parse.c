@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/09 20:44:26 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 10:23:51 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	parse_input(t_flow_network *network, t_options *options)
 	}
 	if (parser.stage != LINKS)
 		return (parser_free(&parser), error(MSG_ERROR_INV_FILE));
+	vec_append_str(&parser.inputs, "\n");
 	write(1, parser.inputs.memory, parser.inputs.len);
 	return (parser_free(&parser), OK);
 }
