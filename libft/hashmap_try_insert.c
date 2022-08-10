@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:26:01 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/22 11:57:32 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:13:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_entry	*hashmap_try_insert(t_hashmap *dst, char *key, int value)
 		return (NULL);
 	entry = get_slot(dst, key);
 	if (entry->key)
-		return (ft_putendl_fd(MSG_ERR_NO_KEY, 2), NULL);
+		return (ft_putendl_fd(MSG_ERR_HASHMAP_KEY_EXISTS, 2), NULL);
 	if (dst->len >= dst->capacity - 1 && hashmap_resize(dst) == HASH_ERR)
 		return (NULL);
 	entry = get_slot(dst, key);
