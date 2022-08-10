@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:15:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/10 10:16:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 10:58:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	solve(t_flow_network *network, t_pathset *pathset)
 {
 	t_bfs_utils	bfs_utils;
-	size_t	count;
+	size_t		count;
 
 	bfs_init(&bfs_utils, network, 0);
 	count = 0;
