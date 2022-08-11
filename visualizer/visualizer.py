@@ -42,8 +42,8 @@ class Visualizer:
         # left_margin = (self.max_x - self.min_x) / 2
         for node in self.nodes:
             self.positions[node] = (
-                self.PADDING + self.positions[node][0] * scale,
-                self.PADDING + self.positions[node][1] * scale
+                int(self.PADDING + self.positions[node][0] * scale),
+                int(self.PADDING + self.positions[node][1] * scale)
             )
 
     def render(self):
