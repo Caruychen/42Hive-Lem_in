@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 16:12:42 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 11:16:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ static int	append_buffer(t_parser *parser, uint8_t quiet)
 	return (ft_strdel(&parser->line), OK);
 }
 
+static int	save_input(t_vec *dst, t_vec *src)
+{
+	if (vec_append_str(src, "\n") == ERROR
+		|| vec_from(dst, src->memory, src->len, src->elem_size) == ERROR)
+		return (ERROR);
+	return (OK);
+}
+
 int	parse_input(t_flow_network *network, t_options *options, t_vec *inputs)
 {
 	t_parser	parser;
@@ -65,7 +73,7 @@ int	parse_input(t_flow_network *network, t_options *options, t_vec *inputs)
 	}
 	if (parser.stage != LINKS)
 		return (parser_free(&parser), error(MSG_ERROR_INV_FILE));
-	vec_append_str(&parser.inputs, "\n");
-	vec_from(inputs, parser.inputs.memory, parser.inputs.len, parser.inputs.elem_size);
+	if (save_input(inputs, &parser.inputs) == ERROR)
+		return (parser_free(&parser), error(MSG_ERROR_MALLOC));
 	return (parser_free(&parser), OK);
 }
