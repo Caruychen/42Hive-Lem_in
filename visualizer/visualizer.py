@@ -12,13 +12,13 @@ class Visualizer:
     PADDING = 20
     MAX_FPS = 60
     FONT_SIZE = 20
-    BG_COLOR = (80, 43, 58)
-    TEXT_COLOR = (249, 226, 125)
-    EDGE_COLOR = (255, 141, 109)
-    NODE_COLOR = (255, 88, 93)
-    ANT_COLOR = (255, 198, 88)
-    ANT_RADIUS = 5
-    NODE_RADIUS = 8
+    BG_COLOR = (32, 42, 68)
+    TEXT_COLOR = (255, 255, 255)
+    EDGE_COLOR = (2, 138, 155)
+    NODE_COLOR = (249, 56, 34)
+    ANT_COLOR = (255, 152, 0)
+    ANT_RADIUS = 8
+    NODE_RADIUS = 6
 
     def __init__(self):
         self.ants = 0
