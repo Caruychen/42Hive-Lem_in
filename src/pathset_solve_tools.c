@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/04 15:17:44 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 17:31:49 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,21 @@ void	pathset_keep_best(t_pathset *pathset)
 	*pathset = best;
 }
 
+static void	assign_residual(t_pathset *pathset, size_t len, size_t ants)
+{
+	size_t	index;
+	t_path	*path;
+
+	pathset->steps++;
+	index = 0;
+	while (index < len && ants > 0)
+	{
+		path = pathset_get(pathset, index++);
+		path->ants++;
+		ants--;
+	}
+}
+
 void	pathset_assign_ants(t_pathset *pathset)
 {
 	size_t	ants;
@@ -83,6 +98,11 @@ void	pathset_assign_ants(t_pathset *pathset)
 	while (index < len && ants > 0)
 	{
 		path = pathset_get(pathset, index++);
+		if (path->height > pathset->steps)
+		{
+			assign_residual(pathset, len, ants);
+			break ;
+		}
 		path->ants = pathset->steps - path->height;
 		if (path->ants > ants)
 			path->ants = ants;
