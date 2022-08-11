@@ -3,6 +3,7 @@
 import sys
 import pygame
 from time import sleep
+from argparse import ArgumentParser
 
 class Visualizer:
 
@@ -89,16 +90,17 @@ class Visualizer:
 
         while True:
             line = sys.stdin.readline().strip('\n')
-            print(line)
-            print(line.split(' '))
             if len(line) == 0:
                 break
             splits = line.split(' ')
             self.turns.append(list(split.split('-')[1] for split in splits[:-1])) #! Remove [:-1] when our printer is fixed
-
-        print(self.turns)
             
 def main():
+    argparser = ArgumentParser(description="Visualizes your Lem-in.")
+
+    argparser.add_argument("-a", action = "store_true")
+    args = argparser.parse_args()
+
     visualizer = Visualizer()
     visualizer.read_input()
     visualizer.set_scale()
