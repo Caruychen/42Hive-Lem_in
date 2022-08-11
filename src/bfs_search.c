@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 11:10:03 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 00:41:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		size_t to, t_flow_edge *edge)
 {
+	size_t	from;
+
+	from = edge_other(edge, to);
 	(bfs_utils->trace.edge_to)[to] = edge;
 	bfs_utils->marked[to] = TRUE;
+	network_get(network, to)->dst_to_start = network_get(network, from)->dst_to_start + 1;
 	if (to != network->sink)
 		return (queue_push(&bfs_utils->queue, &to), SEARCH_CONTINUE);
 	if (!bfs_utils->saturate_trace)

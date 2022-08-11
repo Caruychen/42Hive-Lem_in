@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:04:24 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/10 11:31:53 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 00:32:01 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	node_make(t_flow_node *node, char *alias, int x, int y)
 	node->y = y;
 	node->is_free = 1;
 	node->is_via_augment = 0;
+	node->dst_to_start = 0;
+	node->dst_to_end = 0;
 	return (vec_new(&(node->edges), 1, sizeof(t_flow_edge *)));
 }
 
