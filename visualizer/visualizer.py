@@ -55,9 +55,9 @@ class Visualizer:
     def render_graph(self):
         self.screen.fill(self.BG_COLOR)
         for edge in self.edges:
-            pygame.draw.aaline(self.screen, self.EDGE_COLOR, tuple(self.positions[edge[0]]), tuple(self.positions[edge[1]]))
+            pygame.draw.aaline(self.screen, self.EDGE_COLOR, self.positions[edge[0]], self.positions[edge[1]])
         for node in self.nodes:
-            pygame.draw.circle(self.screen, self.NODE_COLOR, tuple(self.positions[node]), self.NODE_RADIUS)
+            pygame.draw.circle(self.screen, self.NODE_COLOR, self.positions[node], self.NODE_RADIUS)
 
     def render_ants(self):
         if self.turn >= len(self.turns):
