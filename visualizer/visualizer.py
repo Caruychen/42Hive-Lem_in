@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # import sys
+import argparse
 import pygame
 
 class Visualizer:
@@ -23,6 +24,8 @@ class Visualizer:
         self.screen.fill(self.BG_COLOR)
 
 def main():
+    argparser = argparse.ArgumentParser(description = "Visualize your Lem-in.")
+
     visualizer = Visualizer()
     running = True
 
@@ -31,8 +34,13 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_ESCAPE:
+                    running = False
 
         pygame.display.flip()
+
+    pygame.quit()
 
 if __name__ == "__main__":
     main()
