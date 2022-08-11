@@ -1,15 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-import argparse
 import pygame
-from dataclasses import dataclass
-
-@dataclass
-class Node:
-    name: str
-    x: int
-    y: int
 
 class Visualizer:
 
@@ -30,18 +22,23 @@ class Visualizer:
         self.max_x = 0
         self.max_y = 0
         self.nodes = []
+        self.positions = {}
         self.edges = []
         self.scale = 1
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pygame.display.set_caption("Lem-in Visualizer")
 
     def set_scale(self):
-        self.scale = (self.SCREEN_WIDTH - self.PADDING) / self.max_x
+        self.scale = (self.SCREEN_WIDTH - 2 * self.PADDING) / self.max_x
+        for node in self.nodes:
+            self.positions[node] = tuple(self.PADDING + v * self.scale for v in self.positions[node])
 
     def render(self):
         self.screen.fill(self.BG_COLOR)
+        for edge in self.edges:
+            pygame.draw.aaline(self.screen, self.EDGE_COLOR, tuple(self.positions[edge[0]]), tuple(self.positions[edge[1]]))
         for node in self.nodes:
-            pygame.draw.circle(self.screen, self.NODE_COLOR, (node.x * self.scale, node.y *self.scale), self.NODE_RADIUS)
+            pygame.draw.circle(self.screen, self.NODE_COLOR, tuple(self.positions[node]), self.NODE_RADIUS)
 
     def read_input(self):
         self.ants = int(sys.stdin.readline().strip('\n'))
@@ -60,7 +57,9 @@ class Visualizer:
             y = int(split[2])
             if y > self.max_y:
                 self.max_y = y
-            self.nodes.append(Node(split[0], x, y))
+            node = split[0]
+            self.nodes.append(node)
+            self.positions[node] = (x, y)
 
         while True:
             line = sys.stdin.readline().strip('\n')
@@ -72,13 +71,10 @@ class Visualizer:
             if not '-' in line:
                 break
             self.edges.append(line.split('-'))
-
-        print(self.nodes)
+            
         print(self.edges)
 
 def main():
-    argparser = argparse.ArgumentParser(description = "Visualize your Lem-in.")
-
     visualizer = Visualizer()
     visualizer.read_input()
     visualizer.set_scale()
