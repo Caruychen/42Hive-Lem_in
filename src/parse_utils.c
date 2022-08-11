@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:06:38 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/10 11:15:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 14:13:19 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	parser_init(t_parser *parser)
 	parser->line = NULL;
 	parser->stage = 0;
 	parser->modification = 0;
+	parser->mods = 0;
+	parser->hmap.capacity = 0;
+	parser->hmap.len = 0;
 	return (OK);
 }
 
@@ -31,6 +34,7 @@ void	parser_free(t_parser *parser)
 {
 	if (parser->line)
 		ft_strdel(&parser->line);
-	vec_free(&parser->inputs);
+	if (parser->inputs.memory)
+		vec_free(&parser->inputs);
 	hashmap_free(&parser->hmap);
 }
