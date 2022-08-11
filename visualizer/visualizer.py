@@ -21,14 +21,16 @@ class Visualizer:
     NODE_RADIUS = 6
 
     def __init__(self):
-        self.ants = 0
         self.max_x = 0
         self.max_y = 0
         self.min_x = sys.maxsize
         self.min_y = sys.maxsize
+        self.ant_count = 0
+        self.ants = []
         self.nodes = []
         self.positions = {}
         self.edges = []
+        self.start = ""
         self.turns = []
         self.turn = 0
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
@@ -61,15 +63,18 @@ class Visualizer:
         if self.turn >= len(self.turns):
             return 
         for move in self.turns[self.turn]:
-            pygame.draw.circle(self.screen, self.ANT_COLOR, tuple(self.positions[move]), self.ANT_RADIUS)
+            pygame.draw.circle(self.screen, self.ANT_COLOR, self.positions[move], self.ANT_RADIUS)
         self.turn += 1
 
     def read_input(self):
-        self.ants = int(sys.stdin.readline().strip('\n'))
+        self.ant_count = int(sys.stdin.readline().strip('\n'))
         
+        next_is_start = False
         while True:
             line = sys.stdin.readline().strip('\n')
             if line[0] == '#':
+                if line == "##start":
+                    next_is_start = True
                 continue
             if not ' ' in line:
                 break
@@ -83,6 +88,10 @@ class Visualizer:
             node = split[0]
             self.nodes.append(node)
             self.positions[node] = (x, y)
+            if next_is_start:
+                self.start = node
+                next_is_start = False
+                print(self.start)
 
         if not line[0] == '#':
             self.edges.append(line.split('-'))
@@ -125,7 +134,7 @@ def main():
                     running = False
 
         pygame.display.flip()
-        sleep(1)
+        pygame.time.delay(1000)
 
     pygame.quit()
 
