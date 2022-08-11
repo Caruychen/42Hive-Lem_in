@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 import uuid
 from tempfile import TemporaryDirectory, TemporaryFile
 from subprocess import run, PIPE
 import random
+import shutil
 
 print("Lem-in bugfinder 🔍")
 
@@ -68,7 +71,7 @@ with TemporaryDirectory() as tmpdir:
                 print(" Saved as " + new_mapname + ".")
                 new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
-                os.rename(mapname, new_mapname)
+                shutil.move(mapname, new_mapname)
                 os.close(fd)
                 continue
              
@@ -85,7 +88,7 @@ with TemporaryDirectory() as tmpdir:
                 print(" Saved as " + new_mapname + ".")
                 new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
-                os.rename(mapname, new_mapname)
+                shutil.move(mapname, new_mapname)
                 os.close(fd)
 
 print("Done.")
