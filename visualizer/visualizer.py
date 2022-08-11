@@ -24,22 +24,31 @@ class Visualizer:
         self.ants = 0
         self.max_x = 0
         self.max_y = 0
+        self.min_x = sys.maxsize
+        self.min_y = sys.maxsize
         self.nodes = []
         self.positions = {}
         self.edges = []
         self.turns = []
         self.turn = 0
-        self.scale = 1
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pygame.display.set_caption("Lem-in Visualizer")
 
-    def set_scale(self):
-        self.scale = min(
+    def ajdust_node_positions(self):
+        scale = min(
             ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.max_x),
             ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.max_y)
         )
+        # left_margin = (self.max_x - self.min_x) / 2
         for node in self.nodes:
-            self.positions[node] = tuple(self.PADDING + v * self.scale for v in self.positions[node])
+            self.positions[node] = (
+                self.PADDING + self.positions[node][0] * scale,
+                self.PADDING + self.positions[node][1] * scale
+            )
+
+    def render(self):
+        self.render_graph()
+        self.render_ants()
 
     def render_graph(self):
         self.screen.fill(self.BG_COLOR)
@@ -66,11 +75,11 @@ class Visualizer:
                 break
             split = line.split(' ')
             x = int(split[1])
-            if x > self.max_x:
-                self.max_x = x
             y = int(split[2])
-            if y > self.max_y:
-                self.max_y = y
+            self.max_x = max(self.max_x, x)
+            self.max_y = max(self.max_y, y)
+            self.min_x = min(self.min_x, x)
+            self.min_y = min(self.min_y, y)
             node = split[0]
             self.nodes.append(node)
             self.positions[node] = (x, y)
@@ -103,12 +112,11 @@ def main():
 
     visualizer = Visualizer()
     visualizer.read_input()
-    visualizer.set_scale()
+    visualizer.ajdust_node_positions()
 
     running = True
     while running:
-        visualizer.render_graph()
-        visualizer.render_ants()
+        visualizer.render()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
