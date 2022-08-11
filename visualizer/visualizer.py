@@ -2,6 +2,7 @@
 
 import sys
 import pygame
+from time import sleep
 
 class Visualizer:
 
@@ -15,7 +16,8 @@ class Visualizer:
     EDGE_COLOR = (255, 141, 109)
     NODE_COLOR = (255, 88, 93)
     ANT_COLOR = (255, 198, 88)
-    NODE_RADIUS = 5
+    ANT_RADIUS = 5
+    NODE_RADIUS = 8
 
     def __init__(self):
         self.ants = 0
@@ -25,6 +27,7 @@ class Visualizer:
         self.positions = {}
         self.edges = []
         self.turns = []
+        self.turn = 0
         self.scale = 1
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pygame.display.set_caption("Lem-in Visualizer")
@@ -34,12 +37,19 @@ class Visualizer:
         for node in self.nodes:
             self.positions[node] = tuple(self.PADDING + v * self.scale for v in self.positions[node])
 
-    def render(self):
+    def render_graph(self):
         self.screen.fill(self.BG_COLOR)
         for edge in self.edges:
             pygame.draw.aaline(self.screen, self.EDGE_COLOR, tuple(self.positions[edge[0]]), tuple(self.positions[edge[1]]))
         for node in self.nodes:
             pygame.draw.circle(self.screen, self.NODE_COLOR, tuple(self.positions[node]), self.NODE_RADIUS)
+
+    def render_ants(self):
+        if self.turn >= len(self.turns):
+            return 
+        for move in self.turns[self.turn]:
+            pygame.draw.circle(self.screen, self.ANT_COLOR, tuple(self.positions[move]), self.ANT_RADIUS)
+        self.turn += 1
 
     def read_input(self):
         self.ants = int(sys.stdin.readline().strip('\n'))
@@ -74,8 +84,6 @@ class Visualizer:
                 break
             self.edges.append(line.split('-'))
 
-        # _ = sys.stdin.readline()
-
         while True:
             line = sys.stdin.readline().strip('\n')
             print(line)
@@ -94,7 +102,8 @@ def main():
 
     running = True
     while running:
-        visualizer.render()
+        visualizer.render_graph()
+        visualizer.render_ants()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -103,6 +112,7 @@ def main():
                     running = False
 
         pygame.display.flip()
+        sleep(1)
 
     pygame.quit()
 
