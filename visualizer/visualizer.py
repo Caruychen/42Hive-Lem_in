@@ -45,7 +45,6 @@ class Visualizer:
         
         while True:
             line = sys.stdin.readline().strip('\n')
-            print(line)
             if line[0] == '#':
                 continue
             if not ' ' in line:
@@ -61,9 +60,11 @@ class Visualizer:
             self.nodes.append(node)
             self.positions[node] = (x, y)
 
+        if not line[0] == '#':
+            self.edges.append(line.split('-'))
+
         while True:
             line = sys.stdin.readline().strip('\n')
-            print(line)
             if len(line) == 0:
                 break
             if line[0] == '#':
@@ -72,8 +73,6 @@ class Visualizer:
                 break
             self.edges.append(line.split('-'))
             
-        print(self.edges)
-
 def main():
     visualizer = Visualizer()
     visualizer.read_input()
