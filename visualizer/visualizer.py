@@ -24,6 +24,7 @@ class Visualizer:
         self.nodes = []
         self.positions = {}
         self.edges = []
+        self.turns = []
         self.scale = 1
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pygame.display.set_caption("Lem-in Visualizer")
@@ -72,6 +73,19 @@ class Visualizer:
             if not '-' in line:
                 break
             self.edges.append(line.split('-'))
+
+        # _ = sys.stdin.readline()
+
+        while True:
+            line = sys.stdin.readline().strip('\n')
+            print(line)
+            print(line.split(' '))
+            if len(line) == 0:
+                break
+            splits = line.split(' ')
+            self.turns.append(list(split.split('-')[1] for split in splits[:-1])) #! Remove [:-1] when our printer is fixed
+
+        print(self.turns)
             
 def main():
     visualizer = Visualizer()
