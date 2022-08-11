@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 18:57:11 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 18:58:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static int	compute_steps(t_pathset *pathset)
 		res += delta;
 	}
 	res += ants / index + ((ants % index) > 0);
-	pathset->steps = res;
-	return (res);
+	return (pathset->steps = res, res);
 }
 
 static int	is_better(t_pathset *pathset)
