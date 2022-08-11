@@ -33,7 +33,10 @@ class Visualizer:
         pygame.display.set_caption("Lem-in Visualizer")
 
     def set_scale(self):
-        self.scale = (self.SCREEN_WIDTH - 2 * self.PADDING) / self.max_x
+        self.scale = min(
+            ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.max_x),
+            ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.max_y)
+        )
         for node in self.nodes:
             self.positions[node] = tuple(self.PADDING + v * self.scale for v in self.positions[node])
 
