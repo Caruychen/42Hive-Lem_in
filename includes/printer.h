@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 23:03:06 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 14:40:03 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/11 10:55:52 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ typedef struct s_printer
 	size_t	dash_id;
 }	t_printer;
 
-int		print_solution(t_pathset *pathset);
+int		printer_init(t_printer *printer, t_pathset *pathset);
+void	printer_free(t_printer *printer);
 int		has_ants_to_send(t_pathset *pathset);
 void	put_line(void *ptr);
 void	update_move_prefix(t_printer *printer);
+int		print_result(t_pathset *pathset, t_vec *inputs, t_options options);
 
 #endif

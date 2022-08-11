@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/10 16:12:32 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 10:54:31 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	t_flow_network	network;
 	t_pathset		pathset;
 	t_vec			inputs;
+	int				result;
 
 	if (options_init(&options, argc, argv) == ERROR)
 		return (ft_putendl(MSG_USAGE), OK);
@@ -27,12 +28,6 @@ int	main(int argc, char **argv)
 		return (network_free(&network), ERROR);
 	if (solve(&network, &pathset) == ERROR)
 		return (network_free(&network), ERROR);
-	write(1, inputs.memory, inputs.len);
-	vec_free(&inputs);
-	if (options.quiet)
-		return (ft_printf("Solved with %i steps.\n", (int) pathset.steps),
-				main_free(0, &network, &pathset));
-	if (print_solution(&pathset) == ERROR)
-		return (main_free(ERROR, &network, &pathset));
-	return (main_free(0, &network, &pathset));
+	result = print_result(&pathset, &inputs, options);
+	return (main_free(result, &network, &pathset));
 }
