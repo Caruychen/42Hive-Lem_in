@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:59:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 16:13:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 17:25:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ void	print_chart(t_pathset pathset)
 	t_path	path;
 
 	ft_putendl("============================================================\n");
-	ft_printf("Travel chart:\n\n");
+	ft_putendl("Travel chart: (Total steps is the number of chars - 1)");
+	ft_printf("Solved with %i steps.\n\n", (int) pathset.steps);
 	path_id = 0;
 	while (path_id < pathset.paths.len)
 	{
 		path = *pathset_get(&pathset, path_id);
-		ft_printf("%ld:%2s", path_id, "");
+		ft_printf("%ld:\t", path_id, "");
 		while (path.height-- > 0)
 			ft_putchar('#');
 		while (path.ants-- > 0)
