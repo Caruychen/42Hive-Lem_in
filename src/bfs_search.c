@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/10 15:26:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 11:10:03 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 {
 	int	is_backtrack;
 
-	is_backtrack = edge.flow && edge.from == to && to != network.source;
+	is_backtrack = (edge.flow && edge.from == to && to != network.source);
 	return (!bfs_utils.marked[to] || is_backtrack || to == network.sink);
 }
 

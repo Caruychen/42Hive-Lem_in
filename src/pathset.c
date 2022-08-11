@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 14:06:37 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 11:17:30 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 	return (OK);
 }
 
-int	pathset_fill(t_pathset *pathset, t_trace trace, t_flow_network *network)
+static int	pathset_fill(t_pathset *pathset, t_trace trace,
+		t_flow_network *network)
 {
 	size_t	index;
 	t_path	*path;
