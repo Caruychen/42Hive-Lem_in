@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 18:58:32 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 22:09:21 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ static int	compute_steps(t_pathset *pathset)
 	index = 0;
 	while (index < pathset->paths.len)
 	{
-		path = pathset_get(pathset, index++);
+		path = pathset_get(pathset, ++index);
+		if (!path)
+			break ;
 		if (path->height <= res)
 			continue ;
 		delta = path->height - res;
-		if ((index - 1) * delta > ants)
-		{
-			index--;
+		if (index * delta > ants)
 			break ;
-		}
-		ants -= (index - 1) * delta;
+		ants -= index * delta;
 		res += delta;
 	}
 	res += ants / index + ((ants % index) > 0);
