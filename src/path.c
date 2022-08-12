@@ -6,12 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:00:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 08:43:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 10:31:50 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
 int	path_new(t_path *path)
 {
