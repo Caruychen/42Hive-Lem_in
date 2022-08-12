@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 14:42:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 08:58:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 {
 	ft_bzero(bfs_utils->marked, sizeof(int) * network->adj_list.len);
+	ft_bzero(bfs_utils->trace.edge_to, sizeof(int) * network->adj_list.len);
 	bfs_utils->queue.vec.len = 0;
 	bfs_utils->queue.head = 0;
 	bfs_utils->queue.tail = 0;

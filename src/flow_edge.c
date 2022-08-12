@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 12:18:57 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 09:00:22 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	edge_augment_flow_to(t_flow_edge *edge, const size_t to,
 	size_t		origin_id;
 
 	origin_id = edge_other(edge, to);
-	origin = (t_flow_node *) vec_get(&network->adj_list, origin_id);
+	origin = network_get(network, origin_id);
 	if (edge->from != to && edge->to != to)
 		return (ERROR);
 	if (edge->flow && edge->to == to)
