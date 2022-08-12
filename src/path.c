@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:00:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 00:44:33 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 08:43:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	path_fill(t_path *path, size_t index, t_trace trace,
 	{
 		node = network_get(network, edge->to);
 		node->dst_to_end = dst_to_end++;
-		if (vec_push(&path->nodes, node) == ERROR)
+		if (vec_push(&path->nodes, &node) == ERROR)
 			return (ERROR);
 		edge = trace.edge_to[edge->from];
 	}
@@ -47,7 +47,10 @@ int	path_fill(t_path *path, size_t index, t_trace trace,
 
 t_flow_node	*path_get(t_path *path, size_t index)
 {
-	return ((t_flow_node *) vec_get(&path->nodes, index));
+	t_flow_node	**node;
+
+	node = vec_get(&path->nodes, index);
+	return (*node);
 }
 
 void	path_free(t_path *path)

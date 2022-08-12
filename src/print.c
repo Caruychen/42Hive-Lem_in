@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/11 15:59:42 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 08:47:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	send_ant(t_printer *printer)
 	while (i < printer->path->nodes.len)
 	{
 		printer->move.len = printer->dash_id;
-		node = vec_get(&printer->path->nodes, printer->path->nodes.len - i - 1);
+		node = path_get(printer->path, printer->path->nodes.len - i - 1);
 		vec_append_str(&printer->move, node->alias);
 		line = vec_get(&printer->lines, printer->start_line + i);
 		vec_append_strn(line, printer->move.memory, printer->move.len);
@@ -39,7 +39,7 @@ static void	send_ant_wave(t_printer *printer, t_pathset *pathset)
 	i = 0;
 	while (i < pathset->paths.len)
 	{
-		printer->path = vec_get(&pathset->paths, i++);
+		printer->path = pathset_get(pathset, i++);
 		if (printer->path->ants > 0)
 		{
 			printer->path->ants--;
