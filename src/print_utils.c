@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:16:28 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/11 10:47:10 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 10:51:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	has_ants_to_send(t_pathset *pathset)
 
 void	put_line(void *ptr)
 {
-	write(1, ((t_vec *)ptr)->memory, ((t_vec *)ptr)->len);
+	write(1, ((t_vec *)ptr)->memory, ((t_vec *)ptr)->len - 1);
 	ft_putchar('\n');
 }
 
