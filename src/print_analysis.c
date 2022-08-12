@@ -6,20 +6,26 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:59:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 17:25:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 08:55:15 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	print_textful(t_pathset pathset)
+static void	print_header(void)
 {
-	size_t	path_id;
-	t_path	path;
-
 	ft_printf("=============================================================\n");
 	ft_printf("                        PATH ANALYSIS                        \n");
 	ft_printf("=============================================================");
+}
+
+static void	print_textful(t_pathset pathset)
+{
+	size_t		path_id;
+	t_path		path;
+	t_flow_node	node;
+
+	print_header();
 	ft_printf("\nTotal paths: %ld\nTotal ants: %ld\n", pathset.paths.len,
 		pathset.ants);
 	path_id = 0;
@@ -30,7 +36,8 @@ static void	print_textful(t_pathset pathset)
 			path_id, path.height, path.ants);
 		while (path.height > 0)
 		{
-			ft_printf("%s", path_get(&path, --path.height)->alias);
+			node = *path_get(&path, --path.height);
+			ft_printf("%s ", node.alias);
 			if (path.height > 0)
 				ft_putstr(" -> ");
 		}
