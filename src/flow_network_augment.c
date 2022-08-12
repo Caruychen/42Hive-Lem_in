@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 10:07:57 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 10:22:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,28 @@ static void	switch_edge(size_t res, t_trace trace, t_flow_network *network)
 	}
 }
 
-static size_t	select_exit(t_flow_network *network, size_t index,
+static void	select_best_exit(t_flow_network *network, size_t index,
 	t_trace trace)
 {
 	size_t		res;
-	size_t		tmp;
 	size_t		min;
 	t_flow_edge	*edge;
 	t_flow_node	*node;
 
 	edge = trace.edge_to[index];
-	tmp = edge_other(edge, index);
-	node = network_get(network, tmp);
-	min = node->dst_to_start + node->dst_to_end;
-	res = tmp;
-	edge = trace.edge_to[tmp];
+	min = 0;
 	while (edge->flow)
 	{
-		tmp = edge_other(edge, tmp);
-		node = network_get(network, tmp);
-		if (min >= node->dst_to_start + node->dst_to_end)
+		index = edge_other(edge, index);
+		node = network_get(network, index);
+		if (!min || min >= node->dst_to_start + node->dst_to_end)
 		{
 			min = node->dst_to_start + node->dst_to_end;
-			res = tmp;
+			res = index;
 		}
-		edge = trace.edge_to[tmp];
+		edge = trace.edge_to[index];
 	}
 	switch_edge(res, trace, network);
-	return (res);
 }
 
 int	network_augment(t_flow_network *network, t_trace trace)
@@ -84,7 +78,7 @@ int	network_augment(t_flow_network *network, t_trace trace)
 	{
 		edge = trace.edge_to[index];
 		if (edge->flow)
-			select_exit(network, index, trace);
+			select_best_exit(network, index, trace);
 		if (edge_augment_flow_to(edge, index, network) == ERROR)
 			return (ERROR);
 		index = edge_other(edge, index);
