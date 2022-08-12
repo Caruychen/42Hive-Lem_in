@@ -3,6 +3,7 @@
 import sys
 import pygame
 from pygame import Vector2
+from random import randint
 # from pygame import gfxdraw
 from argparse import ArgumentParser
 
@@ -19,7 +20,7 @@ class Visualizer:
     NODE_COLOR = (249, 56, 34)
     ANT_COLOR = (255, 152, 0)
     ANT_RADIUS = 8
-    NODE_RADIUS = 6
+    NODE_RADIUS = 3
     TEMPERATURE_FACTOR = 0.95
 
     def __init__(self):
@@ -35,17 +36,76 @@ class Visualizer:
         self.start = ""
         self.turns = []
         self.turn = 0
+        self.start_of_turn = True
+
+        self.ideal_length = 150
         self.repulsion_constant = 2500
         self.attraction_constant = 0.03
-        self.temperature = 100
-        self.start_of_turn = True
+        self.temperature = 150
         self.iters = 0
-        self.max_iters = 100
+        self.max_iters = 30
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
+
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pygame.display.set_caption("Lem-in Visualizer")
 
-    def auto_layout(self):
+    def set_random_xy(self):
+        for node in self.nodes:
+            self.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
+
+    def fruchterman_reingold(self):
+        offset = {}
+        for node in self.nodes:
+            offset[node] = Vector2(0, 0)
+
+        # Repulsion
+        for node_a in self.nodes:
+            for node_b in self.nodes:
+                if node_a == node_b:
+                    continue
+                vec = self.positions[node_b] - self.positions[node_a]
+                if vec.length() != 0:
+                    offset[node_a] += ((self.ideal_length ** 2) / vec.length()) * vec.normalize()
+
+        # Attraction
+        for edge in self.edges:
+            node_a = edge[0]
+            node_b = edge[1]
+            vec = self.positions[node_b] - self.positions[node_a]
+            if vec.length() != 0:
+                offset[node_a] += ((vec.length() ** 2) / self.ideal_length) * vec.normalize()
+                offset[node_b] -= ((vec.length() ** 2) / self.ideal_length) * vec.normalize()
+
+        print(offset)
+        for node in self.nodes:
+            if offset[node].magnitude() > self.temperature:
+                offset[node] = offset[node].normalize()
+                offset[node] *= self.temperature
+
+            self.positions[node] += offset[node]
+            # self.positions[node] = (self.center - self.positions[node]) + offset[node]
+            # self.positions[node] = (self.center - self.positions[node]) + offset[node]
+
+            # if offset[node] > self.temperature:
+            #     offset[node] = self.temperature
+            # self.positions[node] = (self.center - self.positions[node]) + offset[node]
+            # print(self.positions[node])
+
+            if self.positions[node].x >= self.SCREEN_WIDTH:
+                self.positions[node].x = self.SCREEN_WIDTH
+            if self.positions[node].x < 0:
+                self.positions[node].x = 0
+            if self.positions[node].y >= self.SCREEN_HEIGHT:
+                self.positions[node].y = self.SCREEN_HEIGHT
+            if self.positions[node].y < 0:
+                self.positions[node].y = 0
+
+        print(self.positions)
+
+        self.temperature *= self.TEMPERATURE_FACTOR
+        self.iters += 1
+            
+    def eades(self):
         offset = {}
 
         for node in self.nodes:
@@ -54,24 +114,30 @@ class Visualizer:
         for node_a in self.nodes:
             for node_b in self.nodes:
                 if node_a != node_b:
-                    print('a', self.positions[node_a])
-                    print('b', self.positions[node_b])
+                    if self.positions[node_a] == self.positions[node_b]:
+                        self.positions[node_a] += Vector2(randint(-2, 2), randint(-2, 2))
+                    # print(node_a, self.positions[node_a])
+                    # print(node_b, self.positions[node_b])
                     vec = self.positions[node_b] - self.positions[node_a]
-                    print('vec', vec)
+                    if vec.length() == 0:
+                        continue
                     dist = vec.magnitude()
-                    print('dist', dist)
-                    dist = max(0.1, dist)
+                    dist = max(1, dist)
+                    # print('dist', dist)
                     repulsion = self.repulsion_constant / dist
+                    # print('vec', vec)
                     vec = vec.normalize()
-                    print('uv', vec)
+                    # print('uv', vec)
                     vec = vec * repulsion * -1
-                    print('repulsion', vec)
+                    # print('repulsion', vec)
                     offset[node_a] += vec
 
         for edge in self.edges:
             node_a = edge[0]
             node_b = edge[1]
             vec = self.positions[node_b] - self.positions[node_a]
+            if vec.length() == 0:
+                continue
             dist = vec.magnitude()
             attraction = self.attraction_constant * dist**2
             vec = vec.normalize()
@@ -81,6 +147,8 @@ class Visualizer:
 
         for node in self.nodes:
             vec = self.center - self.positions[node]
+            if vec.length() == 0:
+                continue
             dist = vec.magnitude()
             gravity = self.attraction_constant / 8 * dist**2
             vec = vec.normalize()
@@ -170,7 +238,7 @@ class Visualizer:
             self.min_y = min(self.min_y, y)
             node = split[0]
             self.nodes.append(node)
-            self.positions[node] = (x, y)
+            self.positions[node] = Vector2(x, y)
             if next_is_start:
                 self.start = node
                 next_is_start = False
@@ -206,13 +274,15 @@ def main():
     visualizer = Visualizer()
     visualizer.read_input()
     visualizer.ajdust_node_positions()
+    if args.a == True:
+        visualizer.set_random_xy()
 
     pygame.init()
     running = True
     while running:
         # visualizer.update_ants()
         if (args.a == True and visualizer.iters < visualizer.max_iters):
-            visualizer.auto_layout()
+            visualizer.fruchterman_reingold()
         visualizer.render_graph()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -222,7 +292,7 @@ def main():
                     running = False
 
         pygame.display.flip()
-        pygame.time.delay(200)
+        # pygame.time.delay(200)
 
     pygame.quit()
 
