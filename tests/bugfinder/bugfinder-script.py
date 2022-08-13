@@ -7,6 +7,7 @@ from tempfile import TemporaryDirectory, TemporaryFile
 from subprocess import run, PIPE
 import random
 import shutil
+from io import BytesIO
 
 print("Lem-in bugfinder 🔍")
 
@@ -19,8 +20,12 @@ if not os.path.exists(lem_in_binary):
     print("Error: could not find lem-in executable.")
 
 generator_binary = os.path.join(rootdir, "generator")
-if not os.path.exists(lem_in_binary):
+if not os.path.exists(generator_binary):
     print("Error: could not find generator executable.")
+
+checker_script = os.path.join(rootdir, "tests/checker/checker.py")
+if not os.path.exists(checker_script):
+    print("Error: could not find checker script.")
 
 if not os.path.exists(mapdir):
     os.mkdir(mapdir)
@@ -58,12 +63,10 @@ with TemporaryDirectory() as tmpdir:
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
         with TemporaryFile() as tmp:
 
-            lem_in_result = run([lem_in_binary, "-q"],
+            lem_in_result = run([lem_in_binary],
                                 stdin = fd,
                                 stdout = PIPE,
                                 universal_newlines = True)
-
-            output_lines = lem_in_result.stdout.split('\n')
 
             if lem_in_result.returncode != 0:
                 print("Map found. Lem-in raised an error.", end = "")
@@ -75,6 +78,34 @@ with TemporaryDirectory() as tmpdir:
                 os.close(fd)
                 continue
              
+            with TemporaryFile(mode = "w") as tmp_output:
+                tmp_output.write(lem_in_result.stdout)
+                tmp_output.seek(0)
+                checker_result = run([checker_script],
+                                     stdin = tmp_output,
+                                     stdout = PIPE,
+                                     universal_newlines = True)
+
+                if checker_result.stdout.split('\n')[-2] != "Solution was correct.":
+                    print("Map found. Checker found an error.", end = "")
+                    new_mapname = maptype + "-invalid-" + str(mapnumber)
+                    print(" Saved as " + new_mapname + ".")
+                    new_mapname = mapdir + "/" + new_mapname
+                    mapnumber += 1
+                    shutil.move(mapname, new_mapname)
+                    os.close(fd)
+                    continue
+
+            os.close(fd)
+            fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
+
+            lem_in_result = run([lem_in_binary, "-q"],
+                                stdin = fd,
+                                stdout = PIPE,
+                                universal_newlines = True)
+
+            output_lines = lem_in_result.stdout.split('\n')
+
             steps_required = int(output_lines[1].split(' ')[7])
             steps_taken = int(output_lines[2].split(' ')[2])
 
