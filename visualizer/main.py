@@ -3,20 +3,20 @@
 from layout import eades, fruchterman_reingold
 from parse import parse_input
 from visualizer import Visualizer
+from pygame import Vector2
 
 import pygame
-from pygame import Vector2
-from random import randint
 from argparse import ArgumentParser
 
-
-def handle_events():
+def handle_events(visualizer):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return False
+            if event.type == pygame.MOUSEWHEEL: 
+                visualizer.graph.zoom(Vector2(pygame.mouse.get_pos()), event.y)
         return True
             
 def main():
@@ -28,7 +28,7 @@ def main():
 
     visualizer = Visualizer()
     parse_input(visualizer)
-    visualizer.ajdust_node_positions()
+    visualizer.adjust_node_positions()
 
     pygame.init()
 
@@ -44,16 +44,16 @@ def main():
         while running and visualizer.iters < visualizer.max_iters:
             auto_layout(visualizer)
             visualizer.render_graph()
-            running = handle_events()
+            running = handle_events(visualizer)
             pygame.display.flip()
-            pygame.time.delay(200)
+            # pygame.time.delay(200)
 
     while running:
         visualizer.render_graph()
         visualizer.render_ants()
-        running = handle_events()
+        running = handle_events(visualizer)
         pygame.display.flip()
-        pygame.time.delay(200)
+        # pygame.time.delay(200)
 
     pygame.quit()
 

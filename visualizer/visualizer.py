@@ -27,11 +27,11 @@ class Visualizer:
         self.start_of_turn = True
 
         self.ideal_length = 10
-        self.repulsion_constant = 2.0
+        self.repulsion_constant = 3.0
         self.attraction_constant = 1.0
         self.temperature = 100
         self.iters = 0
-        self.max_iters = 10
+        self.max_iters = 200
 
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
@@ -41,9 +41,8 @@ class Visualizer:
     def set_random_xy(self):
         for node in self.graph.nodes:
             self.graph.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
-            
 
-    def ajdust_node_positions(self):
+    def adjust_node_positions(self):
         scale = min(
             ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.graph.max_x),
             ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.graph.max_y)
@@ -53,10 +52,6 @@ class Visualizer:
                 int(self.PADDING + self.graph.positions[node][0] * scale),
                 int(self.PADDING + self.graph.positions[node][1] * scale)
             )
-
-    def render(self):
-        self.render_graph()
-        self.render_ants()
 
     def render_graph(self):
         self.screen.fill(self.BG_COLOR)
