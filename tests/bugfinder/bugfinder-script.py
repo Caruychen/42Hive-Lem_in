@@ -8,6 +8,7 @@ from subprocess import run, PIPE
 import random
 import shutil
 from io import BytesIO
+from lib import calc_mapnumber, get_steps
 
 print("Lem-in bugfinder 🔍")
 
@@ -30,11 +31,7 @@ if not os.path.exists(checker_script):
 if not os.path.exists(mapdir):
     os.mkdir(mapdir)
 
-mapnumber = 0
-for path in os.scandir(mapdir):
-    if path.is_file():
-        mapnumber += 1
-mapnumber += 1
+mapnumber = calc_mapnumber(mapdir)
 
 number_of_tests = 60
 
@@ -105,9 +102,8 @@ with TemporaryDirectory() as tmpdir:
                                 universal_newlines = True)
 
             output_lines = lem_in_result.stdout.split('\n')
-
-            steps_required = int(output_lines[1].split(' ')[7])
-            steps_taken = int(output_lines[2].split(' ')[2])
+            steps_required, steps_taken = get_steps(output_lines)
+            print(steps_required, steps_taken)
 
             if steps_taken > steps_required:
                 print("Map found. Steps required: "
