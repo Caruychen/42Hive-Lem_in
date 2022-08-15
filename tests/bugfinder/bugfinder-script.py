@@ -58,64 +58,54 @@ with TemporaryDirectory() as tmpdir:
         os.close(fd)
 
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-        with TemporaryFile() as tmp:
+        lem_in_result = run([lem_in_binary],
+                            stdin = fd,
+                            stdout = PIPE,
+                            universal_newlines = True)
 
-            lem_in_result = run([lem_in_binary],
-                                stdin = fd,
-                                stdout = PIPE,
-                                universal_newlines = True)
+        if lem_in_result.returncode != 0:
+            print("Map found. Lem-in raised an error.", end = "")
+            new_mapname = maptype + "-error-" + str(mapnumber)
+            print(" Saved as " + new_mapname + ".")
+            new_mapname = mapdir + "/" + new_mapname
+            mapnumber += 1
+            shutil.move(mapname, new_mapname)
+            os.close(fd)
+            continue
+         
+        with TemporaryFile(mode = "w") as tmp_output:
+            tmp_output.write(lem_in_result.stdout)
+            tmp_output.seek(0)
+            checker_result = run([checker_script],
+                                 stdin = tmp_output,
+                                 stdout = PIPE,
+                                 universal_newlines = True)
 
-            if lem_in_result.returncode != 0:
-                print("Map found. Lem-in raised an error.", end = "")
-                new_mapname = maptype + "-error-" + str(mapnumber)
+            if checker_result.stdout.split('\n')[-2] != "Solution was correct.":
+                print("Map found. Checker found an error.", end = "")
+                new_mapname = maptype + "-invalid-" + str(mapnumber)
                 print(" Saved as " + new_mapname + ".")
                 new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
                 shutil.move(mapname, new_mapname)
                 os.close(fd)
                 continue
-             
-            with TemporaryFile(mode = "w") as tmp_output:
-                tmp_output.write(lem_in_result.stdout)
-                tmp_output.seek(0)
-                checker_result = run([checker_script],
-                                     stdin = tmp_output,
-                                     stdout = PIPE,
-                                     universal_newlines = True)
 
-                if checker_result.stdout.split('\n')[-2] != "Solution was correct.":
-                    print("Map found. Checker found an error.", end = "")
-                    new_mapname = maptype + "-invalid-" + str(mapnumber)
-                    print(" Saved as " + new_mapname + ".")
-                    new_mapname = mapdir + "/" + new_mapname
-                    mapnumber += 1
-                    shutil.move(mapname, new_mapname)
-                    os.close(fd)
-                    continue
+        output_lines = lem_in_result.stdout.split('\n')
+        steps_required, steps_taken = get_steps(output_lines)
+        print(steps_required, steps_taken)
 
+        if steps_taken > steps_required:
+            print("Map found. Steps required: "
+                      + str(steps_required)
+                      + ". Steps taken: "
+                      + str(steps_taken) + ".", end = "")
+            new_mapname = maptype + "-more-"
+            new_mapname = new_mapname + str(mapnumber)
+            print(" Saved as " + new_mapname + ".")
+            new_mapname = mapdir + "/" + new_mapname
+            mapnumber += 1
+            shutil.move(mapname, new_mapname)
             os.close(fd)
-            fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-
-            lem_in_result = run([lem_in_binary, "-q"],
-                                stdin = fd,
-                                stdout = PIPE,
-                                universal_newlines = True)
-
-            output_lines = lem_in_result.stdout.split('\n')
-            steps_required, steps_taken = get_steps(output_lines)
-            print(steps_required, steps_taken)
-
-            if steps_taken > steps_required:
-                print("Map found. Steps required: "
-                          + str(steps_required)
-                          + ". Steps taken: "
-                          + str(steps_taken) + ".", end = "")
-                new_mapname = maptype + "-more-"
-                new_mapname = new_mapname + str(mapnumber)
-                print(" Saved as " + new_mapname + ".")
-                new_mapname = mapdir + "/" + new_mapname
-                mapnumber += 1
-                shutil.move(mapname, new_mapname)
-                os.close(fd)
 
 print("Done.")
