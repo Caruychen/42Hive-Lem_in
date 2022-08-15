@@ -4,6 +4,7 @@ import sys
 import pygame
 from pygame import Vector2
 from random import randint
+from math import log
 # from pygame import gfxdraw
 from argparse import ArgumentParser
 
@@ -21,9 +22,10 @@ class Visualizer:
     ANT_COLOR = (255, 152, 0)
     ANT_RADIUS = 8
     NODE_RADIUS = 3
-    TEMPERATURE_FACTOR = 0.95
+    TEMPERATURE_FACTOR = 0.98
 
     def __init__(self):
+        self.graph = Graph()
         self.max_x = 0
         self.max_y = 0
         self.min_x = sys.maxsize
@@ -38,12 +40,12 @@ class Visualizer:
         self.turn = 0
         self.start_of_turn = True
 
-        self.ideal_length = 150
-        self.repulsion_constant = 2500
-        self.attraction_constant = 0.03
-        self.temperature = 150
+        self.ideal_length = 10
+        self.repulsion_constant = 2.0
+        self.attraction_constant = 1.0
+        self.temperature = 50
         self.iters = 0
-        self.max_iters = 30
+        self.max_iters = 1000
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
 
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
@@ -54,6 +56,9 @@ class Visualizer:
             self.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
 
     def fruchterman_reingold(self):
+        """
+        Implementation of Fructherman and Reingold's force-directed graph drawing algorithm.
+        """
         offset = {}
         for node in self.nodes:
             offset[node] = Vector2(0, 0)
@@ -73,23 +78,17 @@ class Visualizer:
             node_b = edge[1]
             vec = self.positions[node_b] - self.positions[node_a]
             if vec.length() != 0:
-                offset[node_a] += ((vec.length() ** 2) / self.ideal_length) * vec.normalize()
-                offset[node_b] -= ((vec.length() ** 2) / self.ideal_length) * vec.normalize()
+                v = ((vec.length() ** 2) / self.ideal_length) * vec.normalize()
+                offset[node_a] += v
+                offset[node_b] -= v
 
-        print(offset)
+        # Apply net force
         for node in self.nodes:
             if offset[node].magnitude() > self.temperature:
                 offset[node] = offset[node].normalize()
                 offset[node] *= self.temperature
 
             self.positions[node] += offset[node]
-            # self.positions[node] = (self.center - self.positions[node]) + offset[node]
-            # self.positions[node] = (self.center - self.positions[node]) + offset[node]
-
-            # if offset[node] > self.temperature:
-            #     offset[node] = self.temperature
-            # self.positions[node] = (self.center - self.positions[node]) + offset[node]
-            # print(self.positions[node])
 
             if self.positions[node].x >= self.SCREEN_WIDTH:
                 self.positions[node].x = self.SCREEN_WIDTH
@@ -100,61 +99,39 @@ class Visualizer:
             if self.positions[node].y < 0:
                 self.positions[node].y = 0
 
-        print(self.positions)
-
         self.temperature *= self.TEMPERATURE_FACTOR
         self.iters += 1
             
     def eades(self):
+        """
+        Implementation of Eades' Spring Embedder algorithm for generating a layout for a network.
+        """
         offset = {}
 
         for node in self.nodes:
             offset[node] = Vector2(0, 0)
 
+        # Repulsion
         for node_a in self.nodes:
             for node_b in self.nodes:
-                if node_a != node_b:
-                    if self.positions[node_a] == self.positions[node_b]:
-                        self.positions[node_a] += Vector2(randint(-2, 2), randint(-2, 2))
-                    # print(node_a, self.positions[node_a])
-                    # print(node_b, self.positions[node_b])
-                    vec = self.positions[node_b] - self.positions[node_a]
-                    if vec.length() == 0:
-                        continue
-                    dist = vec.magnitude()
-                    dist = max(1, dist)
-                    # print('dist', dist)
-                    repulsion = self.repulsion_constant / dist
-                    # print('vec', vec)
-                    vec = vec.normalize()
-                    # print('uv', vec)
-                    vec = vec * repulsion * -1
-                    # print('repulsion', vec)
-                    offset[node_a] += vec
+                if node_a == node_b:
+                    continue
+                vec = self.positions[node_b] - self.positions[node_a]
+                if vec.length() != 0:
+                    offset[node_a] += (self.repulsion_constant / vec.length() ** 2) * vec.normalize()
 
+        # Attraction
         for edge in self.edges:
             node_a = edge[0]
             node_b = edge[1]
             vec = self.positions[node_b] - self.positions[node_a]
             if vec.length() == 0:
                 continue
-            dist = vec.magnitude()
-            attraction = self.attraction_constant * dist**2
-            vec = vec.normalize()
-            vec *= attraction
-            offset[node_a] += vec
-            offset[node_b] -= vec
+            v = self.attraction_constant * log(vec.length() / self.ideal_length) * vec.normalize()
+            offset[node_a] += v
+            offset[node_b] -= v
 
-        for node in self.nodes:
-            vec = self.center - self.positions[node]
-            if vec.length() == 0:
-                continue
-            dist = vec.magnitude()
-            gravity = self.attraction_constant / 8 * dist**2
-            vec = vec.normalize()
-            vec *= gravity
-            offset[node] += vec
-
+        # Apply net force
         for node in self.nodes:
             if offset[node].magnitude() > self.temperature:
                 offset[node] = offset[node].normalize()
@@ -292,7 +269,7 @@ def main():
                     running = False
 
         pygame.display.flip()
-        # pygame.time.delay(200)
+        pygame.time.delay(200)
 
     pygame.quit()
 
