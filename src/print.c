@@ -6,52 +6,11 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/03 11:42:33 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/11 10:55:00 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-static int	printer_init(t_printer *printer, t_pathset *pathset)
-{
-	size_t	i;
-	t_vec	line;
-
-	if (vec_new(&printer->lines, pathset->steps, sizeof (t_vec)) == ERROR)
-		return (ERROR);
-	if (vec_from(&printer->move, "L\0", 2, sizeof (char)) == ERROR)
-		return (ERROR);
-	i = 0;
-	while (i < pathset->steps)
-	{
-		vec_new(&line, 8, sizeof (char));
-		vec_push(&printer->lines, &line);
-		i++;
-	}
-	printer->ant_number = 0;
-	printer->start_line = 0;
-	printer->dash_id = 0;
-	return (OK);
-}
-
-static void	printer_free(t_printer *printer)
-{
-	size_t	i;
-	t_vec	*line;
-
-	i = 0;
-	while (i < printer->lines.len)
-	{
-		line = vec_get(&printer->lines, i);
-		if (line && line->memory)
-			vec_free(line);
-		i++;
-	}
-	if (printer->lines.memory)
-		vec_free(&printer->lines);
-	if (printer->move.memory)
-		vec_free(&printer->move);
-}
 
 static void	send_ant(t_printer *printer)
 {
@@ -91,7 +50,7 @@ static void	send_ant_wave(t_printer *printer, t_pathset *pathset)
 	printer->start_line++;
 }
 
-int	print_solution(t_pathset *pathset)
+static int	print_solution(t_pathset *pathset)
 {
 	t_printer	printer;
 
@@ -101,4 +60,15 @@ int	print_solution(t_pathset *pathset)
 		send_ant_wave(&printer, pathset);
 	vec_iter(&printer.lines, put_line);
 	return (printer_free(&printer), OK);
+}
+
+int	print_result(t_pathset *pathset, t_vec *inputs, t_options options)
+{
+	write(1, inputs->memory, inputs->len);
+	vec_free(inputs);
+	if (options.quiet)
+		return (ft_printf("Solved with %i steps.\n", (int) pathset->steps), 0);
+	if (print_solution(pathset) == ERROR)
+		return (ERROR);
+	return (0);
 }

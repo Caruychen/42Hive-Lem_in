@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:36:25 by cchen             #+#    #+#             */
-/*   Updated: 2022/07/28 11:32:34 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:32:18 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ int	network_init(t_flow_network *network)
 {
 	*network = (t_flow_network){{0}, {0}, 0, 0, 0};
 	if (edge_list_make(&(network->edge_list)) == -1)
-		return (ERROR);
-	return (vec_new(&(network->adj_list), 1, sizeof(t_flow_node)));
+		return (error(MSG_ERROR_MALLOC));
+	if (vec_new(&(network->adj_list), 1, sizeof(t_flow_node)) == ERROR)
+		return (edge_list_free(&(network->edge_list)), error(MSG_ERROR_MALLOC));
+	return (OK);
 }
 
 int	network_add_node(t_flow_network *network, char *alias, int x, int y)

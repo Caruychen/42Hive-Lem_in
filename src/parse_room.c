@@ -1,36 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_room.c                                         :+:      :+:    :+:   */
+/*   parse_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/01 13:36:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:35:26 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <stdio.h>
-
-static int	get_alias(t_parser *parser, char **alias)
-{
-	if (*parser->line == 'L' || *parser->line == ' ')
-		return (error(MSG_ERROR_CHAR_ALIAS));
-	*alias = ft_strsub(parser->line, 0, parser->ptr - parser->line);
-	return (OK);
-}
-
-static int	get_coordinate(t_parser *parser, int *coord)
-{
-	if (!parser->ptr || !*(parser->ptr + 1))
-		return (error(MSG_ERROR_INV_LINE));
-	*coord = ft_atoi(parser->ptr + 1);
-	while (*(++parser->ptr) && *parser->ptr != ' ')
-		if (!ft_isdigit(*parser->ptr))
-			return (error(MSG_ERROR_INV_LINE));
-	return (OK);
-}
 
 static int	hashmap_from(t_hashmap *hmap, t_vec *adj_list)
 {
@@ -52,6 +33,8 @@ static int	hashmap_from(t_hashmap *hmap, t_vec *adj_list)
 
 static int	start_links(t_parser *parser, t_flow_network *network)
 {
+	if (parser->mods != ALL_MODS)
+		return (error(MSG_ERROR_MOD_MISSING));
 	if (!ft_strchr(parser->line, '-'))
 		return (error(MSG_ERROR_INV_LINE));
 	if (hashmap_new_with_capacity(&(parser->hmap), network->adj_list.len * 1.33)
@@ -63,29 +46,48 @@ static int	start_links(t_parser *parser, t_flow_network *network)
 	return (parse_link(parser, network));
 }
 
+static int	is_valid_line(char **room)
+{
+	int		index;
+	char	*str;
+
+	index = 0;
+	while (room[index])
+	{
+		str = room[index++];
+		if ((index == 1 && (*str == 'L' || ft_iswhitespace(*str)))
+			|| (index > 1 && !ft_isnumber(str))
+			|| index > 3)
+			return (FALSE);
+	}
+	return (index == 3);
+}
+
+static void	assign_modifier(t_mod mod, t_flow_network *network)
+{
+	size_t	index;
+
+	index = network->adj_list.len - 1;
+	network->source = (mod == START) * index + (mod != START) * network->source;
+	network->sink = (mod == END) * index + (mod != END) * network->sink;
+}
+
 int	parse_room(t_parser *parser, t_flow_network *network)
 {
-	char	*alias;
-	int		x;
-	int		y;
+	char	**room;
 
-	parser->ptr = ft_strchr(parser->line, ' ');
-	if (!parser->ptr)
-		return (start_links(parser, network));
-	if (get_alias(parser, &alias) == ERROR)
-		return (ERROR);
-	if (get_coordinate(parser, &x) == ERROR)
-		return (ERROR);
-	if (get_coordinate(parser, &y) == ERROR)
-		return (ERROR);
-	if (*parser->ptr != '\0')
-		return (ft_strdel(&alias), ERROR);
-	if (network_add_node(network, alias, x, y) == ERROR)
-		return (ERROR);
-	if (parser->modification == START)
-		network->source = network->adj_list.len - 1;
-	else if (parser->modification == END)
-		network->sink = network->adj_list.len - 1;
+	room = ft_strsplit(parser->line, ' ');
+	if (room[ALIAS] && !room[X_COORD])
+		return (ft_strdelarray(&room), start_links(parser, network));
+	if (!is_valid_line(room))
+		return (ft_strdelarray(&room), error(MSG_ERROR_INV_LINE));
+	if (network_add_node(network,
+			ft_strdup(room[ALIAS]),
+			ft_atoi(room[X_COORD]),
+			ft_atoi(room[Y_COORD])) == ERROR)
+		return (ft_strdelarray(&room), ERROR);
+	assign_modifier(parser->modification, network);
 	parser->modification = NONE;
+	ft_strdelarray(&room);
 	return (OK);
 }

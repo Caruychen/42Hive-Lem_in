@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 22:59:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/01 23:02:18 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/09 17:47:17 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int		ft_tolower(int c);
 int		ft_isupper(int c);
 int		ft_islower(int c);
 int		ft_iswhitespace(char c);
+int		ft_isnumber(char *str);
 
 #endif
