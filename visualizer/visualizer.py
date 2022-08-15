@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
+from layout import eades, fruchterman_reingold
+from parse import parse_input
+from graph import Graph
+
 import sys
-from lib import eades, fruchterman_reingold
 import pygame
 from pygame import Vector2
 from random import randint
@@ -24,16 +27,10 @@ class Visualizer:
     TEMPERATURE_FACTOR = 0.98
 
     def __init__(self):
-        self.max_x = 0
-        self.max_y = 0
-        self.min_x = sys.maxsize
-        self.min_y = sys.maxsize
-        self.ant_count = 0
+        self.graph = Graph()
+
         self.ants = []
-        self.nodes = []
-        self.positions = {}
-        self.edges = []
-        self.start = ""
+
         self.turns = []
         self.turn = 0
         self.start_of_turn = True
@@ -50,20 +47,19 @@ class Visualizer:
         pygame.display.set_caption("Lem-in Visualizer")
 
     def set_random_xy(self):
-        for node in self.nodes:
-            self.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
+        for node in self.graph.nodes:
+            self.graph.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
             
 
     def ajdust_node_positions(self):
         scale = min(
-            ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.max_x),
-            ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.max_y)
+            ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.graph.max_x),
+            ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.graph.max_y)
         )
-        # left_margin = (self.max_x - self.min_x) / 2
-        for node in self.nodes:
-            self.positions[node] = Vector2(
-                int(self.PADDING + self.positions[node][0] * scale),
-                int(self.PADDING + self.positions[node][1] * scale)
+        for node in self.graph.nodes:
+            self.graph.positions[node] = Vector2(
+                int(self.PADDING + self.graph.positions[node][0] * scale),
+                int(self.PADDING + self.graph.positions[node][1] * scale)
             )
 
     def render(self):
@@ -72,10 +68,10 @@ class Visualizer:
 
     def render_graph(self):
         self.screen.fill(self.BG_COLOR)
-        for edge in self.edges:
-            pygame.draw.aaline(self.screen, self.EDGE_COLOR, self.positions[edge[0]], self.positions[edge[1]])
-        for node in self.nodes:
-            pygame.draw.circle(self.screen, self.NODE_COLOR, self.positions[node], self.NODE_RADIUS)
+        for edge in self.graph.edges:
+            pygame.draw.aaline(self.screen, self.EDGE_COLOR, self.graph.positions[edge[0]], self.graph.positions[edge[1]])
+        for node in self.graph.nodes:
+            pygame.draw.circle(self.screen, self.NODE_COLOR, self.graph.positions[node], self.NODE_RADIUS)
 
             # gfxdraw.aacircle(self.screen, self.positions[node][0], self.positions[node][1], self.NODE_RADIUS, self.NODE_COLOR)
             # gfxdraw.filled_circle(self.screen, self.positions[node][0], self.positions[node][1], self.NODE_RADIUS, self.NODE_COLOR)
@@ -94,54 +90,9 @@ class Visualizer:
         # for ant in self.ants:
         #     pygame.draw.circle(self.screen, self.ANT_COLOR, ant, self.ANT_RADIUS)
         for move in self.turns[self.turn]:
-            pygame.draw.circle(self.screen, self.ANT_COLOR, self.positions[move], self.ANT_RADIUS)
+            pygame.draw.circle(self.screen, self.ANT_COLOR, self.graph.positions[move], self.ANT_RADIUS)
         self.turn += 1
 
-    def read_input(self):
-        self.ant_count = int(sys.stdin.readline().strip('\n'))
-        
-        next_is_start = False
-        while True:
-            line = sys.stdin.readline().strip('\n')
-            if line[0] == '#':
-                if line == "##start":
-                    next_is_start = True
-                continue
-            if not ' ' in line:
-                break
-            split = line.split(' ')
-            x = int(split[1])
-            y = int(split[2])
-            self.max_x = max(self.max_x, x)
-            self.max_y = max(self.max_y, y)
-            self.min_x = min(self.min_x, x)
-            self.min_y = min(self.min_y, y)
-            node = split[0]
-            self.nodes.append(node)
-            self.positions[node] = Vector2(x, y)
-            if next_is_start:
-                self.start = node
-                next_is_start = False
-
-        if not line[0] == '#':
-            self.edges.append(line.split('-'))
-
-        while True:
-            line = sys.stdin.readline().strip('\n')
-            if len(line) == 0:
-                break
-            if line[0] == '#':
-                continue
-            if not '-' in line:
-                break
-            self.edges.append(line.split('-'))
-
-        while True:
-            line = sys.stdin.readline().strip('\n')
-            if len(line) == 0:
-                break
-            splits = line.split(' ')
-            self.turns.append(list(split.split('-')[1] for split in splits[:-1])) #! Remove [:-1] when our printer is fixed
             
 def main():
     argparser = ArgumentParser(description="Visualizes your Lem-in.")
@@ -150,7 +101,7 @@ def main():
     args = argparser.parse_args()
 
     visualizer = Visualizer()
-    visualizer.read_input()
+    parse_input(visualizer)
     visualizer.ajdust_node_positions()
     if args.a == True:
         visualizer.set_random_xy()
