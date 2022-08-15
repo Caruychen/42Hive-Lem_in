@@ -45,4 +45,4 @@ def parse_input(visualizer):
         if len(line) == 0:
             break
         splits = line.split(' ')
-        visualizer.turns.append(list(split.split('-')[1] for split in splits[:-1])) #! Remove [:-1] when our printer is fixed
+        visualizer.turns.append(list(split.split('-')[1] for split in splits if split.startswith('L'))) #! Remove [:-1] when our printer is fixed

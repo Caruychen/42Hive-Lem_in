@@ -17,7 +17,7 @@ class Visualizer:
     ANT_COLOR = (255, 152, 0)
     ANT_RADIUS = 6
     NODE_RADIUS = 3
-    TEMPERATURE_FACTOR = 0.98
+    TEMPERATURE_FACTOR = 0.99
 
     def __init__(self):
         self.graph = Graph()
@@ -26,12 +26,12 @@ class Visualizer:
         self.turn = 0
         self.start_of_turn = True
 
-        self.ideal_length = 10
+        self.ideal_length = 15
         self.repulsion_constant = 3.0
-        self.attraction_constant = 1.0
-        self.temperature = 100
+        self.attraction_constant = 0.5
+        self.temperature = 150
         self.iters = 0
-        self.max_iters = 200
+        self.max_iters = 400
 
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))

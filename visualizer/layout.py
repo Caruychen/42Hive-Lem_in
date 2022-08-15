@@ -16,7 +16,7 @@ def fruchterman_reingold(visualizer):
                 continue
             vec = visualizer.graph.positions[node_b] - visualizer.graph.positions[node_a]
             if vec.length() != 0:
-                offset[node_a] += ((visualizer.ideal_length ** 2) / vec.length()) * vec.normalize()
+                offset[node_b] += ((visualizer.ideal_length ** 2) / vec.length()) * vec.normalize()
 
     # Attraction
     for edge in visualizer.graph.edges:
@@ -64,7 +64,7 @@ def eades(visualizer):
                 continue
             vec = visualizer.graph.positions[node_b] - visualizer.graph.positions[node_a]
             if vec.length() != 0:
-                offset[node_a] += (visualizer.repulsion_constant / vec.length() ** 2) * vec.normalize()
+                offset[node_b] += (visualizer.repulsion_constant / vec.length() ** 2) * vec.normalize()
 
     # Attraction
     for edge in visualizer.graph.edges:

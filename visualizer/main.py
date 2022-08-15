@@ -46,14 +46,14 @@ def main():
             visualizer.render_graph()
             running = handle_events(visualizer)
             pygame.display.flip()
-            # pygame.time.delay(200)
+            # pygame.time.delay(25)
 
     while running:
         visualizer.render_graph()
         visualizer.render_ants()
         running = handle_events(visualizer)
         pygame.display.flip()
-        # pygame.time.delay(200)
+        pygame.time.delay(200)
 
     pygame.quit()
 
