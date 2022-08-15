@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 import sys
+from lib import eades, fruchterman_reingold
 import pygame
 from pygame import Vector2
 from random import randint
-from math import log
-# from pygame import gfxdraw
 from argparse import ArgumentParser
 
 class Visualizer:
@@ -25,7 +24,6 @@ class Visualizer:
     TEMPERATURE_FACTOR = 0.98
 
     def __init__(self):
-        self.graph = Graph()
         self.max_x = 0
         self.max_y = 0
         self.min_x = sys.maxsize
@@ -43,7 +41,7 @@ class Visualizer:
         self.ideal_length = 10
         self.repulsion_constant = 2.0
         self.attraction_constant = 1.0
-        self.temperature = 50
+        self.temperature = 100
         self.iters = 0
         self.max_iters = 1000
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
@@ -54,102 +52,7 @@ class Visualizer:
     def set_random_xy(self):
         for node in self.nodes:
             self.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
-
-    def fruchterman_reingold(self):
-        """
-        Implementation of Fructherman and Reingold's force-directed graph drawing algorithm.
-        """
-        offset = {}
-        for node in self.nodes:
-            offset[node] = Vector2(0, 0)
-
-        # Repulsion
-        for node_a in self.nodes:
-            for node_b in self.nodes:
-                if node_a == node_b:
-                    continue
-                vec = self.positions[node_b] - self.positions[node_a]
-                if vec.length() != 0:
-                    offset[node_a] += ((self.ideal_length ** 2) / vec.length()) * vec.normalize()
-
-        # Attraction
-        for edge in self.edges:
-            node_a = edge[0]
-            node_b = edge[1]
-            vec = self.positions[node_b] - self.positions[node_a]
-            if vec.length() != 0:
-                v = ((vec.length() ** 2) / self.ideal_length) * vec.normalize()
-                offset[node_a] += v
-                offset[node_b] -= v
-
-        # Apply net force
-        for node in self.nodes:
-            if offset[node].magnitude() > self.temperature:
-                offset[node] = offset[node].normalize()
-                offset[node] *= self.temperature
-
-            self.positions[node] += offset[node]
-
-            if self.positions[node].x >= self.SCREEN_WIDTH:
-                self.positions[node].x = self.SCREEN_WIDTH
-            if self.positions[node].x < 0:
-                self.positions[node].x = 0
-            if self.positions[node].y >= self.SCREEN_HEIGHT:
-                self.positions[node].y = self.SCREEN_HEIGHT
-            if self.positions[node].y < 0:
-                self.positions[node].y = 0
-
-        self.temperature *= self.TEMPERATURE_FACTOR
-        self.iters += 1
             
-    def eades(self):
-        """
-        Implementation of Eades' Spring Embedder algorithm for generating a layout for a network.
-        """
-        offset = {}
-
-        for node in self.nodes:
-            offset[node] = Vector2(0, 0)
-
-        # Repulsion
-        for node_a in self.nodes:
-            for node_b in self.nodes:
-                if node_a == node_b:
-                    continue
-                vec = self.positions[node_b] - self.positions[node_a]
-                if vec.length() != 0:
-                    offset[node_a] += (self.repulsion_constant / vec.length() ** 2) * vec.normalize()
-
-        # Attraction
-        for edge in self.edges:
-            node_a = edge[0]
-            node_b = edge[1]
-            vec = self.positions[node_b] - self.positions[node_a]
-            if vec.length() == 0:
-                continue
-            v = self.attraction_constant * log(vec.length() / self.ideal_length) * vec.normalize()
-            offset[node_a] += v
-            offset[node_b] -= v
-
-        # Apply net force
-        for node in self.nodes:
-            if offset[node].magnitude() > self.temperature:
-                offset[node] = offset[node].normalize()
-                offset[node] *= self.temperature
-
-            self.positions[node] += offset[node]
-
-            if self.positions[node].x >= self.SCREEN_WIDTH:
-                self.positions[node].x = self.SCREEN_WIDTH
-            if self.positions[node].x < 0:
-                self.positions[node].x = 0
-            if self.positions[node].y >= self.SCREEN_HEIGHT:
-                self.positions[node].y = self.SCREEN_HEIGHT
-            if self.positions[node].y < 0:
-                self.positions[node].y = 0
-
-            self.temperature *= self.TEMPERATURE_FACTOR
-            self.iters += 1
 
     def ajdust_node_positions(self):
         scale = min(
@@ -220,8 +123,6 @@ class Visualizer:
                 self.start = node
                 next_is_start = False
 
-        print(self.positions)
-
         if not line[0] == '#':
             self.edges.append(line.split('-'))
 
@@ -259,7 +160,7 @@ def main():
     while running:
         # visualizer.update_ants()
         if (args.a == True and visualizer.iters < visualizer.max_iters):
-            visualizer.fruchterman_reingold()
+            fruchterman_reingold(visualizer)
         visualizer.render_graph()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
