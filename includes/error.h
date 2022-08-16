@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 16:13:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/16 14:48:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define MSG_ERROR_NO_ANTS "ERROR: Insufficient ants."
 # define MSG_ERROR_NO_PATHS "ERROR: Sorry, I couldn't find any paths."
 # define MSG_ERROR_NODE_ALIAS "ERROR: Alias not provided."
+# define MSG_ERROR_AUGMENT "ERROR: Network augmentation error."
 
 int	error(char *msg);
 int	main_free(int res, t_flow_network *network, t_pathset *pathset);
