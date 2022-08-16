@@ -8,7 +8,7 @@ from pygame import Vector2
 import pygame
 from argparse import ArgumentParser
 
-def handle_events(visualizer):
+def check_events(visualizer):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
@@ -26,11 +26,10 @@ def main():
     argparser.add_argument("-f", action = "store_true")
     args = argparser.parse_args()
 
+    pygame.init()
     visualizer = Visualizer()
     parse_input(visualizer)
     visualizer.adjust_node_positions()
-
-    pygame.init()
 
     running = True
 
@@ -44,14 +43,16 @@ def main():
         while running and visualizer.iters < visualizer.max_iters:
             auto_layout(visualizer)
             visualizer.render_graph()
-            running = handle_events(visualizer)
+            visualizer.render_auto_layout_text()
+            running = check_events(visualizer)
+            # running = check_
             pygame.display.flip()
             # pygame.time.delay(25)
 
     while running:
         visualizer.render_graph()
         visualizer.render_ants()
-        running = handle_events(visualizer)
+        running = check_events(visualizer)
         pygame.display.flip()
         pygame.time.delay(200)
 

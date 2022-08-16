@@ -9,7 +9,7 @@ class Visualizer:
     SCREEN_HEIGHT = 600
     PADDING = 20
     MAX_FPS = 60
-    FONT_SIZE = 20
+    FONT_SIZE = 12
     BG_COLOR = (32, 42, 68)
     TEXT_COLOR = (255, 255, 255)
     EDGE_COLOR = (2, 138, 155)
@@ -31,10 +31,11 @@ class Visualizer:
         self.attraction_constant = 0.5
         self.temperature = 150
         self.iters = 0
-        self.max_iters = 400
+        self.max_iters = 200
 
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        self.font = pygame.font.SysFont("menlo", self.FONT_SIZE, bold = True)
 
         pygame.display.set_caption("Lem-in Visualizer")
 
@@ -66,3 +67,8 @@ class Visualizer:
         for move in self.turns[self.turn]:
             pygame.draw.circle(self.screen, self.ANT_COLOR, self.graph.positions[move], self.ANT_RADIUS)
         self.turn += 1
+
+    def render_auto_layout_text(self):
+        text = self.font.render("auto-layout in progress. press space to break.", False, self.TEXT_COLOR)
+        self.screen.blit(text, Vector2(self.PADDING, self.PADDING))
+        pass
