@@ -15,6 +15,8 @@ def check_events(visualizer):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return False
+                if event.key == pygame.K_SPACE:
+                    visualizer.iters = visualizer.max_iters
             if event.type == pygame.MOUSEWHEEL: 
                 visualizer.graph.zoom(Vector2(pygame.mouse.get_pos()), event.y)
         return True
@@ -45,7 +47,6 @@ def main():
             visualizer.render_graph()
             visualizer.render_auto_layout_text()
             running = check_events(visualizer)
-            # running = check_
             pygame.display.flip()
             # pygame.time.delay(25)
 
