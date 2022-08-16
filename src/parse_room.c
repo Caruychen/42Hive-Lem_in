@@ -6,12 +6,11 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/10 11:35:26 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/12 10:31:33 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
 static int	hashmap_from(t_hashmap *hmap, t_vec *adj_list)
 {
