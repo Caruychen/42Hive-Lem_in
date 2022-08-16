@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+DIR=$(dirname `which $0`)
+cd $DIR
+
 echo "Testing leaks with all maps..."
 for f in $(find ../../maps -type f -name "*"); do
 	echo $f
@@ -10,3 +13,5 @@ for f in $(find ../../maps -type f -name "*"); do
 		echo "LEAKS!!!"
 	fi
 done;
+
+/bin/rm res
