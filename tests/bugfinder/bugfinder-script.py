@@ -1,9 +1,14 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 import uuid
 from tempfile import TemporaryDirectory, TemporaryFile
 from subprocess import run, PIPE
 import random
+import shutil
+from io import BytesIO
+from lib import calc_mapnumber, get_steps
 
 print("Lem-in bugfinder 🔍")
 
@@ -16,17 +21,17 @@ if not os.path.exists(lem_in_binary):
     print("Error: could not find lem-in executable.")
 
 generator_binary = os.path.join(rootdir, "generator")
-if not os.path.exists(lem_in_binary):
+if not os.path.exists(generator_binary):
     print("Error: could not find generator executable.")
+
+checker_script = os.path.join(rootdir, "tests/checker/checker.py")
+if not os.path.exists(checker_script):
+    print("Error: could not find checker script.")
 
 if not os.path.exists(mapdir):
     os.mkdir(mapdir)
 
-mapnumber = 0
-for path in os.scandir(mapdir):
-    if path.is_file():
-        mapnumber += 1
-mapnumber += 1
+mapnumber = calc_mapnumber(mapdir)
 
 number_of_tests = 60
 
@@ -53,39 +58,54 @@ with TemporaryDirectory() as tmpdir:
         os.close(fd)
 
         fd = os.open(mapname, os.O_RDWR | os.O_CREAT)
-        with TemporaryFile() as tmp:
+        lem_in_result = run([lem_in_binary],
+                            stdin = fd,
+                            stdout = PIPE,
+                            universal_newlines = True)
 
-            lem_in_result = run([lem_in_binary, "-q"],
-                                stdin = fd,
-                                stdout = PIPE,
-                                universal_newlines = True)
+        if lem_in_result.returncode != 0:
+            print("Map found. Lem-in raised an error.", end = "")
+            new_mapname = maptype + "-error-" + str(mapnumber)
+            print(" Saved as " + new_mapname + ".")
+            new_mapname = mapdir + "/" + new_mapname
+            mapnumber += 1
+            shutil.move(mapname, new_mapname)
+            os.close(fd)
+            continue
+         
+        with TemporaryFile(mode = "w") as tmp_output:
+            tmp_output.write(lem_in_result.stdout)
+            tmp_output.seek(0)
+            checker_result = run([checker_script],
+                                 stdin = tmp_output,
+                                 stdout = PIPE,
+                                 universal_newlines = True)
 
-            output_lines = lem_in_result.stdout.split('\n')
-
-            if lem_in_result.returncode != 0:
-                print("Map found. Lem-in raised an error.", end = "")
-                new_mapname = maptype + "-error-" + str(mapnumber)
+            if checker_result.stdout.split('\n')[-2] != "Solution was correct.":
+                print("Map found. Checker found an error.", end = "")
+                new_mapname = maptype + "-invalid-" + str(mapnumber)
                 print(" Saved as " + new_mapname + ".")
                 new_mapname = mapdir + "/" + new_mapname
                 mapnumber += 1
-                os.rename(mapname, new_mapname)
+                shutil.move(mapname, new_mapname)
                 os.close(fd)
                 continue
-             
-            steps_required = int(output_lines[1].split(' ')[7])
-            steps_taken = int(output_lines[2].split(' ')[2])
 
-            if steps_taken > steps_required:
-                print("Map found. Steps required: "
-                          + str(steps_required)
-                          + ". Steps taken: "
-                          + str(steps_taken) + ".", end = "")
-                new_mapname = maptype + "-more-"
-                new_mapname = new_mapname + str(mapnumber)
-                print(" Saved as " + new_mapname + ".")
-                new_mapname = mapdir + "/" + new_mapname
-                mapnumber += 1
-                os.rename(mapname, new_mapname)
-                os.close(fd)
+        output_lines = lem_in_result.stdout.split('\n')
+        steps_required, steps_taken = get_steps(output_lines)
+        print(steps_required, steps_taken)
+
+        if steps_taken > steps_required:
+            print("Map found. Steps required: "
+                      + str(steps_required)
+                      + ". Steps taken: "
+                      + str(steps_taken) + ".", end = "")
+            new_mapname = maptype + "-more-"
+            new_mapname = new_mapname + str(mapnumber)
+            print(" Saved as " + new_mapname + ".")
+            new_mapname = mapdir + "/" + new_mapname
+            mapnumber += 1
+            shutil.move(mapname, new_mapname)
+            os.close(fd)
 
 print("Done.")
