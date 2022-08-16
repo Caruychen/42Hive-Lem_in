@@ -6,14 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 16:31:14 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/16 14:30:41 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/16 16:23:28 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include "ft_string.h"
 #include "ft_stdlib.h"
-#include <stdio.h>
 
 static inline char	*set_conversion(int uppercase)
 {
