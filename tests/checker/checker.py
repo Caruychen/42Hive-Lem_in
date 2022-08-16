@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 
 BOLD = '\033[1m'
@@ -101,6 +103,7 @@ def main():
     ant_ids = []
     ants_in_sink = 0
     previous = ["" for _ in range(ants + 1)]
+    test_failed = False
     for line in solution_lines:
         moves = line.split(' ')
         current_line_ant_ids = []
@@ -108,30 +111,38 @@ def main():
 
             if not move.startswith('L'):
                 invalid_move(move, "Move should follow format L[ant number]-[room name]")
+                test_failed = True
 
             split = move[1:].split('-')
             if len(split) != 2:
                 invalid_move(move, "Move should follow format L[ant number]-[room name]")
+                test_failed = True
                 continue
             ant_id, room_alias = split
 
             if not ant_id.isnumeric():
                 invalid_move(move, "Ant number should consist of only numbers")
+                test_failed = True
             ant_id = int(ant_id)
 
             if ant_id not in ant_ids:
                 if ant_id != expected_ant_id:
                     invalid_move(move, "Expected ant id to be " + str(expected_ant_id) + " but was " + str(ant_id))
+                    test_failed = True
                 expected_ant_id += 1
                 if room_alias not in adjacency_list[source]:
                     invalid_move(move, "Ant moved from source to a node that is not adjacent with source")
+                    test_failed = True
             elif room_alias not in adjacency_list[previous[ant_id]]:
                 invalid_move(move, "Ant moved to a node that was not adjacent to the previous node")
+                test_failed = True
             elif room_alias.startswith(('#', 'L')):
                 invalid_move(move, "Room name should not begin with 'L' or '#'")
+                test_failed = True
 
             if ant_id in current_line_ant_ids:
                 invalid_move(move, "Ant already moved during this turn")
+                test_failed = True
             ant_ids.append(ant_id)
             current_line_ant_ids.append(ant_id)
 
@@ -142,6 +153,10 @@ def main():
 
     if ants_in_sink != ants:
         print(RED + 'Invalid solution >>' + END + " Not all ants made it to the end of the graph")
+        test_failed = True
+
+    if not test_failed:
+        print("Solution was correct.")
 
 if __name__ == "__main__":
     main()
