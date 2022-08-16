@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/16 09:32:47 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/16 11:09:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,20 @@ static void	select_best_exit(t_flow_network *network, size_t index,
 
 int	network_augment(t_flow_network *network, t_trace trace)
 {
+	size_t		prev;
 	size_t		source;
 	size_t		index;
 	t_flow_edge	*edge;
 
+	prev = 0;
 	source = network->source;
 	index = network->sink;
 	while (index != source)
 	{
 		edge = trace.edge_to[index];
-		if (edge->flow)
+		if (edge->flow && !prev)
 			select_best_exit(network, index, trace);
+		prev = edge->flow;
 		if (edge_augment_flow_to(edge, index, network) == ERROR)
 			return (ERROR);
 		index = edge_other(edge, index);
