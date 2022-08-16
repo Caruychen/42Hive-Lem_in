@@ -7,6 +7,7 @@ class Graph:
         self.positions = {}
         self.edges = []
         self.start = ""
+        self.end = ""
         self.max_x = 0
         self.max_y = 0
         self.min_x = sys.maxsize

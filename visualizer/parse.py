@@ -5,11 +5,14 @@ def parse_input(visualizer):
     visualizer.graph.ant_count = int(sys.stdin.readline().strip('\n'))
     
     next_is_start = False
+    next_is_end = False
     while True:
         line = sys.stdin.readline().strip('\n')
         if line[0] == '#':
             if line == "##start":
                 next_is_start = True
+            elif line == "##end":
+                next_is_end = True
             continue
         if not ' ' in line:
             break
@@ -26,6 +29,9 @@ def parse_input(visualizer):
         if next_is_start:
             visualizer.graph.start = node
             next_is_start = False
+        elif next_is_end:
+            visualizer.graph.end = node
+            next_is_end = False
 
     if not line[0] == '#':
         visualizer.graph.edges.append(line.split('-'))

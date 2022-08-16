@@ -5,14 +5,16 @@ from random import randint
 
 class Visualizer:
 
-    SCREEN_WIDTH = 800
-    SCREEN_HEIGHT = 600
+    SCREEN_WIDTH = 1000
+    SCREEN_HEIGHT = 800
     PADDING = 20
     MAX_FPS = 60
     FONT_SIZE = 12
     BG_COLOR = (32, 42, 68)
     TEXT_COLOR = (255, 255, 255)
     EDGE_COLOR = (2, 138, 155)
+    START_NODE_COLOR = (88, 179, 104)
+    END_NODE_COLOR = (199, 65, 123)
     NODE_COLOR = (249, 56, 34)
     ANT_COLOR = (255, 152, 0)
     ANT_RADIUS = 6
@@ -60,6 +62,8 @@ class Visualizer:
             pygame.draw.aaline(self.screen, self.EDGE_COLOR, self.graph.positions[edge[0]], self.graph.positions[edge[1]])
         for node in self.graph.nodes:
             pygame.draw.circle(self.screen, self.NODE_COLOR, self.graph.positions[node], self.NODE_RADIUS)
+        pygame.draw.circle(self.screen, self.START_NODE_COLOR, self.graph.positions[self.graph.start], self.ANT_RADIUS)
+        pygame.draw.circle(self.screen, self.END_NODE_COLOR, self.graph.positions[self.graph.end], self.ANT_RADIUS)
 
     def render_ants(self):
         if self.turn >= len(self.turns):
@@ -68,7 +72,7 @@ class Visualizer:
             pygame.draw.circle(self.screen, self.ANT_COLOR, self.graph.positions[move], self.ANT_RADIUS)
         self.turn += 1
 
-    def render_auto_layout_text(self):
-        text = self.font.render("auto-layout in progress. press space to break.", False, self.TEXT_COLOR)
+    def render_text(self, text):
+        text = self.font.render(text, False, self.TEXT_COLOR)
         self.screen.blit(text, Vector2(self.PADDING, self.PADDING))
         pass
