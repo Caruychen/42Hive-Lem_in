@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 10:22:07 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:32:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	select_best_exit(t_flow_network *network, size_t index,
 	{
 		index = edge_other(edge, index);
 		node = network_get(network, index);
-		if (!min || min >= node->dst_to_start + node->dst_to_end)
+		if (!min || min > node->dst_to_start + node->dst_to_end)
 		{
 			min = node->dst_to_start + node->dst_to_end;
 			res = index;
