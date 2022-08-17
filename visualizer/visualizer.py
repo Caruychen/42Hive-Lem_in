@@ -1,12 +1,10 @@
 from graph import Graph
 import pygame
-from pygame import Vector2
+from pygame import DOUBLEBUF, FULLSCREEN, Vector2
 from random import randint
 
 class Visualizer:
 
-    SCREEN_WIDTH = 1000
-    SCREEN_HEIGHT = 800
     PADDING = 20
     MAX_FPS = 60
     FONT_SIZE = 12
@@ -35,9 +33,13 @@ class Visualizer:
         self.iters = 0
         self.max_iters = 200
 
-        self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
-        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        info = pygame.display.Info()
+        self.SCREEN_WIDTH = info.current_w
+        self.SCREEN_HEIGHT = info.current_h
+        self.resolution = (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+        self.screen = pygame.display.set_mode(self.resolution, FULLSCREEN | DOUBLEBUF, 16)
         self.font = pygame.font.SysFont("menlo", self.FONT_SIZE, bold = True)
+        self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
 
         pygame.display.set_caption("Lem-in Visualizer")
 
