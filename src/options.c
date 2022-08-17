@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:25:23 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/17 13:56:59 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 14:08:26 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	options_init(t_options *options, int argc, char **argv)
 	arg = argv[1];
 	if (*arg++ != '-')
 		return (error(MSG_ERROR_BAD_OPTION));
+	if (*arg == 'h')
+		return (ERROR);
 	if (set_option(options, arg) == ERROR)
 		return (ERROR);
 	return (OK);
