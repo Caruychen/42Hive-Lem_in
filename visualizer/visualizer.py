@@ -41,6 +41,9 @@ class Visualizer:
         self.font = pygame.font.SysFont("menlo", self.FONT_SIZE, bold = True)
         self.center = Vector2(self.SCREEN_WIDTH / 2, self.SCREEN_HEIGHT / 2)
 
+        self.text_auto_layout = self.font.render("auto-layout in progress. press space to stop.", False, self.TEXT_COLOR)
+        self.text_solution = self.font.render("press space to replay solution.", False, self.TEXT_COLOR)
+
         pygame.display.set_caption("Lem-in Visualizer")
 
     def set_random_xy(self):
@@ -75,6 +78,4 @@ class Visualizer:
         self.turn += 1
 
     def render_text(self, text):
-        text = self.font.render(text, False, self.TEXT_COLOR)
         self.screen.blit(text, Vector2(self.PADDING, self.PADDING))
-        pass

@@ -52,14 +52,14 @@ def main():
         while running and visualizer.iters < visualizer.max_iters:
             auto_layout(visualizer)
             visualizer.render_graph()
-            visualizer.render_text("auto-layout in progress. press space to stop.")
+            visualizer.render_text(visualizer.text_auto_layout)
             running = check_events(visualizer, exit_auto_layout)
             pygame.display.flip()
 
     while running:
         visualizer.render_graph()
         visualizer.render_ants()
-        visualizer.render_text("press space to replay solution.")
+        visualizer.render_text(visualizer.text_solution)
         running = check_events(visualizer, replay)
         pygame.display.flip()
         pygame.time.delay(200)
