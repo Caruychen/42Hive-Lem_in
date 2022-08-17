@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 
+import sys
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame
 from layout import fruchterman_reingold
 from parse import parse_input
 from visualizer import Visualizer
 from pygame import Vector2
-
-import pygame
 from argparse import ArgumentParser
+
+USAGE = "Usage: ./lem-in < map | ./main.py"
 
 def exit_auto_layout(visualizer):
     visualizer.iters = visualizer.max_iters
@@ -33,9 +37,14 @@ def main():
     argparser.add_argument("-f", action = "store_true")
     args = argparser.parse_args()
 
+    if os.isatty(sys.stdin.fileno()):
+        print(USAGE)
+        sys.exit()
+
     pygame.init()
     pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.MOUSEWHEEL])
     visualizer = Visualizer()
+
     parse_input(visualizer)
     visualizer.adjust_node_positions()
 
