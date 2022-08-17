@@ -6,16 +6,16 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:35:57 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:06:53 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:10:00 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BFS_H
 # define BFS_H
 
-/*
- * BREADTH FIRST SEARCH 
- *
+/* ************************************************************************** */
+/*                           BREADTH FIRST SEARCH                             */
+/******************************************************************************
  * This BFS sub-function is made to perform basic network searching. Able to
  * perform two types of search.
  *
@@ -31,7 +31,7 @@
  *   Used to extract a path set, containing all the augmented paths with 
  *   flow to the end node. Searches until the entire network is traversed.
  *   Will result in the edge_to and sink_edges array are saturated.
-*/
+ *****************************************************************************/
 
 # include "queue.h"
 # define SEARCH_END 1
