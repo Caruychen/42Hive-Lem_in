@@ -8,7 +8,13 @@ from pygame import Vector2
 import pygame
 from argparse import ArgumentParser
 
-def check_events(visualizer):
+def exit_auto_layout(visualizer):
+    visualizer.iters = visualizer.max_iters
+
+def replay(visualizer):
+    visualizer.turn = 0
+
+def check_events(visualizer, space_function):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
@@ -16,7 +22,7 @@ def check_events(visualizer):
                 if event.key == pygame.K_ESCAPE:
                     return False
                 if event.key == pygame.K_SPACE:
-                    visualizer.iters = visualizer.max_iters
+                    space_function(visualizer)
             if event.type == pygame.MOUSEWHEEL: 
                 visualizer.graph.zoom(Vector2(pygame.mouse.get_pos()), event.y)
         return True
@@ -45,15 +51,16 @@ def main():
         while running and visualizer.iters < visualizer.max_iters:
             auto_layout(visualizer)
             visualizer.render_graph()
-            visualizer.render_text("auto-layout in progress. press space to break.")
-            running = check_events(visualizer)
+            visualizer.render_text("auto-layout in progress. press space to stop.")
+            running = check_events(visualizer, exit_auto_layout)
             pygame.display.flip()
             # pygame.time.delay(25)
 
     while running:
         visualizer.render_graph()
         visualizer.render_ants()
-        running = check_events(visualizer)
+        visualizer.render_text("press space to replay solution.")
+        running = check_events(visualizer, replay)
         pygame.display.flip()
         pygame.time.delay(200)
 
