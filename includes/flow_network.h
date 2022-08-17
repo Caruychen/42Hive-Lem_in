@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 16:54:05 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 15:33:02 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
  *   Flow Network is an adjacency list implementation, representing the whole
  *   ant nest graph.
  *   
- *   It is simply implemented as a vector (dynamic array), with each element
+ *   It is implemented vector (dynamic array) data structure, each element
  *   being a node of the rooms. The rooms are numbered according to their index
- *   in the vector, and are thus implicitly numbered by insertion order.
+ *   in the vector, and are implicitly numbered by insertion order.
  *  
  *   The t_vec data type is sufficient to represent the flow network graph.
  *   data structure looks a bit like this:
@@ -41,6 +41,11 @@
  *                                       between corresponding rooms. 
  *                                       both point to the same edge object,
  *                                       so are NOT copies.
+ *
+ *   Additional data fields
+ *   source:	Index of Start room
+ *   sink:		Index of End room
+ *   n_ants:	Total Number of ants
 */
 
 #ifndef FLOW_NETWORK_H
@@ -50,6 +55,7 @@
 # include "bfs.h"
 # include "pathset.h"
 
+/* Network Graph API */
 int			network_init(t_flow_network *network);
 int			network_add_node(t_flow_network *network, char *alias,
 				int x, int y);
@@ -57,12 +63,14 @@ int			network_add_edge(t_flow_network *network, t_flow_edge *edge);
 t_flow_node	*network_get(t_flow_network *network, size_t index);
 void		network_free(t_flow_network *network);
 
+/* Network Searching and Augmentation Functions */
 int			network_has_augmenting_path(t_flow_network *network,
 				t_bfs_utils *bfs_utils);
 int			network_augment(t_flow_network *network, t_trace trace);
 t_pathset	network_export_pathset(t_flow_network *network,
 				t_bfs_utils *bfs_utils);
 
+/* Network edge-list sub-structure API (For memmory management) */
 void		edge_free(t_flow_edge **edge);
 int			edge_list_make(t_vec *edge_list);
 int			edge_list_push(t_vec *edge_list, t_flow_edge *edge);
