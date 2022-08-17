@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/16 14:48:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 11:35:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define MSG_ERROR_NO_PATHS "ERROR: Sorry, I couldn't find any paths."
 # define MSG_ERROR_NODE_ALIAS "ERROR: Alias not provided."
 # define MSG_ERROR_AUGMENT "ERROR: Network augmentation error."
+# define MSG_ERROR_ONE_OPTION "ERROR: Multiple options entered."
+# define MSG_ERROR_BAD_OPTION "ERROR: Malformatted option."
 
 int	error(char *msg);
 int	main_free(int res, t_flow_network *network, t_pathset *pathset);

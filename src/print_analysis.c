@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:59:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 08:55:15 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 11:16:28 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	print_header(void)
 {
-	ft_printf("=============================================================\n");
-	ft_printf("                        PATH ANALYSIS                        \n");
-	ft_printf("=============================================================");
+	ft_putendl("=============================================================");
+	ft_putendl("                        PATH ANALYSIS                        ");
+	ft_putendl("=============================================================");
 }
 
 static void	print_textful(t_pathset pathset)
@@ -37,11 +37,11 @@ static void	print_textful(t_pathset pathset)
 		while (path.height > 0)
 		{
 			node = *path_get(&path, --path.height);
-			ft_printf("%s ", node.alias);
+			ft_putstr(node.alias);
 			if (path.height > 0)
 				ft_putstr(" -> ");
 		}
-		ft_putendl("");
+		ft_putchar('\n');
 		++path_id;
 	}
 	ft_putendl("");
