@@ -6,11 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 15:33:02 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:24:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+/* ************************************************************************** */
+/*                               FLOW_NETWORK                                 */
+/******************************************************************************
  *   Flow Network is an adjacency list implementation, representing the whole
  *   ant nest graph.
  *   
@@ -46,7 +48,7 @@
  *   source:	Index of Start room
  *   sink:		Index of End room
  *   n_ants:	Total Number of ants
-*/
+ *****************************************************************************/
 
 #ifndef FLOW_NETWORK_H
 # define FLOW_NETWORK_H

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:35:57 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:10:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:21:24 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
  *
  * sink_edges: A vector holding all the edges pointing to the end node.
 */
-
 typedef struct s_trace
 {
 	t_flow_edge	**edge_to;

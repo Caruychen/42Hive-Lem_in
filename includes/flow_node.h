@@ -6,11 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 15:38:12 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:24:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+/* ************************************************************************** */
+/*                               FLOW_NODE                                    */
+/******************************************************************************
  *   Flow node represents a room of the ant nest network. Each node is an
  *   element of the flow_network adjacency list.
  *   
@@ -59,7 +61,7 @@
  *   optimal augmentation to an existing path. A single path may have multiple
  *   alternative paths (that lead from a given node on the path, to the start),
  *   these fields are used to help select the shortest path.
-*/
+ *****************************************************************************/
 
 #ifndef FLOW_NODE_H
 # define FLOW_NODE_H

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:19:17 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:23:50 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void		path_free(t_path *path);
  *    steps: total number of steps needed to send all ants
  *    total_nodes: total number of nodes in the path set
  *****************************************************************************/
-
 typedef struct s_pathset
 {
 	t_vec	paths;

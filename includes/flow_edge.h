@@ -6,11 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 15:33:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:24:14 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+/* ************************************************************************** */
+/*                               FLOW_EDGE                                    */
+/******************************************************************************
  *   Flow edge represents the link/tunnel between nodes (i.e. rooms).
  *   Edge capacity is capped at 1, making the "flow" state also a
  *   binary state. The flow state is used for the edmunds-karp algorithm.
@@ -34,7 +36,7 @@
  *       * Directional.
  *       * There is only residual capacity towards FROM.
  *       * Directionality is embedded into FROM & TO
-*/
+ *****************************************************************************/
 
 #ifndef FLOW_EDGE_H
 # define FLOW_EDGE_H
