@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from layout import eades, fruchterman_reingold
+from layout import fruchterman_reingold
 from parse import parse_input
 from visualizer import Visualizer
 from pygame import Vector2
@@ -30,7 +30,6 @@ def check_events(visualizer, space_function):
 def main():
     argparser = ArgumentParser(description="Visualizes your Lem-in.")
 
-    argparser.add_argument("-e", action = "store_true")
     argparser.add_argument("-f", action = "store_true")
     args = argparser.parse_args()
 
@@ -42,15 +41,10 @@ def main():
 
     running = True
 
-    auto_layout = None
-    if args.e == True:
-        auto_layout = eades
-    if args.f == True:
-        auto_layout = fruchterman_reingold
-    if auto_layout is not None:
+    if args.f is True:
         visualizer.set_random_xy()
         while running and visualizer.iters < visualizer.max_iters:
-            auto_layout(visualizer)
+            fruchterman_reingold(visualizer)
             visualizer.render_graph()
             visualizer.render_text(visualizer.text_auto_layout)
             running = check_events(visualizer, exit_auto_layout)
