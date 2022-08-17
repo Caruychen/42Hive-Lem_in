@@ -35,6 +35,7 @@ def main():
     args = argparser.parse_args()
 
     pygame.init()
+    pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.MOUSEWHEEL])
     visualizer = Visualizer()
     parse_input(visualizer)
     visualizer.adjust_node_positions()
@@ -54,7 +55,6 @@ def main():
             visualizer.render_text("auto-layout in progress. press space to stop.")
             running = check_events(visualizer, exit_auto_layout)
             pygame.display.flip()
-            # pygame.time.delay(25)
 
     while running:
         visualizer.render_graph()
