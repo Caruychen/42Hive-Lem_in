@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:54 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/12 08:47:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 14:03:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ int	print_result(t_pathset *pathset, t_vec *inputs, t_options options)
 {
 	write(1, inputs->memory, inputs->len);
 	vec_free(inputs);
-	if (options.quiet)
+	if (options.flags == QUIET)
 		return (ft_printf("Solved with %i steps.\n", (int) pathset->steps), 0);
-	if (options.verbose)
+	if (options.flags & ANALYSIS)
 		print_analysis(*pathset);
+	if (options.flags == ANALYSIS)
+		return (0);
 	if (print_solution(pathset) == ERROR)
 		return (ERROR);
 	return (0);

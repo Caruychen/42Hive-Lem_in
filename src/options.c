@@ -6,30 +6,22 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:25:23 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/17 11:50:29 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 13:56:59 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static  int	set_option(t_options *options, char *arg)
+static int	set_option(t_options *options, char *arg)
 {
-	switch (*arg++)
-	{
-		case 'q':
-			options->flags = QUIET;
-			break;
-		case 'a':
-			options->flags = ANALYSIS;
-			break;
-		case 'v':
-			options->flags = VERBOSE;
-			break;
-		default:
-			return (ERROR);
-	}
-	if (*arg)
-		return (ERROR);
+	char	*sample;
+	char	*res;
+
+	sample = "qav";
+	res = ft_strchr(sample, *arg++);
+	if (!res || *arg)
+		return (error(MSG_ERROR_INV_OPTION));
+	options->flags = res + 1 - sample;
 	return (OK);
 }
 
@@ -47,16 +39,5 @@ int	options_init(t_options *options, int argc, char **argv)
 		return (error(MSG_ERROR_BAD_OPTION));
 	if (set_option(options, arg) == ERROR)
 		return (ERROR);
-	i = 1;
-	while (i < argc)
-	{
-		if (!ft_strcmp(argv[i], "-q"))
-			options->quiet = TRUE;
-		else if (!ft_strcmp(argv[i], "-v"))
-			options->verbose = TRUE;
-		else
-			return (ERROR);
-		i++;
-	}
 	return (OK);
 }
