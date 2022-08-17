@@ -6,15 +6,19 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:10:11 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/17 14:01:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 14:12:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OPTIONS_H
 # define OPTIONS_H
 
-# define MSG_USAGE "Usage: ./lem-in\n  -q, quiet mode\n  -v, verbose mode\n \
- -a, analysis mode\n"
+# define MSG_USAGE "Usage: ./lem-in [options] < [file]\n\
+  options:\n\
+    -h, help\n\
+    -q, quiet mode\n\
+    -v, verbose mode\n\
+    -a, analysis mode\n"
 
 typedef enum e_option
 {
