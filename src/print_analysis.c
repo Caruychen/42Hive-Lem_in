@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:59:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 08:55:15 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 14:38:38 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	print_header(void)
 {
-	ft_printf("=============================================================\n");
-	ft_printf("                        PATH ANALYSIS                        \n");
-	ft_printf("=============================================================");
+	ft_putendl("=============================================================");
+	ft_putendl("                        PATH ANALYSIS                        ");
+	ft_putendl("=============================================================");
 }
 
 static void	print_textful(t_pathset pathset)
@@ -37,11 +37,11 @@ static void	print_textful(t_pathset pathset)
 		while (path.height > 0)
 		{
 			node = *path_get(&path, --path.height);
-			ft_printf("%s ", node.alias);
+			ft_putstr(node.alias);
 			if (path.height > 0)
 				ft_putstr(" -> ");
 		}
-		ft_putendl("");
+		ft_putchar('\n');
 		++path_id;
 	}
 	ft_putendl("");
@@ -54,7 +54,7 @@ void	print_chart(t_pathset pathset)
 
 	ft_putendl("============================================================\n");
 	ft_putendl("Travel chart: (Total steps is the number of chars - 1)");
-	ft_printf("Solved with %i steps.\n\n", (int) pathset.steps);
+	ft_putendl("Rooms: #, Ants: ~\n");
 	path_id = 0;
 	while (path_id < pathset.paths.len)
 	{
@@ -67,6 +67,7 @@ void	print_chart(t_pathset pathset)
 		ft_putendl("");
 		++path_id;
 	}
+	ft_printf("\nSolved with %i steps.\n", (int) pathset.steps);
 	ft_putendl("============================================================\n");
 }
 
