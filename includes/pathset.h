@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:18:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:19:17 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_path		*pathset_get(t_pathset *pathset, size_t index);
 void		pathset_free(t_pathset *pathset);
 
 /* Pathset Solve Tools */
-void		print_analysis(t_pathset pathset);
 void		pathset_keep_best(t_pathset *pathset);
 void		pathset_assign_ants(t_pathset *pathset);
 
