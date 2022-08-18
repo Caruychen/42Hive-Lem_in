@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 11:22:30 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 11:50:39 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,18 @@ static int	scan_next_node(t_flow_network *network, t_bfs_utils *bfs_utils,
 	return (SEARCH_CONTINUE);
 }
 
-/* BFS Search incrementally scans each node on the "queue"
- * The Start node is always enqueued first.
- * The node that is being scanned is popped from the queue.
- * If any node linked to the current node by an edge satisifies 
- * a the given "condition" function and is a valid neighbour,
- * the new node is enqueued. 
+/*
+ * BFS Search
+ * This BFS sub-function is made to perform basic network searching. Able to
+ * perform two types of search.
  *
- * The process continues until:
- * The END node is reached for the first time (IF saturate_trace == FALSE)
- * ALL Nodes are scanned (IF saturate_trace == TRUE)
- * */
+ * 1. Single path search (Terminates at first time end node is reached)
+ * 2. Multi path search (Terminates after all nodes scanned. Saturates trace)
+ *
+ * Incrementally pops nodes off the queue, and scan's the node's respective
+ * edges. Nodes that satisfy a given condition are enqueued, and the
+ * corresponding edge is saved to the trace.
+ */
 int	bfs_search(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, const size_t, t_vec *))
 {
