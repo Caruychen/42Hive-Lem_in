@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:28:29 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:24:57 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:11:02 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
  *   The t_vec data type is sufficient to represent the flow network graph.
  *   data structure looks a bit like this:
  * 
+ *             adj_list [flow_node, ...]
+ *                 |
+ *                \ /
  *   index   --------------
  *     0    | ALIAS, EDGES | <-- DATA TYPE: flow_node
  *           --------------        -------------------------
@@ -48,6 +51,7 @@
  *   source:	Index of Start room
  *   sink:		Index of End room
  *   n_ants:	Total Number of ants
+ *   edge_list:	Mother list of all edges
  *****************************************************************************/
 
 #ifndef FLOW_NETWORK_H

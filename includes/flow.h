@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 14:13:21 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 15:49:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:12:49 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  *   Edge capacity is capped at 1, making the "flow" state also a
  *   binary state.
  *
- *   t_flow_edge:
+ *       t_flow_edge
  *    ------------------
  *   | FROM | TO | FLOW |
  *    ------------------
@@ -39,7 +39,7 @@ typedef struct s_flow_edge
  *   Flow node represents a room of the ant nest network. Each node is an
  *   element of the flow_network adjacency list.
  *   
- *   t_flow_node:
+ *      t_flow_node
  *    ---------------
  *   | ALIAS | EDGES | 
  *    ---------------
@@ -82,6 +82,9 @@ typedef struct s_flow_node
  *   Flow Network is an adjacency list implementation, representing the whole
  *   ant nest graph.
  * 
+ *             adj_list [flow_node, ...]
+ *                 |
+ *                \ /
  *   index   --------------
  *     0    | ALIAS, EDGES | <-- DATA TYPE: flow_node
  *           --------------        -------------------------
@@ -107,6 +110,7 @@ typedef struct s_flow_node
  *   source:	Index of Start room
  *   sink:		Index of End room
  *   n_ants:	Total Number of ants
+ *   edge_list:	Mother list of all edges
  *****************************************************************************/
 
 typedef struct s_flow_network

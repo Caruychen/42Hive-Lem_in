@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:23:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:20:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
  * An individual registered path with flow.
  * Contains a vector of nodes, listed in reverse order. Starts from the end
  * node, to the first node linked to the start node. 
+ *
+ *          t_path
+ *  -----------------------
+ * | nodes | ants | height |
+ *  -----------------------
+ *     |
+ *    \ /
+ *      ---------------------------
+ *     | node: end | node :X | ... |
+ *      ---------------------------
+ *       / \
+ *        |
+ *        t_flow_node pointer
  *
  * Fields:
  *   nodes: path list
@@ -43,6 +56,19 @@ void		path_free(t_path *path);
 /*                                 PATH SET                                   */
 /******************************************************************************
  * Holds a vector of all paths that are registered with flow.
+ *
+ *               t_pathset
+ *  ------------------------------------
+ * | paths | ants | steps | total_nodes |
+ *  ------------------------------------
+ *     |
+ *    \ /
+ *      -----------------------
+ *     | path 0 | path 1 | ... |
+ *      -----------------------
+ *         / \
+ *          |
+ *          t_path
  *
  * Fields:
  *    paths: all registered paths

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:06:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:24:14 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:13:02 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  *   Edge capacity is capped at 1, making the "flow" state also a
  *   binary state. The flow state is used for the edmunds-karp algorithm.
  *
- *   The flow edge data type:
+ *       t_flow_edge
  *    ------------------
  *   | FROM | TO | FLOW |
  *    ------------------

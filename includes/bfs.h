@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:35:57 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:21:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:07:39 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 /*
  * TRACE
  * edge_to: An array with size N = Number of nodes. 
- *    Indexes corresponds to the respective node's index. Each element is
- *    the corresponding edge that points to the respective node.
+ *    Indexes correspond to the respective node index. Each element points
+ *    to the edge that links to the respective node.
  *
  * sink_edges: A vector holding all the edges pointing to the end node.
 */

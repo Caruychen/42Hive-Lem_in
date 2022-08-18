@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/17 16:24:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:12:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  *   Flow node represents a room of the ant nest network. Each node is an
  *   element of the flow_network adjacency list.
  *   
- *   The flow node data type:
+ *      t_flow_node
  *    ---------------
  *   | ALIAS | EDGES | 
  *    ---------------
