@@ -1,5 +1,4 @@
 from pygame import Vector2
-from math import log
 
 def fruchterman_reingold(visualizer):
     """
