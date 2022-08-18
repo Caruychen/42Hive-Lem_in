@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 16:31:14 by cchen             #+#    #+#             */
-/*   Updated: 2022/02/18 11:18:49 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/16 16:23:28 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*ft_ultoa(uintmax_t value, int base, int uppercase)
 	}
 	if (index == MAX_LL_STR_SIZE - 2)
 		tmp[index--] = '0';
-	res = (char *)malloc(MAX_LL_STR_SIZE - index + 1);
+	res = (char *)malloc(MAX_LL_STR_SIZE - index - 1);
 	if (!res)
 		return (NULL);
-	return (ft_memcpy(res, &tmp[index + 1], MAX_LL_STR_SIZE - index + 1));
+	return (ft_memcpy(res, &tmp[index + 1], MAX_LL_STR_SIZE - index - 1));
 }

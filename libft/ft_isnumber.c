@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 10:05:46 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 14:22:41 by cchen            ###   ########.fr       */
+/*   Created: 2022/08/09 17:44:41 by cchen             #+#    #+#             */
+/*   Updated: 2022/08/09 18:00:10 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
-#include "ft_stdlib.h"
+#include "ft_ctype.h"
 
-char	*ft_uitoa(unsigned int value, int base, int uppercase)
+int	ft_isnumber(char *str)
 {
-	uintmax_t	new_value;
-
-	if (base < 2 || base > 16)
-		return (NULL);
-	new_value = value;
-	return (ft_ultoa(new_value, base, uppercase));
+	if (!*str)
+		return (0);
+	while (*str)
+	{
+		if (!ft_isdigit(*str++))
+			return (0);
+	}
+	return (1);
 }

@@ -6,39 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:31 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 12:18:57 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 10:55:51 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
- *   Flow edge represents the link/tunnel between nodes (i.e. rooms).
- *   Edge capacity is capped at 1, making the "flow" state also a
- *   binary state. The flow state is used for the edmunds-karp algorithm.
- *
- *   The flow edge data type:
- *    ------------------
- *   | FROM | TO | FLOW |
- *    ------------------
- * 
- *   Where FROM and TO describe the INDEX of the respective nodes at
- *   both ends. The nodes are part of an indexed array implemented in the
- *   flow_network data type.
- *
- *   NOTE: How we interpret the FLOW as a binary state, is crucial to how
- *   path augmentation is implemented for the edmunds-karp algorithm.
- *   When FLOW = 0:
- *       * There is residual flow available for other direction
- *       * The residual flow is bi-directional
- *       * The directionality of FROM & TO are ignored
- *   When FLOW = 1:
- *       * Residual flow is only available in the direction towards FROM
- *       * The residual flow is directional
- *       * Directionality is embedded into FROM & TO
-*/
 
 #include <stdint.h>
 #include "lem_in.h"
 
+/* Allocates memory for, and creates a new edge */
 t_flow_edge	*edge_make(const long from, const long to)
 {
 	t_flow_edge	*edge;
@@ -53,6 +28,7 @@ t_flow_edge	*edge_make(const long from, const long to)
 	return (edge);
 }
 
+/* Returns the value at the "other" end of the edge to the given node */
 long	edge_other(t_flow_edge *edge, const size_t node)
 {
 	if (edge->from == node)
@@ -62,6 +38,7 @@ long	edge_other(t_flow_edge *edge, const size_t node)
 	return (ERROR);
 }
 
+/* Returns whether the given edge has residual capacity to specified node */
 int	edge_has_residual_capacity_to(t_flow_edge *edge, const size_t to,
 		t_vec *adj_list)
 {
@@ -87,6 +64,7 @@ int	edge_has_residual_capacity_to(t_flow_edge *edge, const size_t to,
 	return (ERROR);
 }
 
+/* Returns whether the edge has flow towards the given node */
 int	edge_has_flow_to(t_flow_edge *edge, const size_t to, t_vec *adj_list)
 {
 	(void) adj_list;
@@ -95,6 +73,15 @@ int	edge_has_flow_to(t_flow_edge *edge, const size_t to, t_vec *adj_list)
 	return (edge->flow && edge->to == to);
 }
 
+/* Augments flow to a given node 
+ * If FLOW == 0, adds flow, and ensures the TO & FROM fields have correct values
+ *  -> edge.to = to
+ *  -> edge.from = edge_other(edge, to);
+ *
+ * If FLOW == 1, sets FLOW = 0
+ *
+ * Determines whether the origin node (edge_other(edge, to)) is freed or not.
+ * */
 int	edge_augment_flow_to(t_flow_edge *edge, const size_t to,
 		t_flow_network *network)
 {
@@ -102,7 +89,7 @@ int	edge_augment_flow_to(t_flow_edge *edge, const size_t to,
 	size_t		origin_id;
 
 	origin_id = edge_other(edge, to);
-	origin = (t_flow_node *) vec_get(&network->adj_list, origin_id);
+	origin = network_get(network, origin_id);
 	if (edge->from != to && edge->to != to)
 		return (ERROR);
 	if (edge->flow && edge->to == to)

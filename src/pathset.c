@@ -6,12 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/02 14:06:37 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 11:10:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+/* Allocates memory for, and creates a new pathset */
 int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 {
 	t_path	path;
@@ -32,7 +33,9 @@ int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 	return (OK);
 }
 
-int	pathset_fill(t_pathset *pathset, t_trace trace, t_flow_network *network)
+/* Fills pathset with all paths identified in the augmented network */
+static int	pathset_fill(t_pathset *pathset, t_trace trace,
+		t_flow_network *network)
 {
 	size_t	index;
 	t_path	*path;
@@ -49,6 +52,7 @@ int	pathset_fill(t_pathset *pathset, t_trace trace, t_flow_network *network)
 	return (OK);
 }
 
+/* Extracts all augmented paths from network, and stores in pathset */
 int	pathset_from_network(t_pathset *pathset, t_flow_network *network,
 		t_bfs_utils *bfs_utils)
 {
@@ -64,11 +68,13 @@ int	pathset_from_network(t_pathset *pathset, t_flow_network *network,
 	return (OK);
 }
 
+/* Returns a pointer to the path corresponding to given index in pathset */
 t_path	*pathset_get(t_pathset *pathset, size_t index)
 {
 	return ((t_path *) vec_get(&pathset->paths, index));
 }
 
+/* Frees memory for a pathset */
 void	pathset_free(t_pathset *pathset)
 {
 	size_t	index;

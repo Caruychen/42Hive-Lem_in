@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:28:30 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/02 21:13:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/08/17 13:35:18 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,49 @@ static const t_parse_func	g_parser_jumptable[3] = {
 	parse_link
 };
 
-static void	parser_free(t_parser *parser)
-{
-	if (parser->line)
-		ft_strdel(&parser->line);
-	hashmap_free(&parser->hmap);
-}
-
 static int	check_for_modification(t_parser *parser)
 {
+	if (parser->modification != NONE)
+		return (error(MSG_ERROR_MOD));
 	if (ft_strcmp(parser->line, "##start") == 0)
 		parser->modification = START;
-	else if (ft_strcmp(parser->line, "##end") == 0)
+	if (ft_strcmp(parser->line, "##end") == 0)
 		parser->modification = END;
-	if (parser->stage != ROOMS && parser->modification != NONE)
-		return (error(MSG_ERROR_MOD));
+	if (parser->mods & parser->modification)
+		return (error(MSG_ERROR_MOD_DUP));
+	parser->mods |= parser->modification;
 	return (OK);
 }
 
-int	parse_input(t_flow_network *network, t_options *options)
+static int	append_buffer(t_parser *parser, uint8_t quiet)
+{
+	if (quiet && !(parser->line[0] == '#' && parser->line[1] != '#'))
+		return (ft_strdel(&parser->line), OK);
+	if (vec_append_str(&parser->inputs, parser->line) == ERROR
+		|| vec_append_str(&parser->inputs, "\n") == ERROR)
+		return (ERROR);
+	return (ft_strdel(&parser->line), OK);
+}
+
+static int	save_input(t_vec *dst, t_vec *src)
+{
+	if (vec_append_str(src, "\n") == ERROR
+		|| vec_from(dst, src->memory, src->len, src->elem_size) == ERROR)
+		return (ERROR);
+	return (OK);
+}
+
+int	parse_input(t_flow_network *network, t_options *options, t_vec *inputs)
 {
 	t_parser	parser;
+	int			res;
 
-	parser = (t_parser){0};
-	while (1)
+	if (parser_init(&parser) == ERROR)
+		return (ERROR);
+	while (parse_readline(0, &parser.line, &res))
 	{
-		if (get_next_line(0, &parser.line) == ERROR)
+		if (res == ERROR)
 			return (parser_free(&parser), error(MSG_ERROR_GNL));
-		if (!parser.line)
-			break ;
 		if (parser.line[0] == '#')
 		{
 			if (check_for_modification(&parser) == ERROR)
@@ -54,13 +68,12 @@ int	parse_input(t_flow_network *network, t_options *options)
 		}
 		else if (g_parser_jumptable[parser.stage](&parser, network) == ERROR)
 			return (parser_free(&parser), ERROR);
-		if (!options->quiet || (parser.line[0] == '#' && parser.line[1] != '#'))
-			ft_putendl(parser.line);
-		ft_strdel(&parser.line);
+		if (append_buffer(&parser, options->flags == QUIET) == ERROR)
+			return (parser_free(&parser), ERROR);
 	}
 	if (parser.stage != LINKS)
 		return (parser_free(&parser), error(MSG_ERROR_INV_FILE));
-	if (!options->quiet)
-		ft_putchar('\n');
+	if (save_input(inputs, &parser.inputs) == ERROR)
+		return (parser_free(&parser), error(MSG_ERROR_MALLOC));
 	return (parser_free(&parser), OK);
 }

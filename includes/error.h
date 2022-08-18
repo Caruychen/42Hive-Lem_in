@@ -6,22 +6,32 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/03 11:00:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 13:47:51 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
-# define MSG_ERROR_INV_FILE "File did not contain ant number, rooms or links."
-# define MSG_ERROR_INV_LINE "File contained an invalid line."
-# define MSG_ERROR_GNL "Could not get next line."
-# define MSG_ERROR_CHAR_ALIAS "Invalid character in room alias."
-# define MSG_ERROR_MALLOC_VLINK "Could not allocate memory in is_valid_link."
-# define MSG_ERROR_MOD "Invalid modification."
-# define MSG_ERR_NETWORK_INIT "Could not initialize flow network."
-# define MSG_ERR_HASH_INIT "Could not initialize hashmap."
-# define MSG_ERR_HASH_GET "Could not get entry from hashmap."
+# define MSG_ERROR_INV_FILE "ERROR: File missing ant number, rooms or links."
+# define MSG_ERROR_INV_LINE "ERROR: File contained an invalid line."
+# define MSG_ERROR_INV_LINK "ERROR: File contained an invalid link input"
+# define MSG_ERROR_GNL "ERROR: Could not get next line."
+# define MSG_ERROR_CHAR_ALIAS "ERROR: Invalid character in room alias."
+# define MSG_ERROR_MALLOC "ERROR: Memory allocation failed."
+# define MSG_ERROR_MOD "ERROR: Invalid modification."
+# define MSG_ERROR_MOD_DUP "ERROR: Duplicated modifier"
+# define MSG_ERROR_MOD_MISSING "ERROR: Missing start or end modifier"
+# define MSG_ERR_NETWORK_INIT "ERROR: Could not initialize flow network."
+# define MSG_ERR_HASH_INIT "ERROR: Could not initialize hashmap."
+# define MSG_ERR_HASH_GET "ERROR: Could not get entry from hashmap."
+# define MSG_ERROR_NO_ANTS "ERROR: Insufficient ants."
+# define MSG_ERROR_NO_PATHS "ERROR: Sorry, I couldn't find any paths."
+# define MSG_ERROR_NODE_ALIAS "ERROR: Alias not provided."
+# define MSG_ERROR_AUGMENT "ERROR: Network augmentation error."
+# define MSG_ERROR_ONE_OPTION "ERROR: Multiple options entered."
+# define MSG_ERROR_BAD_OPTION "ERROR: Malformatted option."
+# define MSG_ERROR_INV_OPTION "ERROR: Invalid option."
 
 int	error(char *msg);
 int	main_free(int res, t_flow_network *network, t_pathset *pathset);
