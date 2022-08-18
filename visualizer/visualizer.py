@@ -10,10 +10,10 @@ class Visualizer:
     FONT_SIZE = 12
     BG_COLOR = (32, 42, 68)
     TEXT_COLOR = (255, 255, 255)
-    EDGE_COLOR = (2, 138, 155)
-    PATH_COLOR = (12, 178, 199, 255)
-    START_NODE_COLOR = (88, 179, 104)
-    END_NODE_COLOR = (199, 65, 123)
+    PATH_COLOR = (12, 188, 210)
+    EDGE_COLOR = (80, 100, 118)
+    START_NODE_COLOR = (88, 255, 104)
+    END_NODE_COLOR = (209, 75, 209)
     NODE_COLOR = (249, 56, 34)
     ANT_COLOR = (255, 152, 0)
     ANT_RADIUS = 8
@@ -84,7 +84,7 @@ class Visualizer:
 
     def render_paths(self):
         for edge in self.graph.paths:
-            pygame.draw.line(self.screen, self.PATH_COLOR, self.graph.positions[edge[0]], self.graph.positions[edge[1]], width = 3)
+            pygame.draw.aaline(self.screen, self.PATH_COLOR, self.graph.positions[edge[0]], self.graph.positions[edge[1]])
 
     def render_text(self, text):
         self.screen.blit(text, Vector2(self.PADDING, self.PADDING))
