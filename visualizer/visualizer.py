@@ -11,13 +11,13 @@ class Visualizer:
     BG_COLOR = (32, 42, 68)
     TEXT_COLOR = (255, 255, 255)
     EDGE_COLOR = (2, 138, 155)
-    PATH_COLOR = (255, 255, 255, 255)
+    PATH_COLOR = (12, 178, 199, 255)
     START_NODE_COLOR = (88, 179, 104)
     END_NODE_COLOR = (199, 65, 123)
     NODE_COLOR = (249, 56, 34)
     ANT_COLOR = (255, 152, 0)
-    ANT_RADIUS = 6
-    NODE_RADIUS = 3
+    ANT_RADIUS = 8
+    NODE_RADIUS = 5
     TEMPERATURE_FACTOR = 0.99
 
     def __init__(self):
@@ -62,10 +62,14 @@ class Visualizer:
                 int(self.PADDING + self.graph.positions[node][1] * scale)
             )
 
-    def render_graph(self):
+    def render_bg(self):
         self.screen.fill(self.BG_COLOR)
+
+    def render_edges(self):
         for edge in self.graph.edges:
             pygame.draw.aaline(self.screen, self.EDGE_COLOR, self.graph.positions[edge[0]], self.graph.positions[edge[1]])
+
+    def render_nodes(self):
         for node in self.graph.nodes:
             pygame.draw.circle(self.screen, self.NODE_COLOR, self.graph.positions[node], self.NODE_RADIUS)
         pygame.draw.circle(self.screen, self.START_NODE_COLOR, self.graph.positions[self.graph.start], self.ANT_RADIUS)

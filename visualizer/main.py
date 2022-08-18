@@ -54,14 +54,18 @@ def main():
         visualizer.set_random_xy()
         while running and visualizer.iters < visualizer.max_iters:
             fruchterman_reingold(visualizer)
-            visualizer.render_graph()
+            visualizer.render_bg()
+            visualizer.render_edges()
+            visualizer.render_nodes()
             visualizer.render_text(visualizer.text_auto_layout)
             running = check_events(visualizer, exit_auto_layout)
             pygame.display.flip()
 
     while running:
-        visualizer.render_graph()
+        visualizer.render_bg()
+        visualizer.render_edges()
         visualizer.render_paths()
+        visualizer.render_nodes()
         visualizer.render_ants()
         visualizer.render_text(visualizer.text_solution)
         running = check_events(visualizer, replay)
