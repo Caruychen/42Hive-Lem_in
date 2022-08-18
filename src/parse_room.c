@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/12 10:31:33 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 15:31:24 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static int	is_valid_line(char **room)
 	while (room[index])
 	{
 		str = room[index++];
-		if ((index == 1 && (*str == 'L' || ft_iswhitespace(*str)))
+		if ((index == 1 && (*str == 'L' || ft_iswhitespace(*str)
+					|| ft_strchr(str, '-')))
 			|| (index > 1 && !ft_isnumber(str))
 			|| index > 3)
 			return (FALSE);
