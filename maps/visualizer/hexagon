@@ -1,0 +1,22 @@
+5
+##start
+a 0 0
+b 0 0
+c 0 0
+##end
+d 0 0
+e 0 0
+f 0 0
+g 0 0
+a-b
+b-c
+c-d
+d-e
+e-f
+f-a
+g-a
+g-b
+g-c
+g-d
+g-e
+g-f

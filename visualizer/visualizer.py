@@ -50,10 +50,12 @@ class Visualizer:
             self.graph.positions[node] = Vector2(randint(0, self.SCREEN_WIDTH), randint(0, self.SCREEN_HEIGHT))
 
     def adjust_node_positions(self):
-        scale = min(
-            ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.graph.max_x),
-            ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.graph.max_y)
-        )
+        scale = 1
+        if self.graph.max_x != 0 and self.graph.max_y != 0:
+            scale = min(
+                ((self.SCREEN_WIDTH - 2 * self.PADDING) / self.graph.max_x),
+                ((self.SCREEN_HEIGHT - 2 * self.PADDING) / self.graph.max_y)
+            )
         for node in self.graph.nodes:
             self.graph.positions[node] = Vector2(
                 int(self.PADDING + self.graph.positions[node][0] * scale),
