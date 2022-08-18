@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:47:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 10:12:06 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 11:42:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@
  *        the node was accessed via another free node, or a non-free node.
  *        0 = Accessed through a free node, 1 = Accessed through a non-free node
  *
- *   is_free & is_via_augment are primarily used in conjunction to prevent BFS
- *   from entering a taken node on a path, and exiting the same node to a
- *   free node immediately. (This would otherwise lead to paths crossing 
- *   each other).
+ *   is_free & is_via_augment are used in conjunction to prevent BFS from
+ *   creating paths that cross/overlap each other. Overlapping paths
+ *   can happen if the BFS saves a taken node on a path, then immediately
+ *   saves a connected free node. So a BFS must traverse at least one other
+ *   node along a taken path, allowing correct augmentation to take place.
  *
  *   dst_to_start & dst_to_end are used together to help select the most
  *   optimal augmentation to an existing path. A single path may have multiple
