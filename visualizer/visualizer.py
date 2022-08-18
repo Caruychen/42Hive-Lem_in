@@ -11,6 +11,7 @@ class Visualizer:
     BG_COLOR = (32, 42, 68)
     TEXT_COLOR = (255, 255, 255)
     EDGE_COLOR = (2, 138, 155)
+    PATH_COLOR = (255, 255, 255, 255)
     START_NODE_COLOR = (88, 179, 104)
     END_NODE_COLOR = (199, 65, 123)
     NODE_COLOR = (249, 56, 34)
@@ -76,6 +77,10 @@ class Visualizer:
         for move in self.turns[self.turn]:
             pygame.draw.circle(self.screen, self.ANT_COLOR, self.graph.positions[move], self.ANT_RADIUS)
         self.turn += 1
+
+    def render_paths(self):
+        for edge in self.graph.paths:
+            pygame.draw.line(self.screen, self.PATH_COLOR, self.graph.positions[edge[0]], self.graph.positions[edge[1]], width = 3)
 
     def render_text(self, text):
         self.screen.blit(text, Vector2(self.PADDING, self.PADDING))

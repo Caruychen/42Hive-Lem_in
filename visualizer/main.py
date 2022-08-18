@@ -61,6 +61,7 @@ def main():
 
     while running:
         visualizer.render_graph()
+        visualizer.render_paths()
         visualizer.render_ants()
         visualizer.render_text(visualizer.text_solution)
         running = check_events(visualizer, replay)

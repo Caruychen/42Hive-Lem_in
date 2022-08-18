@@ -53,14 +53,20 @@ def parse_input(visualizer):
         splits = line.split(' ')
         visualizer.turns.append(list(split.split('-')[1] for split in splits if split.startswith('L')))
 
-    paths = {}
+    path_nodes = {}
     for i, e in enumerate(visualizer.turns[0]):
-        paths[str(i + 1)] = [e]
+        path_nodes[str(i + 1)] = [e]
     for line in solution_lines[1:]:
         split = line.split(' ')
         for move in split:
             ant_id, node = move[1:].split('-')
-            if ant_id in paths:
-                paths[ant_id].append(node)
+            if ant_id in path_nodes:
+                path_nodes[ant_id].append(node)
+    paths = []
+    for k in path_nodes.keys():
+        prev = visualizer.graph.start
+        for v in path_nodes[k]:
+            paths.append((prev, v))
+            prev = v
+        
     visualizer.graph.paths = paths
-            
