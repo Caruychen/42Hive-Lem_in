@@ -28,11 +28,9 @@ class Visualizer:
         self.start_of_turn = True
 
         self.ideal_length = 15
-        self.repulsion_constant = 3.0
-        self.attraction_constant = 0.5
         self.temperature = 150
         self.iters = 0
-        self.max_iters = 200
+        self.max_iters = 1000
 
         info = pygame.display.Info()
         self.SCREEN_WIDTH = info.current_w
