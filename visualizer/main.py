@@ -10,7 +10,7 @@ from visualizer import Visualizer
 from pygame import Vector2
 from argparse import ArgumentParser
 
-USAGE = "Usage: ./lem-in < map | ./main.py"
+USAGE = "Usage: ./lem-in < map | ./main.py\n  -f\tForce-directed graph layout"
 
 def exit_auto_layout(visualizer):
     visualizer.iters = visualizer.max_iters
