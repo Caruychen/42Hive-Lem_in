@@ -13,6 +13,7 @@ class Graph:
         self.min_x = sys.maxsize
         self.min_y = sys.maxsize
         self.ant_count = 0
+        self.paths = []
 
     def set_extreme_values(self):
         self.max_x = 0
@@ -35,5 +36,3 @@ class Graph:
         for node in self.nodes:
             vec = pos - self.positions[node]
             self.positions[node] = pos - (vec * factor)
-
-    

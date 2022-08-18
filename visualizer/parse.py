@@ -46,9 +46,21 @@ def parse_input(visualizer):
             break
         visualizer.graph.edges.append(line.split('-'))
 
-    while True:
-        line = sys.stdin.readline().strip('\n')
+    solution_lines = [l.strip('\n ') for l in sys.stdin.readlines()]
+    for line in solution_lines:
         if len(line) == 0:
             break
         splits = line.split(' ')
-        visualizer.turns.append(list(split.split('-')[1] for split in splits if split.startswith('L'))) #! Remove [:-1] when our printer is fixed
+        visualizer.turns.append(list(split.split('-')[1] for split in splits if split.startswith('L')))
+
+    paths = {}
+    for i, e in enumerate(visualizer.turns[0]):
+        paths[str(i + 1)] = [e]
+    for line in solution_lines[1:]:
+        split = line.split(' ')
+        for move in split:
+            ant_id, node = move[1:].split('-')
+            if ant_id in paths:
+                paths[ant_id].append(node)
+    visualizer.graph.paths = paths
+            
