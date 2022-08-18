@@ -6,12 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/12 08:58:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 11:14:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+/* Initialise and allocate memory for BFS utilities */
 int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 {
 	size_t	*source;
@@ -34,6 +35,7 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 	return ((bfs_utils->marked)[*source] = 1, OK);
 }
 
+/* Resets BFS utilities (assigning 0) for next BFS iteration */
 int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 {
 	ft_bzero(bfs_utils->marked, sizeof(int) * network->adj_list.len);
@@ -47,6 +49,7 @@ int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 	return ((bfs_utils->marked)[network->source] = 1, OK);
 }
 
+/* Frees memory for BFS utilities */
 void	bfs_free(t_bfs_utils *bfs_utils)
 {
 	if (bfs_utils->marked)

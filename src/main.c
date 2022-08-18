@@ -6,12 +6,18 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:05:44 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/16 15:48:00 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 11:25:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+/* PROGRAM SEQUENCE */
+/* 1. Initialise memory
+ * 2. Parse input
+ * 3. Solve
+ * 4. Print
+ */
 int	main(int argc, char **argv)
 {
 	t_options		options;

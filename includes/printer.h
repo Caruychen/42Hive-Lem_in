@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 23:03:06 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/11 10:55:52 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:19:15 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	printer_free(t_printer *printer);
 int		has_ants_to_send(t_pathset *pathset);
 void	put_line(void *ptr);
 void	update_move_prefix(t_printer *printer);
+void	print_analysis(t_pathset pathset);
 int		print_result(t_pathset *pathset, t_vec *inputs, t_options options);
 
 #endif
