@@ -1,7 +1,9 @@
 import sys
+import math
+from visualizer import Visualizer
 from pygame import Vector2
 
-def parse_input(visualizer):
+def parse_input(visualizer: Visualizer):
     visualizer.graph.ant_count = int(sys.stdin.readline().strip('\n'))
     
     next_is_start = False
@@ -70,3 +72,4 @@ def parse_input(visualizer):
             prev = v
         
     visualizer.graph.paths = paths
+    visualizer.ideal_length = int(math.sqrt(visualizer.SCREEN_HEIGHT * visualizer.SCREEN_WIDTH) / len(visualizer.graph.nodes))
