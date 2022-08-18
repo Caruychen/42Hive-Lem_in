@@ -6,12 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:55 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/11 22:09:21 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 11:13:58 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+/* Computes the total number of steps required to send all ants through the 
+ * pathset. Stores the result in pathset->steps */
 static int	compute_steps(t_pathset *pathset)
 {
 	size_t	index;
@@ -40,6 +42,7 @@ static int	compute_steps(t_pathset *pathset)
 	return (pathset->steps = res, res);
 }
 
+/* Returns TRUE or FALSE depending on whether current pathset is better */
 static int	is_better(t_pathset *pathset)
 {
 	static size_t	cost;
@@ -57,6 +60,10 @@ static int	is_better(t_pathset *pathset)
 	return (FALSE);
 }
 
+/* Determines whether the given pathset requires fewer steps to send ants 
+ * If better, then free the previous pathset and save the given pathset.
+ * Otherwise, free the given pathset and replace with the previous best
+ * pathset. */
 void	pathset_keep_best(t_pathset *pathset)
 {
 	static t_pathset	best;
@@ -71,6 +78,7 @@ void	pathset_keep_best(t_pathset *pathset)
 	*pathset = best;
 }
 
+/* Assign residual number of ants to paths */
 static void	assign_residual(t_pathset *pathset, size_t len, size_t ants)
 {
 	size_t	index;
@@ -86,6 +94,8 @@ static void	assign_residual(t_pathset *pathset, size_t len, size_t ants)
 	}
 }
 
+/* Assign ants to each respective path, given the number of total ants and
+ * computed steps */
 void	pathset_assign_ants(t_pathset *pathset)
 {
 	size_t	ants;
