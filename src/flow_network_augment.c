@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 11:03:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/18 17:59:51 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ static void	switch_edge(size_t res, t_trace trace, t_flow_network *network)
 	t_flow_node	*node;
 	t_flow_node	*target_node;
 
-	edge = trace.edge_to[res];
-	if (!edge->flow)
-		return ;
 	node = network_get(network, res);
+	edge = trace.edge_to[res];
+	target_node = network_get(network, edge_other(edge, res));
+	if (!edge->flow && target_node->dst_to_start == node->dst_to_start - 1)
+		return ;
 	index = 0;
 	while (index < node->edges.len)
 	{
