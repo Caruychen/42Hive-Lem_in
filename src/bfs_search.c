@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/19 17:02:01 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:25:46 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 	dst = network_get(network, to);
 	if (!bfs_utils->marked[to] && !bfs_utils->saturate_trace)
 		dst->dst_to_start = from->dst_to_start + (!edge->flow);
-	dst->path_id = from->path_id * dst->is_free + dst->path_id * !dst->is_free;
+	if (dst->is_free)
+	{
+		dst->path_id = from->path_id;
+		dst->dst_to_end = from->dst_to_end;
+	}
 	(bfs_utils->trace.edge_to)[to] = edge;
 	bfs_utils->marked[to] = TRUE;
 	if (to != network->sink)
@@ -45,11 +49,18 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 		t_bfs_utils bfs_utils, t_flow_network network)
 {
-	int	is_backtrack;
+	int			is_backtrack;
+	int			is_overwrite;
+	t_flow_node	*origin;
+	t_flow_node	*dst;
 
+	dst = network_get(&network, to);
+	origin = network_get(&network, edge_other(&edge, to));
 	is_backtrack = (edge.flow && edge.from == to && to != network.source);
-	is_overwrite = (!edge.flow && dst->dst_to_start == origin->dst_to_start + 1
-			&& dst->path_id == origin->path_id);
+	is_overwrite = (dst->is_free
+			&& dst->path_id == origin->path_id
+			&& dst->dst_to_start == origin->dst_to_start + 1
+			&& dst->dst_to_end < origin->dst_to_end);
 	return (!bfs_utils.marked[to] || is_backtrack
 		|| is_overwrite || to == network.sink);
 }
