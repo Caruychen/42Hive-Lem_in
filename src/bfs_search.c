@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 11:50:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/19 11:56:50 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 		t_bfs_utils bfs_utils, t_flow_network network)
 {
-	int	is_backtrack;
+	int			is_backtrack;
+	int			is_overwrite;
+	t_flow_node	*dst;
+	t_flow_node	*origin;
 
+	dst = network_get(&network, to);
+	origin = network_get(&network, edge_other(&edge, to));
 	is_backtrack = (edge.flow && edge.from == to && to != network.source);
-	return (!bfs_utils.marked[to] || is_backtrack || to == network.sink);
+	is_overwrite = (!edge.flow && dst->dst_to_start == origin->dst_to_start + 1);
+	return (!bfs_utils.marked[to] || is_backtrack || is_overwrite || to == network.sink);
 }
 
 /* Loops through each edge in a node's edge bag 
