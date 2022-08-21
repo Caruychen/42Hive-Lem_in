@@ -6,23 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/19 17:25:46 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:12:34 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/* The node's dst_to_start is computed and stored in the node 
- * Saves the edge to the edge_to trace
- * Marks the given node as visited
- * Node is enqueued if it is not the end node
- * if END node:
- *   end search if saturace_trace == FALSE
- * else:
- *   Save edge to the sink_edges trace and continue searching
- */
-static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
-		size_t to, t_flow_edge *edge)
+static void	memoize_search_history(size_t to, t_flow_edge *edge,
+		t_flow_network *network, t_bfs_utils *bfs_utils)
 {
 	t_flow_node	*from;
 	t_flow_node	*dst;
@@ -36,6 +27,20 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		dst->path_id = from->path_id;
 		dst->dst_to_end = from->dst_to_end;
 	}
+}
+
+/*
+ * Updates edge_to array and marks to node as visited.
+ * Memoizes bfs traversal history in visited node.
+ * Enqueues node if it is not the end node.
+ * Search ends if the node is the SINK && saturate_trace == FALSE
+ * If saturate_trace == TRUE, search continues until sink_edges is
+ * saturated.
+*/
+static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
+		size_t to, t_flow_edge *edge)
+{
+	memoize_search_history(to, edge, network, bfs_utils);
 	(bfs_utils->trace.edge_to)[to] = edge;
 	bfs_utils->marked[to] = TRUE;
 	if (to != network->sink)
@@ -50,19 +55,19 @@ static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 		t_bfs_utils bfs_utils, t_flow_network network)
 {
 	int			is_backtrack;
-	int			is_overwrite;
+	int			is_shortcut;
 	t_flow_node	*origin;
 	t_flow_node	*dst;
 
 	dst = network_get(&network, to);
 	origin = network_get(&network, edge_other(&edge, to));
 	is_backtrack = (edge.flow && edge.from == to && to != network.source);
-	is_overwrite = (dst->is_free
+	is_shortcut = (dst->is_free
 			&& dst->path_id == origin->path_id
 			&& dst->dst_to_start == origin->dst_to_start + 1
 			&& dst->dst_to_end < origin->dst_to_end);
-	return (!bfs_utils.marked[to] || is_backtrack
-		|| is_overwrite || to == network.sink);
+	return (!bfs_utils.marked[to] || is_backtrack || is_shortcut
+		|| to == network.sink);
 }
 
 /* Loops through each edge in a node's edge bag 
