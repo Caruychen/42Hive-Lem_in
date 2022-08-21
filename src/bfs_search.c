@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/21 22:12:34 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:36:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ static void	memoize_search_history(size_t to, t_flow_edge *edge,
  * Updates edge_to array and marks to node as visited.
  * Memoizes bfs traversal history in visited node.
  * Enqueues node if it is not the end node.
- * Search ends if the node is the SINK && saturate_trace == FALSE
- * If saturate_trace == TRUE, search continues until sink_edges is
- * saturated.
 */
 static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		size_t to, t_flow_edge *edge)
@@ -51,6 +48,7 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		SEARCH_CONTINUE);
 }
 
+/* Valid neighbour: unvisited, is backtracking, is shortcut, sink node */
 static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 		t_bfs_utils bfs_utils, t_flow_network network)
 {
@@ -70,10 +68,7 @@ static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 		|| to == network.sink);
 }
 
-/* Loops through each edge in a node's edge bag 
- * Is the node on the other end of the edge is a valid neighbour, and 
- * satisfies a given "condition", then the node is enqueued and the edge
- * is saved to the trace */
+/* Pops next node off the queue, and tests its edges against given condition */
 static int	scan_next_node(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, const size_t, t_vec *))
 {
@@ -108,7 +103,7 @@ static int	scan_next_node(t_flow_network *network, t_bfs_utils *bfs_utils,
  *
  * Incrementally pops nodes off the queue, and scan's the node's respective
  * edges. Nodes that satisfy a given condition are enqueued, and the
- * corresponding edge is saved to the trace.
+ * corresponding edge is saved to the edge_to & sink_edges trace.
  */
 int	bfs_search(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, const size_t, t_vec *))

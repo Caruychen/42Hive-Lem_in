@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:00:39 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/19 16:20:45 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:48:37 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	path_new(t_path *path)
 	return (OK);
 }
 
-/* Fills path with nodes found in the edge_to trace. Simultaneously computes
- * the node's corresonding dst_to_end node */
+/* Fills path with nodes found in the edge_to trace. Updates the node's
+ * corresonding dst_to_end */
 int	path_fill(t_path *path, size_t index, t_trace trace,
 		t_flow_network *network)
 {
@@ -39,8 +39,8 @@ int	path_fill(t_path *path, size_t index, t_trace trace,
 	while (edge)
 	{
 		node = network_get(network, edge->to);
-		node->dst_to_end = dst_to_end++;
 		from = network_get(network, edge->from);
+		node->dst_to_end = dst_to_end++;
 		from->path_id = edge->from * (edge->to == network->sink)
 			+ node->path_id * (edge->to != network->sink);
 		if (vec_push(&path->nodes, &node) == ERROR)

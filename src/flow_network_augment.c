@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:26:15 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 17:59:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:41:48 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 /* Uses BFS to determined whether the network has an augmentable path 
  * Returns TRUE or FALSE
- * bfs_search will save edge_to trace in bfs_utils
- * */
+ */
 int	network_has_augmenting_path(t_flow_network *network, t_bfs_utils *bfs_utils)
 {
 	bfs_utils->saturate_trace = FALSE;
@@ -23,10 +22,7 @@ int	network_has_augmenting_path(t_flow_network *network, t_bfs_utils *bfs_utils)
 }
 
 /* The selected best exit node from select_best_exit is scanned for the 
- * appropriate corresponding target node to exit to.
- * The appropriate target node should:
- * Have NO flow
- * Has a dst_to_start = exit node's dst_to_start - 1
+ * appropriate exit node.
  * */
 static void	switch_edge(size_t res, t_trace trace, t_flow_network *network)
 {
@@ -54,8 +50,8 @@ static void	switch_edge(size_t res, t_trace trace, t_flow_network *network)
 }
 
 /* When network_augment encounters a node on a path, determines the best
- * exit node from the path. The best exit node is the one that results in 
- * the shortest augmented path */
+ * augmentable node from the path. The best node is the one with minimum
+ * dst_to_start + dst_to_end. A connection to start node is guaranteed.*/
 static void	select_best_exit(t_flow_network *network, size_t index,
 	t_trace trace)
 {
