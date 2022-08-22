@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:37:17 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/18 15:31:24 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/22 11:09:29 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,23 @@ static int	start_links(t_parser *parser, t_flow_network *network)
 	return (parse_link(parser, network));
 }
 
-static int	is_valid_line(char **room)
+static int	is_valid_line(char **room, t_parser *parser)
 {
 	int		index;
 	char	*str;
 
+	if (ft_count_char(parser->line, ' ') != 2)
+		return (FALSE);
 	index = 0;
 	while (room[index])
 	{
-		str = room[index++];
-		if ((index == 1 && (*str == 'L' || ft_iswhitespace(*str)
+		str = room[index];
+		if ((index == 0 && (*str == 'L' || ft_iswhitespace(*str)
 					|| ft_strchr(str, '-')))
-			|| (index > 1 && !ft_isnumber(str))
-			|| index > 3)
+			|| (index > 0 && !ft_isnumber(str))
+			|| index > 2)
 			return (FALSE);
+		index++;
 	}
 	return (index == 3);
 }
@@ -79,7 +82,7 @@ int	parse_room(t_parser *parser, t_flow_network *network)
 	room = ft_strsplit(parser->line, ' ');
 	if (room[ALIAS] && !room[X_COORD])
 		return (ft_strdelarray(&room), start_links(parser, network));
-	if (!is_valid_line(room))
+	if (!is_valid_line(room, parser))
 		return (ft_strdelarray(&room), error(MSG_ERROR_INV_LINE));
 	if (network_add_node(network,
 			ft_strdup(room[ALIAS]),
