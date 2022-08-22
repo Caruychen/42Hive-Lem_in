@@ -6,30 +6,38 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:50:43 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 11:50:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:36:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/* The node's dst_to_start is computed and stored in the node 
- * Saves the edge to the edge_to trace
- * Marks the given node as visited
- * Node is enqueued if it is not the end node
- * if END node:
- *   end search if saturace_trace == FALSE
- * else:
- *   Save edge to the sink_edges trace and continue searching
- */
+static void	memoize_search_history(size_t to, t_flow_edge *edge,
+		t_flow_network *network, t_bfs_utils *bfs_utils)
+{
+	t_flow_node	*from;
+	t_flow_node	*dst;
+
+	from = network_get(network, edge_other(edge, to));
+	dst = network_get(network, to);
+	if (!bfs_utils->marked[to] && !bfs_utils->saturate_trace)
+		dst->dst_to_start = from->dst_to_start + (!edge->flow);
+	if (dst->is_free)
+	{
+		dst->path_id = from->path_id;
+		dst->dst_to_end = from->dst_to_end;
+	}
+}
+
+/*
+ * Updates edge_to array and marks to node as visited.
+ * Memoizes bfs traversal history in visited node.
+ * Enqueues node if it is not the end node.
+*/
 static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		size_t to, t_flow_edge *edge)
 {
-	t_flow_node	*from;
-
-	from = network_get(network, edge_other(edge, to));
-	if (!bfs_utils->marked[to] && !bfs_utils->saturate_trace)
-		network_get(network, to)->dst_to_start
-		= from->dst_to_start + (!edge->flow);
+	memoize_search_history(to, edge, network, bfs_utils);
 	(bfs_utils->trace.edge_to)[to] = edge;
 	bfs_utils->marked[to] = TRUE;
 	if (to != network->sink)
@@ -40,19 +48,27 @@ static int	save_edge(t_flow_network *network, t_bfs_utils *bfs_utils,
 		SEARCH_CONTINUE);
 }
 
+/* Valid neighbour: unvisited, is backtracking, is shortcut, sink node */
 static int	is_valid_neighbour(size_t to, t_flow_edge edge,
 		t_bfs_utils bfs_utils, t_flow_network network)
 {
-	int	is_backtrack;
+	int			is_backtrack;
+	int			is_shortcut;
+	t_flow_node	*origin;
+	t_flow_node	*dst;
 
+	dst = network_get(&network, to);
+	origin = network_get(&network, edge_other(&edge, to));
 	is_backtrack = (edge.flow && edge.from == to && to != network.source);
-	return (!bfs_utils.marked[to] || is_backtrack || to == network.sink);
+	is_shortcut = (dst->is_free
+			&& dst->path_id == origin->path_id
+			&& dst->dst_to_start == origin->dst_to_start + 1
+			&& dst->dst_to_end < origin->dst_to_end);
+	return (!bfs_utils.marked[to] || is_backtrack || is_shortcut
+		|| to == network.sink);
 }
 
-/* Loops through each edge in a node's edge bag 
- * Is the node on the other end of the edge is a valid neighbour, and 
- * satisfies a given "condition", then the node is enqueued and the edge
- * is saved to the trace */
+/* Pops next node off the queue, and tests its edges against given condition */
 static int	scan_next_node(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, const size_t, t_vec *))
 {
@@ -87,7 +103,7 @@ static int	scan_next_node(t_flow_network *network, t_bfs_utils *bfs_utils,
  *
  * Incrementally pops nodes off the queue, and scan's the node's respective
  * edges. Nodes that satisfy a given condition are enqueued, and the
- * corresponding edge is saved to the trace.
+ * corresponding edge is saved to the edge_to & sink_edges trace.
  */
 int	bfs_search(t_flow_network *network, t_bfs_utils *bfs_utils,
 		int (*condition)(t_flow_edge *, const size_t, t_vec *))

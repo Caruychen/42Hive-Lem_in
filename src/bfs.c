@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 11:14:42 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/22 12:25:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 	return ((bfs_utils->marked)[*source] = 1, OK);
 }
 
+static void bfs_reset_dst_to_start(t_flow_network *network)
+{
+	size_t	index;
+
+	index = 0;
+	while (index < network->adj_list.len)
+		network_get(network, index++)->dst_to_start = 0;
+}
 /* Resets BFS utilities (assigning 0) for next BFS iteration */
 int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 {
@@ -44,6 +52,8 @@ int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 	bfs_utils->queue.head = 0;
 	bfs_utils->queue.tail = 0;
 	bfs_utils->trace.sink_edges.len = 0;
+	network_get(network, network->source)->path_id = network->source;
+	bfs_reset_dst_to_start(network);
 	if (queue_push(&bfs_utils->queue, &network->source) == ERROR)
 		return (ERROR);
 	return ((bfs_utils->marked)[network->source] = 1, OK);
