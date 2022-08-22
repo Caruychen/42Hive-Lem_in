@@ -6,14 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:12:34 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 11:10:44 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:52:04 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /* Allocates memory for, and creates a new pathset */
-int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
+static int	pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants)
 {
 	t_path	path;
 

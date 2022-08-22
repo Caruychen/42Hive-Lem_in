@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:56:03 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/18 10:20:06 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:52:11 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_pathset
 }				t_pathset;
 
 /* Pathset API */
-int			pathset_init(t_pathset *pathset, size_t n_paths, size_t n_ants);
 int			pathset_from_network(t_pathset *pathset, t_flow_network *network,
 				t_bfs_utils *bfs_utils);
 t_path		*pathset_get(t_pathset *pathset, size_t index);
