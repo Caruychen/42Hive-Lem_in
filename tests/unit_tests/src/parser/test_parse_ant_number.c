@@ -6,10 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:27:36 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/01 13:41:04 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/19 15:22:54 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lem_in.h"
 #include "unit_test.h"
 
 void	test_parse_ant_number(void)
@@ -28,7 +29,7 @@ void	test_parse_ant_number(void)
 	parser = (t_parser){.line = "0", .stage = ANT_NUMBER};
 	ret = parse_ant_number(&parser, &network);
 	assert(network.n_ants == 0);
-	assert(ret == OK);
+	assert(ret == ERROR);
 
 	parser = (t_parser){.line = "42424242"};
 	ret = parse_ant_number(&parser, &network);
