@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:33:35 by cchen             #+#    #+#             */
-/*   Updated: 2022/08/22 12:25:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/22 14:54:17 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	bfs_init(t_bfs_utils *bfs_utils, t_flow_network *network, int saturate)
 	return ((bfs_utils->marked)[*source] = 1, OK);
 }
 
-static void bfs_reset_dst_to_start(t_flow_network *network)
+/* Reset all dst_to_start fields */
+static void	bfs_reset_dst_to_start(t_flow_network *network)
 {
 	size_t	index;
 
@@ -43,6 +44,7 @@ static void bfs_reset_dst_to_start(t_flow_network *network)
 	while (index < network->adj_list.len)
 		network_get(network, index++)->dst_to_start = 0;
 }
+
 /* Resets BFS utilities (assigning 0) for next BFS iteration */
 int	bfs_reset(t_bfs_utils *bfs_utils, t_flow_network *network)
 {
