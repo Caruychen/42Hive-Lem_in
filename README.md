@@ -13,4 +13,6 @@ By default the visualizer uses the given node coordinates. Sometimes maps will h
 ```
 ./lem-in < map | ./visualizer/main.py -f
 ```
+After using the visualizer you may want to remove Pygame. You can do this using `pip3 uninstall pygame`.
 
+https://user-images.githubusercontent.com/65853349/186159171-2c298c57-b17d-45d7-a06c-aaba87b988c4.mov
