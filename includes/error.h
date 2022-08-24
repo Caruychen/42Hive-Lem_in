@@ -6,7 +6,7 @@
 /*   By: carlnysten <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:35:19 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/08/17 13:47:51 by cchen            ###   ########.fr       */
+/*   Updated: 2022/08/24 16:42:28 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # define MSG_ERR_NETWORK_INIT "ERROR: Could not initialize flow network."
 # define MSG_ERR_HASH_INIT "ERROR: Could not initialize hashmap."
 # define MSG_ERR_HASH_GET "ERROR: Could not get entry from hashmap."
-# define MSG_ERROR_NO_ANTS "ERROR: Insufficient ants."
+# define MSG_ERROR_NO_ANTS "ERROR: Negative ants."
+# define MSG_ERROR_NEGATIVE_ANTS "ERROR: Insufficient ants."
 # define MSG_ERROR_NO_PATHS "ERROR: Sorry, I couldn't find any paths."
 # define MSG_ERROR_NODE_ALIAS "ERROR: Alias not provided."
 # define MSG_ERROR_AUGMENT "ERROR: Network augmentation error."
