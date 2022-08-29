@@ -8,69 +8,6 @@ TLDR: An intelligent ant farm manager program.
 
 ## The Problem
 
-### Objective
-Given **N** number of ants, and data describing the **rooms** and **links** in an ant farm, our program must find the quickest way to get **N** ants across the farm.
-
-The quickest way means the solution that takes the least number of turns. A turn is defined as a step from one room to the next.
-
-### Data inputs
-The program receives the following data describing the ant farm from the standard output:
-* **Number of ants**: Always an integer in the first line.
-* **The rooms**: Formatted as follows `[name] [coord_x] [coord_y]`
-* **The links**: Formatted as follows `[name1]-[name2]`
-
-There are some additional input types in the data:
-* **Commands**: Lines starting with `##` are commands modifying the properties of the line that come right after. Two mandatory commands are:
-  * `##start` which signals the entrance
-  * `##end` which signals the exit
-* **Comments**: Lines are broken by comments which start with `#`. Comments are ignored by the program.
-
-The ant farm input data may look like this:
-```
-42
-##start
-1 23 3
-2 16 7
-#comment
-3 16 3
-4 16 5
-5 9 3
-6 1 5
-7 4 8
-##end
-0 9 5
-0-4
-0-6
-1-3
-4-3
-5-2
-3-5
-#another comment
-4-2
-2-1
-7-6
-7-2
-7-4
-6-5
-#another comment
-```
-
-Which corrresponds to the following representation:
-```
-           _______________
-         /                \
- ______[5]----[3]----[1]   |
-/              |     /     |
-[6]-----[0]----[4]  /      |
-\    _________/ |  /       |
- \  /          [2]/_______/
-  [7]_________/
-						
-```
-
-### Problem constraints
-
-
 ## The Algorithm
 
 ### Visualizer
