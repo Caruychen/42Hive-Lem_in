@@ -16,7 +16,7 @@ _**To read more about the objective, data input format and problem constraints, 
 
 ## The Algorithm
 
-### Visualizer
+## The Visualizer
 As a bonus, we've implemented a visualizer that renders the graph and animates the ants traversing the graph. The visualizer is written in Python using the Pygame library. To use the visualizer you first have to install Pygame.
 ```
 pip3 install pygame
