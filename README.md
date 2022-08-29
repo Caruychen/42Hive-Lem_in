@@ -8,7 +8,9 @@
 TLDR: An intelligent ant farm manager program.
 
 ## The Objective
-Given **N** number of ants, with an arbitrary list of **rooms** and **links** (between any 2 rooms) in an ant farm, our program must find the quickest way to get **N** ants across the farm. The ant farm designates one **start** room, and one **end** room.
+To build a program that finds the quickest way to send **N** number of ants ants across an ant farm. An ant farm contains an arbitrary set of **rooms**, and **links** connecting any two rooms.
+* The ant farm designates one **start** room, and one **end** room.
+* Each room has a capacity of 1 ant only.
 
 The **quickest way** means the solution that takes the **least number of turns**. A turn is defined as a step from one room to the next.
 
