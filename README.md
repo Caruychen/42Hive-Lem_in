@@ -1,11 +1,10 @@
 # Lem-in
-
-![lem-in Visualization](https://github.com/Caruychen/image_media/blob/main/lem-in/My_Movie_AdobeExpress.gif)
-
 ## About
 >Your ant colony must move from one point to another. How do you do it in the shortest time possible? This project is all about graph traversal: we built a program that intelligently decides paths and precise movements taken by the ants through an ant colony.
 
 TLDR: An intelligent ant farm manager program.
+
+![lem-in Visualization](https://github.com/Caruychen/image_media/blob/main/lem-in/My_Movie_AdobeExpress.gif)
 
 ## The Objective
 To build a program that finds the quickest way to send **N** number of ants ants across an ant farm. An ant farm contains an arbitrary set of **rooms**, and **links** connecting any two rooms.
