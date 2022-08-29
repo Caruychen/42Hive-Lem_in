@@ -6,7 +6,12 @@
 
 TLDR: An intelligent ant farm manager program.
 
-## The Problem
+## The Objective
+Given **N** number of ants, and data describing the **rooms** and **links** in an ant farm, our program must find the quickest way to get **N** ants across the farm.
+
+The **quickest way** means the solution that takes the **least number of turns**. A turn is defined as a step from one room to the next.
+
+_**To read more about the objective, data input format and problem constraints, follow the link to this [wiki-page](../../wiki/Objective)**_
 
 ## The Algorithm
 
