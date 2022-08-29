@@ -12,7 +12,7 @@ To build a program that finds the quickest way to send **N** number of ants ants
 * The ant farm designates one **##start** room, and one **##end** room.
 * Each room has a capacity of one ant only.
 
-The **quickest way** means the solution that takes the **least number of turns**. A turn is defined as a step from one room to the next.
+The **quickest way** means the solution that takes the **least number of turns** for all ants to travel from **##start** to **##end**. A turn is defined as a step from one room to the next.
 
 _**To read more about the objective, data input format and problem constraints, follow the link to this [wiki-page](../../wiki/Objective)**_
 
