@@ -24,6 +24,7 @@ To do this, we modify the algorithm to do the following:
 * Determine the **optimal** paths set that minimises the number of steps for **N** ants to traverse the network
 * Allocate ants across the optimal path set to achieve the minimum traversal steps.
 
+### Modified Edmonds-Karp
 The resulting algorithm is as follows:
 
 * Start with flow = 0 for each **edge**
