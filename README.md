@@ -16,6 +16,23 @@ The **quickest way** means the solution that takes the **least number of turns**
 _**To read more about the objective, data input format and problem constraints, follow the link to this [wiki-page](../../wiki/Objective)**_
 
 ## The Algorithm
+The algorithm is a modification of the [Edmonds-Karp](https://en.wikipedia.org/wiki/Edmonds–Karp_algorithm) algorithm. The original Edmonds-Karp algorithm derives a **flow-state** of a network, and the **maximum flow value** of the network, using a breadth first search pattern. What we are trying to find however, is:
+* The optimal multiple shortest paths in a given **network** for **N** number of ants.
+
+To do this, we modify the algorithm to do the following:
+* Extract the **path set** of flows at any given **flow state** of a network.
+* Determine the **optimal** paths set that minimises the number of steps for **N** ants to traverse the network
+* Allocate ants across the optimal path set to achieve the minimum traversal steps.
+
+The resulting algorithm is as follows:
+
+* Start with flow = 0 for each **edge**
+* While (there exists an augmenting path)
+    * Find a path **P** in the **residual network**
+    * **Augment** flow along path **P**
+	* Derive a **pathset** from flow Network
+    * Keep the best **pathset** seen so far
+* Assign ants to path set
 
 ## The Visualizer
 As a bonus, we've implemented a visualizer that renders the graph and animates the ants traversing the graph. The visualizer is written in Python using the Pygame library. To use the visualizer you first have to install Pygame.
