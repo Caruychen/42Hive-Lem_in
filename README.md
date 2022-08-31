@@ -1,6 +1,6 @@
 # Lem-in
 ## About
->Your ant colony must move from one point to another. How do you do it in the shortest time possible? This project is all about graph traversal: we built a program that intelligently decides paths and precise movements taken by the ants through an ant colony.
+>Your ant colony must move from one point to another. How do you do it in the shortest time possible? This project is all about graph traversal: we built a program that intelligently decides paths and precise movements taken by the ants through an ant farm.
 
 TLDR: An intelligent ant farm manager program.
 
