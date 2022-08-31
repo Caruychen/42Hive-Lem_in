@@ -35,6 +35,7 @@ The resulting algorithm is as follows:
     * Keep the best **pathset** seen so far
 * Assign ants to path set
 
+_**To read more about the algorithm, follow the link to this [wiki-page](https://github.com/Caruychen/42Hive-Lem_in/wiki/Algorithm)**_
 ## The Visualizer
 As a bonus, we've implemented a visualizer that renders the graph and animates the ants traversing the graph. The visualizer is written in Python using the Pygame library. To use the visualizer you first have to install Pygame.
 ```
