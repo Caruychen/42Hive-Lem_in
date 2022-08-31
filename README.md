@@ -36,6 +36,14 @@ The resulting algorithm is as follows:
 * Assign ants to path set
 
 _**To read more about the algorithm, follow the link to this [wiki-page](https://github.com/Caruychen/42Hive-Lem_in/wiki/Algorithm)**_
+
+## Data structure
+We chose to represent the ant farm network by implementing an [Adjacency list](https://en.wikipedia.org/wiki/Adjacency_list).
+
+We chose an adjacency list due to the greater space efficiencies it offerse for more sparce graphs. The space usage of an adjacency list is proportional to the number of edges and vertices in a graph. This is an improvement over an adjacency matrix, which uses space proportional to the square of the number of vertices.
+
+Adjacency lists are also more efficient in the operations performed. The neighbours of each node can be listed in time proprtional to the degree ofthe node. For adjacency matrices however, this takes time proportional tothe number of vertices in the graph, which may be significantly higher than the degree.  The main trade off of using adjacency lists however, is that it is slower to test whether two vertices are adjacent to each other.
+
 ## The Visualizer
 As a bonus, we've implemented a visualizer that renders the graph and animates the ants traversing the graph. The visualizer is written in Python using the Pygame library. To use the visualizer you first have to install Pygame.
 ```
