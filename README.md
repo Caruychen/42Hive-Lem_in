@@ -38,7 +38,7 @@ The resulting algorithm is as follows:
 _**To read more about the algorithm, follow the link to this [wiki-page](https://github.com/Caruychen/42Hive-Lem_in/wiki/Algorithm)**_
 
 ## Data structure
-We chose to represent the ant farm network by implementing an [Adjacency list](https://en.wikipedia.org/wiki/Adjacency_list).
+The ant farm network is implemented with an [Adjacency list](https://en.wikipedia.org/wiki/Adjacency_list).
 
 We chose an adjacency list due to the greater space efficiencies it offerse for more sparce graphs. The space usage of an adjacency list is proportional to the number of edges and vertices in a graph. This is an improvement over an adjacency matrix, which uses space proportional to the square of the number of vertices.
 
