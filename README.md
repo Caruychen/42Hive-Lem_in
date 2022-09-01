@@ -25,7 +25,10 @@ After confirming path validity, and correct flow managenet, this project's perfo
 
 ### Time complexity
 The speed of Lem-in is tested using the 42 school's Lem-in `generator` with `--big` option, and `--big-superposition` option.
-* average speed: 
+* 100 Samples with --big option:
+  * Average time: 0.017 Seconds
+* 100 Samples with --big-superposition option:
+  * Average time: 0.029 Seconds
 
 ### Accuracy
 
