@@ -44,7 +44,7 @@ We chose an adjacency list due to the greater space efficiencies it offerse for 
 
 Adjacency lists are also more efficient in the operations performed. The neighbours of each node can be listed in time proprtional to the degree ofthe node. For adjacency matrices however, this takes time proportional tothe number of vertices in the graph, which may be significantly higher than the degree.  The main trade off of using adjacency lists however, is that it is slower to test whether two vertices are adjacent to each other.
 
-_*For more details about the data structure implementation, visit [data structures](https://github.com/Caruychen/42Hive-Lem_in/wiki/Algorithm#data-structure)*_
+_**For more details about the data structure implementation, visit [data structures](https://github.com/Caruychen/42Hive-Lem_in/wiki/Algorithm#data-structure)**_
 ## The Visualizer
 As a bonus, we've implemented a visualizer that renders the graph and animates the ants traversing the graph. The visualizer is written in Python using the Pygame library. To use the visualizer you first have to install Pygame.
 ```
