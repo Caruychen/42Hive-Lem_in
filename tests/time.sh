@@ -3,7 +3,7 @@
 RUN_TEST () {
 				TIMEFORMAT=%R
 				TOTAL=0
-				SIZE=100
+				SIZE=1000
 				echo "Running $SIZE tests with $1 option"
 				for ((INDEX = 0; INDEX < $SIZE; INDEX++))
 				do
