@@ -7,14 +7,13 @@ TLDR: An intelligent ant farm manager program.
 ![lem-in Visualization](https://github.com/Caruychen/image_media/blob/main/lem-in/My_Movie_AdobeExpress.gif)
 
 ## The Objective
-To build a program that finds the quickest way to send **N** number of ants ants across an ant farm. An ant farm contains an arbitrary set of **rooms**, and **links** connecting any two rooms.
+For **N** number of ants, and a given network, find the optimal set of paths through the network that results in the fewest steps for all ants to traverse. Then allocate ants to paths to achieve the minimum steps.
+
+In this project, the network is an ant farm containing an arbitrary set of **rooms**, and **links** connecting any two rooms.
 * The ant farm designates one **##start** room, and one **##end** room.
 * Each room has a capacity of one ant only.
 
 The **quickest way** means the solution that takes the **least number of turns** for all ants to travel from **##start** to **##end**. A turn is defined as a step from one room to the next.
-
-Shorter version: 
->For **N** number of ants, and a given network, find the optimal set of paths through the network that results in the fewest steps for all ants to traverse. Then allocate ants to paths to achieve the minimum steps.
 
 _**To read more about the objective, data input format and problem constraints, follow the link to this [wiki-page](../../wiki/Objective)**_
 
