@@ -17,6 +17,18 @@ The **quickest way** means the solution that takes the **least number of turns**
 
 _**To read more about the objective, data input format and problem constraints, follow the link to this [wiki-page](../../wiki/Objective)**_
 
+## Performance
+
+After confirming path validity, and correct flow managenet, this project's performance is evaluated for:
+* Time complexity
+* Accuracy
+
+### Time complexity
+The speed of Lem-in is tested using the 42 school's Lem-in `generator` with `--big` option, and `--big-superposition` option.
+* average speed: 
+
+### Accuracy
+
 ## The Algorithm
 The algorithm is a modification of the [Edmonds-Karp](https://en.wikipedia.org/wiki/Edmonds–Karp_algorithm) algorithm. The original Edmonds-Karp algorithm derives a **flow-state** of a network, and the **maximum flow value** of the network, using a breadth first search pattern. What we are trying to find however, is:
 * The optimal multiple shortest paths in a given **network** for **N** number of ants.
