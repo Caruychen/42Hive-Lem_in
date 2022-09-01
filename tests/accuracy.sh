@@ -5,7 +5,7 @@ ECHO_PERCENT () {
 }
 
 RUN_TEST () {
-				SIZE=100
+				SIZE=1000
 				SAME_OR_LESS=0
 				ONE_MORE=0
 				TWO_MORE=0
@@ -24,6 +24,7 @@ RUN_TEST () {
 												SAME_OR_LESS=$(echo "$SAME_OR_LESS + 1" | bc)
 								elif [ $DIFF -eq 1 ]
 								then
+												echo $RES
 												ONE_MORE=$(echo "$ONE_MORE + 1" | bc)
 								elif [ $DIFF -eq 2 ]
 								then
