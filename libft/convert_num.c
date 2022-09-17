@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:16:11 by cchen             #+#    #+#             */
-/*   Updated: 2022/03/15 13:58:57 by cchen            ###   ########.fr       */
+/*   Updated: 2022/09/17 08:49:00 by caruychen        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	conv_num(t_vec *result, t_specs *specs)
 {
 	int		res;
 	char	*s;
-	char	spec;
 
-	spec = specs->spec;
 	if (specs->precision_on)
 	{
 		specs->flags &= ~(ZERO);
